@@ -1,0 +1,16 @@
+{
+  "name": "Accommate",
+  "version": "1.0.0",
+  "description": "A student accommodation portal to list PGs, hostels, student rooms near Universities.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Shreelaxmi Hegde",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "mongoose": "^8.18.2"
+  }
+}
