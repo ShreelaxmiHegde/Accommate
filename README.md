@@ -21,13 +21,31 @@ Accommate is a Node.js web application for managing accommodation listings. It a
 ---
 
 ## Project Sturcture
+```
 Accommate/
 │
 ├── app.js                  # Main application file
-├── models/
+├── models/                 
 │   └── listing.js          # Mongoose schema/model for listings
+|
+├── init/                 
+│   └── data.js             # mock data 
+│   └── index.js            # connect mock data to database
+|
+├── views/                  # Routing pages for different routes
+│   └── index.ejs           # dashboard page
+│   └── new.ejs             # new listing form
+│   └── show.ejs            # all listings page
+│   └── edit.ejs            # edit page
+|
+├── docs.md                 # project documentation
+├── LICENCE
+├── .gitignore
 ├── package.json            # Project dependencies
-└── ...                     # Other files and folders
+├── package-lock.json       # imp file to install all dependencies
+└── README.md       
+
+```
 
 ---
 
@@ -43,11 +61,46 @@ Accommate/
 ---
 
 ## API Endpoints
-- GET /listings
-    Returns all accommodation listings in the database.
 
-- POST /listings
-    (To be implemented) Adds a new listing.
+GET `/listings`
+- Description: Retrieve all accommodation listings.
+- Response: Renders the dashboard page with all listings.
+
+GET /listings/new
+- Description: Display the form to create a new listing.
+- Response: Renders the new listing form page.
+
+POST /listings
+- Description: Create a new listing with user-provided data.
+- Request Body:
+    - listing: Object containing listing details (title, desc, location, state, price, capacity, image)
+- Response: Redirects to /listings after saving.
+
+GET /listings/:id
+- Description: Show details of a specific listing.
+- Params:
+    - id: Listing ID
+- Response: Renders the show page for the selected listing.
+
+GET /listings/:id/edit
+- Description: Display the edit form for a specific listing.
+- Params:
+    - id: Listing ID
+- Response: Renders the edit page for the selected listing.
+
+PUT /listings/:id
+- Description: Update a specific listing with new data.
+- Params:
+    - id: Listing ID
+- Request Body:
+    -listing: Object containing updated listing details
+- Response: Redirects to /listings/:id after updating.
+
+DELETE /listings/:id
+- Description: Delete a specific listing.
+- Params:
+    - id: Listing ID
+- Response: Redirects to /listings after deletion.
 
 ---
 
