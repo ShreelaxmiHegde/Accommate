@@ -1,0 +1,144 @@
+:root {
+    --clr-primary: #2563eb;
+}
+
+body {
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  background-color: #f9fafb !important;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Boilerplate */
+.container {
+    flex: 1;
+    margin: 2rem;
+}
+
+/* Navbar */
+.navbar {
+    height: 4rem;
+    background-color: white;
+}
+
+.container-fluid {
+    background-color: white;
+}
+
+.fa-house-tsunami {
+    color: var(--clr-primary);
+    font-size: 2rem;
+}
+
+.nav-link {
+    color: #111827 !important;
+    font-weight: 500 !important;
+}
+
+.f-info {
+    height: 5rem;
+    background-color: #ebebeb;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+}
+
+.f-info-socials,
+.f-info-links,
+.f-info-brand {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.f-info-socials i {
+    font-size: 1.2rem;
+    margin: 0.2rem 1rem 0; /* top | right&right | bottom */
+}
+
+.f-info-links a {
+    text-decoration: none;
+    color: #222222;
+}
+
+.f-info-links a:hover {
+    text-decoration: underline;
+    color: #fe424d;
+} 
+
+
+/* All Listing page Cards */
+.card {
+    border: none !important;
+    margin-bottom: 2rem;
+}
+
+.card-img-top {
+    border-radius: 1rem !important;
+    width: 100% !important;
+    object-fit: cover !important;
+} 
+
+.card-body {
+    padding: 0 !important;
+}
+
+.card-text {
+    font-weight: 400 !important;
+}
+
+.listing-link {
+    text-decoration: none;
+}
+
+/* Overlay/ Card effect */
+.card-img-overlay {
+    opacity: 0;
+}
+
+.card-img-overlay:hover {
+    opacity: 0.2;
+    background-color: white;
+}
+
+
+/* New Listing Page */
+.add-btn {
+    font-weight: 500 !important;
+}
+
+span {
+    color: var(--clr-primary);
+}
+
+
+/* Edit Page */
+.edit-btn {
+    font-weight: 500 !important;
+}
+
+
+/* Show Page */
+.btns {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.show-items {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.show-box {
+    margin-inline: 5rem !important;
+}
+
+h3 {
+    font-weight: 500 !important;
+}
