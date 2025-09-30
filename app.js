@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const Listing = require("./models/listing.js");
 const path = require("path");
 const methodOverride = require("method-override");
+const ejsMate = require("ejs-mate"); //for better templating
 
 // connect db with backend
 const MONGO_URL = "mongodb://127.0.0.1:27017/accommate";
@@ -22,8 +23,15 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded( { extended: true })); //parse data
 app.use(methodOverride("_method"));
+app.engine("ejs", ejsMate);
+app.use(express.static(path.join(__dirname, "/public")));
 
 // <------------------     Routes     ------------------------> //
+
+// home route
+app.get("/", (req, res) => {
+    res.send("Welcome to Accommate ;)");
+});
 
 // Main route -> all listings
 app.get("/listings", async (req, res) => {
