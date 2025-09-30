@@ -32,11 +32,23 @@ Accommate/
 │   └── data.js             # mock data 
 │   └── index.js            # connect mock data to database
 |
+├── public/
+│   └── css/                
+│       └── style.css           # Stylesheet of all routes
+|
 ├── views/                  # Routing pages for different routes
-│   └── index.ejs           # dashboard page
-│   └── new.ejs             # new listing form
-│   └── show.ejs            # all listings page
-│   └── edit.ejs            # edit page
+│   ├── includes/           # template page
+│   |   └── navbar.ejs           # Navbar template
+│   |   └── footer.ejs           # Footer template
+│   | 
+│   ├── layouts/            # layout template
+│   |    └── boilerplate.ejs     # Boilerplate for all 
+│   |
+│   └── listings/           # dashboard page
+│       └── index.ejs           # dashboard page
+│       └── new.ejs             # new listing page
+│       └── show.ejs            # all listings page
+│       └── edit.ejs            # edit page
 |
 ├── docs.md                 # project documentation
 ├── LICENCE
@@ -105,7 +117,8 @@ DELETE /listings/:id
 ---
 
 ## Contributing
-Feel free to fork the repository and submit pull requests for improvements or new features.
+- Feel free to fork the repository and submit pull requests for improvements or new features.
+- Checkout the [Technical Documentation](docs.md) for clear view of the project.
 
 ---
 

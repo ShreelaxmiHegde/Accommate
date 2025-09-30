@@ -12,11 +12,23 @@ Accommate/
 │   └── data.js             # mock data 
 │   └── index.js            # connect mock data to database
 |
+├── public/
+│   └── css/                
+│       └── style.css           # Stylesheet of all routes
+|
 ├── views/                  # Routing pages for different routes
-│   └── index.ejs           # dashboard page
-│   └── new.ejs             # new listing page
-│   └── show.ejs            # all listings page
-│   └── edit.ejs            # edit page
+│   ├── includes/           # template page
+│   |   └── navbar.ejs           # Navbar template
+│   |   └── footer.ejs           # Footer template
+│   | 
+│   ├── layouts/            # layout template
+│   |    └── boilerplate.ejs     # Boilerplate for all 
+│   |
+│   └── listings/           # dashboard page
+│       └── index.ejs           # dashboard page
+│       └── new.ejs             # new listing page
+│       └── show.ejs            # all listings page
+│       └── edit.ejs            # edit page
 |
 ├── docs.md                 # project documentation
 ├── LICENCE
@@ -62,7 +74,7 @@ DELETE      `/listings/:id`            # delete specific listing
 ---
 
 ## `models/`
-### 1. `listing.js` (Accommodation Listings)
+### 1. `listing.js` (Accommodation Listings) :
 - Imports: `mongoose` to interact with MonogDB
 
 - Schema Definition :
@@ -81,15 +93,30 @@ DELETE      `/listings/:id`            # delete specific listing
 
 ## `init/`
 
-### 1. `data.js`
+### 1. `data.js` :
 - Exports an array of sample accommodation listings.
 - Provides mock data for development, testing or demo.
 - (More : 
     - It exports an object with a single key `data` whose value is `sampleListing` array.
     - This is useful for exporting more properties in future or keep exports organized )
 
-### 2. `index.js`
+### 2. `index.js` :
 - Connects to MongoDB and inserts the sample listings from `data.js`.
 - Initial data for development or testing.
+
+---
+
+## `views/`
+
+### 1. `includes/` :
+This folder contains reusable template components:
+- `footer.ejs`: Shared footer for all pages.
+- `navbar.ejs`: Shared navigation bar for all pages.
+
+### 2. `layouts/` :
+This folder contains layout templates:
+- `boilerplate.ejs`: The main layout template that wraps all route pages. 
+- It automatically includes the navbar and footer from the `includes/` folder, and injects the unique content of each route page into the body section. 
+- This approach improves code readability and reduces redundancy by centralizing common page structure.
 
 ---
