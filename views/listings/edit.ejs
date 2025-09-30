@@ -1,44 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accommate</title>
-</head>
-<body>
-    <h1>Edit Listing</h1>
+<% layout("/layouts/boilerplate") %>
 
-    <form action="/listings/<%= listing._id%>?_method=PUT" method="post">
-        <div>
-            <label for="title">Title : </label>
-            <input type="text" name="listing[title]" id="title" value="<%= listing.title %>">
-        </div>
-        <div>
-            <label for="desc">Description : </label>
-            <textarea name="listing[desc]" id="desc"><%= listing.desc %></textarea>
-        </div>
-        <div>
-            <label for="location">Location : </label>
-            <input type="text" name="listing[location]" id="location" value="<%= listing.location %>">
-        </div>
-        <div>
-            <label for="state">State : </label>
-            <input type="text" name="listing[state]" id="state" value="<%= listing.state %>">
-        </div>
-        <div>
-            <label for="price">Price : </label>
-            <input type="text" name="listing[price]" id="price" value="<%= listing.price %>">
-        </div>
-        <div>
-            <label for="capacity">Capacity : </label>
-            <input type="number" name="listing[capacity]" id="capacity" value="<%= listing.capacity %>">
-        </div>
-        <div>
-            <label for="image">Image URL : </label>
-            <input type="text" name="listing[image]" id="image" value="<%= listing.image %>">
-        </div>
-
-        <button>Edit</button>
-    </form>
-</body>
-</html>
+<div class="row">
+    <div class="col-8 offset-2">
+        <h3 class="text-center">Manage your property details.</h3>
+        <h6 class="border-bottom pb-3 text-center fst-italic">--- Keep your stay info up-to-date so students can find you easily. ---</h6>
+        
+        <form action="/listings/<%= listing._id%>?_method=PUT" method="post" class="pt-3">
+            <div class="mb-3">
+                <label for="title" class="form-label">Title : </label>
+                <input type="text" name="listing[title]" id="title" value="<%= listing.title %>" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="desc" class="form-label">Description : </label>
+                <textarea name="listing[desc]" id="desc" class="form-control"><%= listing.desc %></textarea>
+            </div>
+        
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    <label for="location" class="form-label">Location : </label>
+                    <input type="text" name="listing[location]" id="location" value="<%= listing.location %>" class="form-control">
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label for="state" class="form-label">State : </label>
+                    <input type="text" name="listing[state]" id="state" value="<%= listing.state %>" class="form-control">
+                </div>
+            </div>
+        
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    <label for="price" class="form-label">Price : </label>
+                    <input type="text" name="listing[price]" id="price" value="<%= listing.price %>" class="form-control">
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label for="capacity" class="form-label">Capacity : </label>
+                    <input type="number" name="listing[capacity]" id="capacity" value="<%= listing.capacity %>" class="form-control">
+                </div>
+            </div>
+        
+            <div class="mb-3">
+                <label for="image" class="form-label">Image URL : </label>
+                <input type="text" name="listing[image]" id="image" value="<%= listing.image %>" class="form-control">
+            </div>
+        
+            <button class="btn btn-primary edit-btn ps-4 pe-4">Edit</button>
+        </form>
+    </div>
+</div>

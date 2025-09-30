@@ -1,26 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accommate</title>
-</head>
-<body>
-    <h1>Listing Details</h1>
+<% layout("/layouts/boilerplate") %>
 
-    <ul>
-        <li><%= listing.title %></li>
-        <li><%= listing.desc %></li>
-        <li><%= listing.location %></li>
-        <li><%= listing.state %></li>
-        <li>&#8377; <%= listing.price.toLocaleString("en-IN") %></li> <!-- show in indian rupee style with ',' (num.toLocaleString("en-IN"))-->
-        <li><%= listing.capacity %></li>
-    </ul>
+<div class="row show-box">
+    <h3 class="border-bottom pb-2">Listing Details</h3>
+    
+    <div class="card col-md-6">
+      <img src="<%= listing.image %>" class="card-img-top" alt="listing-img">
+    </div>
+    
+    <div class="card col-md-6 show-items">
+        <div>
+            <b><%= listing.title %></b> <br>
+            <%= listing.desc %>
+        </div>
+        State : <%= listing.state %> <br>
+        Location : <%= listing.location %> <br>
+        Capacity : <%= listing.capacity %> <br>
+        Price : &#8377; <%= listing.price.toLocaleString("en-IN") %> <!-- show in indian rupee style with ',' (num.toLocaleString("en-IN"))-->
 
-    <a href="/listings/<%= listing._id %>/edit">Edit Listing</a>
-
-    <form action="/listings/<%= listing._id %>?_method=DELETE" method="post">
-        <button>Delete</button>
-    </form>
-</body>
-</html>
+        <div class="btns">
+            <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark ps-4 pe-4">Edit</a>
+            
+            <form action="/listings/<%= listing._id %>?_method=DELETE" method="post">
+                <button class="btn btn-danger">Delete</button>
+            </form>
+        </div>
+    </div>
+</div>

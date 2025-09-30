@@ -1,44 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accommate</title>
-</head>
-<body>
-    <h1>Create new Listing</h1>
+<% layout("/layouts/boilerplate") %>
 
-    <form action="/listings" method="post">
-        <div>
-            <label for="title">Title : </label>
-            <input type="text" name="listing[title]" id="title">
-        </div>
-        <div>
-            <label for="desc">Description : </label>
-            <textarea name="listing[desc]" id="desc"></textarea>
-        </div>
-        <div>
-            <label for="location">Location : </label>
-            <input type="text" name="listing[location]" id="location">
-        </div>
-        <div>
-            <label for="state">State : </label>
-            <input type="text" name="listing[state]" id="state">
-        </div>
-        <div>
-            <label for="price">Price : </label>
-            <input type="text" name="listing[price]" id="price">
-        </div>
-        <div>
-            <label for="capacity">Capacity : </label>
-            <input type="number" name="listing[capacity]" id="capacity">
-        </div>
-        <div>
-            <label for="image">Image URL : </label>
-            <input type="text" name="listing[image]" id="image">
-        </div>
+<div class="row">
+    <div class="col-8 offset-2">
+        <h3 class="text-center">Host your space with <span>Accommate</span>.</h3>
+        <h6 class="border-bottom pb-3 text-center fst-italic">--- Turn your spare room into a student’s next home. ---</h6>
+        
+        <form action="/listings" method="post" class="pt-3">
+            <div class="mb-3">
+                <label for="title" class="form-label">Title : </label>
+                <input type="text" name="listing[title]" id="title" class="form-control" placeholder="Enter title here...">
+            </div>
+            <div class="mb-3">
+                <label for="desc" class="form-label">Description : </label>
+                <textarea name="listing[desc]" id="desc" class="form-control" placeholder="Facilities we offer..."></textarea>
+            </div>
 
-        <button>Add Listing</button>
-    </form>
-</body>
-</html>
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    <label for="location" class="form-label">Location : </label>
+                    <input type="text" name="listing[location]" id="location" class="form-control">
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label for="state" class="form-label">State : </label>
+                    <input type="text" name="listing[state]" id="state" class="form-control">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    <label for="price" class="form-label">Price : </label>
+                    <input type="text" name="listing[price]" id="price" class="form-control" placeholder="Price per month...">
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label for="capacity" class="form-label">Capacity : </label>
+                    <input type="number" name="listing[capacity]" id="capacity" class="form-control" placeholder="Room capacity...">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="image" class="form-label">Image URL : </label>
+                <input type="text" name="listing[image]" id="image" class="form-control" placeholder="Enter Image URL or Link...">
+            </div>
+        
+            <button class="btn btn-warning add-btn">Add Listing</button>
+        </form>
+    </div>
+</div>
