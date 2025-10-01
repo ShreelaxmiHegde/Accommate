@@ -36,28 +36,22 @@ body {
     font-weight: 500 !important;
 }
 
+/* Footer */
 .f-info {
-    height: 5rem;
+    height: 3rem;
     background-color: #ebebeb;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    align-items: center;
-    text-align: center;
+    font-size: small !important;
 }
 
-.f-info-socials,
-.f-info-links,
-.f-info-brand {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+@media (width < 726px) {
+    .footer {
+        flex-direction: column !important;
+    }
 }
 
 .f-info-socials i {
     font-size: 1.2rem;
-    margin: 0.2rem 1rem 0; /* top | right&right | bottom */
+    margin: 0.2rem 0.5rem 0; /* top | left&right | bottom */
 }
 
 .f-info-links a {
