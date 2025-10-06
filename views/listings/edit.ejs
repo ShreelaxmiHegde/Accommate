@@ -5,41 +5,63 @@
         <h3 class="text-center">Manage your property details.</h3>
         <h6 class="border-bottom pb-3 text-center fst-italic">--- Keep your stay info up-to-date so students can find you easily. ---</h6>
         
-        <form action="/listings/<%= listing._id%>?_method=PUT" method="post" class="pt-3">
+        <form action="/listings/<%= listing._id%>?_method=PUT" method="post" class="pt-3 needs-validation" novalidate>
+
+            <!-- Title -->
             <div class="mb-3">
                 <label for="title" class="form-label">Title : </label>
-                <input type="text" name="listing[title]" id="title" value="<%= listing.title %>" class="form-control">
+                <input type="text" name="listing[title]" id="title" value="<%= listing.title %>" class="form-control" required>
+
+                    <div class="invalid-feedback">Give your space a name.</div>
             </div>
+
+            <!-- Description -->
             <div class="mb-3">
                 <label for="desc" class="form-label">Description : </label>
-                <textarea name="listing[desc]" id="desc" class="form-control"><%= listing.desc %></textarea>
+                <textarea name="listing[desc]" id="desc" class="form-control" required><%= listing.desc %></textarea>
+
+                <div class="valid-feedback">Looks great! Your listing will stand out.</div>
+                <div class="invalid-feedback">Share a few details. What makes it stand out?</div>
             </div>
         
+            <!-- Location & State -->
             <div class="row">
                 <div class="mb-3 col-md-6">
                     <label for="location" class="form-label">Location : </label>
-                    <input type="text" name="listing[location]" id="location" value="<%= listing.location %>" class="form-control">
+                    <input type="text" name="listing[location]" id="location" value="<%= listing.location %>" class="form-control" required>
+
+                    <div class="invalid-feedback">Enter a valid location.</div>
                 </div>
                 <div class="mb-3 col-md-6">
                     <label for="state" class="form-label">State : </label>
-                    <input type="text" name="listing[state]" id="state" value="<%= listing.state %>" class="form-control">
+                    <input type="text" name="listing[state]" id="state" value="<%= listing.state %>" class="form-control" required>
+
+                    <div class="invalid-feedback">Enter a valid state.</div>
                 </div>
             </div>
         
+            <!-- Price & Capacity -->
             <div class="row">
                 <div class="mb-3 col-md-6">
                     <label for="price" class="form-label">Price : </label>
-                    <input type="text" name="listing[price]" id="price" value="<%= listing.price %>" class="form-control">
+                    <input type="text" name="listing[price]" id="price" value="<%= listing.price %>" class="form-control" required>
+
+                    <div class="invalid-feedback">Add your listing price.</div>
                 </div>
                 <div class="mb-3 col-md-6">
                     <label for="capacity" class="form-label">Capacity : </label>
-                    <input type="number" name="listing[capacity]" id="capacity" value="<%= listing.capacity %>" class="form-control">
+                    <input type="number" name="listing[capacity]" id="capacity" value="<%= listing.capacity %>" class="form-control" required>
+
+                    <div class="invalid-feedback">Add your room capacity.</div>
                 </div>
             </div>
         
+            <!-- Image URL -->
             <div class="mb-3">
                 <label for="image" class="form-label">Image URL : </label>
-                <input type="text" name="listing[image]" id="image" value="<%= listing.image %>" class="form-control">
+                <input type="text" name="listing[image]" id="image" value="<%= listing.image %>" class="form-control" required>
+
+                <div class="invalid-feedback">Please add a valid image link.</div>
             </div>
         
             <button class="btn btn-primary edit-btn ps-4 pe-4">Edit</button>

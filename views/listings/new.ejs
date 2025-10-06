@@ -5,41 +5,61 @@
         <h3 class="text-center">Host your space with <span>Accommate</span>.</h3>
         <h6 class="border-bottom pb-3 text-center fst-italic">--- Turn your spare room into a student’s next home. ---</h6>
         
-        <form action="/listings" method="post" class="pt-3">
+        <form action="/listings" method="post" class="pt-3 needs-validation" novalidate>
+        
+            <!-- Title -->
             <div class="mb-3">
                 <label for="title" class="form-label">Title : </label>
-                <input type="text" name="listing[title]" id="title" class="form-control" placeholder="Enter title here...">
-            </div>
-            <div class="mb-3">
-                <label for="desc" class="form-label">Description : </label>
-                <textarea name="listing[desc]" id="desc" class="form-control" placeholder="Facilities we offer..."></textarea>
+                <input type="text" name="listing[title]" id="title" class="form-control" placeholder="Ex: Cozy Student Room Near Delhi University" required>
+
+                <div class="invalid-feedback">Give your space a name.</div>
             </div>
 
+            <!-- Description -->
+            <div class="mb-3">
+                <label for="desc" class="form-label">Description : </label>
+                <textarea name="listing[desc]" id="desc" class="form-control" placeholder="Ex: Spacious 1BHK apartment with balcony and free Wi-Fi, perfect for students." required></textarea>
+
+                <div class="valid-feedback">Looks great! Your listing will stand out.</div>
+                <div class="invalid-feedback">Share a few details. What makes it stand out?</div>
+            </div>
+
+            <!-- Location & State -->
             <div class="row">
                 <div class="mb-3 col-md-6">
                     <label for="location" class="form-label">Location : </label>
-                    <input type="text" name="listing[location]" id="location" class="form-control">
+                    <input type="text" name="listing[location]" id="location" class="form-control" placeholder="Ex: Kamla Nagar, Delhi" required>
+
+                    <div class="invalid-feedback">Enter a valid location.</div>
                 </div>
                 <div class="mb-3 col-md-6">
                     <label for="state" class="form-label">State : </label>
-                    <input type="text" name="listing[state]" id="state" class="form-control">
+                    <input type="text" name="listing[state]" id="state" class="form-control" placeholder="Ex: Delhi" required>
+                    
+                    <div class="invalid-feedback">Enter a valid state.</div>
                 </div>
             </div>
 
+            <!-- Price & Capacity -->
             <div class="row">
                 <div class="mb-3 col-md-6">
                     <label for="price" class="form-label">Price : </label>
-                    <input type="text" name="listing[price]" id="price" class="form-control" placeholder="Price per month...">
+                    <input type="number" name="listing[price]" id="price" class="form-control" placeholder="Ex: 4,500 / month..." required>
+                    
+                    <div class="invalid-feedback">Add your listing price.</div>
                 </div>
                 <div class="mb-3 col-md-6">
                     <label for="capacity" class="form-label">Capacity : </label>
-                    <input type="number" name="listing[capacity]" id="capacity" class="form-control" placeholder="Room capacity...">
+                    <input type="number" name="listing[capacity]" id="capacity" class="form-control" placeholder="Ex: 2" required>
+
+                    <div class="invalid-feedback">Add your room capacity.</div>
                 </div>
             </div>
 
+            <!-- Image URL -->
             <div class="mb-3">
                 <label for="image" class="form-label">Image URL : </label>
-                <input type="text" name="listing[image]" id="image" class="form-control" placeholder="Enter Image URL or Link...">
+                <input type="text" name="listing[image]" id="image" class="form-control" placeholder="Ex: https://example.com/image.jpg">
             </div>
         
             <button class="btn btn-warning add-btn">Add Listing</button>
