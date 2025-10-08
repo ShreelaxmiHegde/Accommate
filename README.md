@@ -35,11 +35,19 @@ Accommate/
 ├── public/
 │   └── css/                
 │       └── style.css           # Stylesheet of all routes
+│   └── js/                
+│       └── script.js       
+|   
+├── utils/                  
+│   └── ExpressError.js     # custom error class
+│   └── wrapAsync.js        
 |
 ├── views/                  # Routing pages for different routes
 │   ├── includes/           # template page
 │   |   └── navbar.ejs           # Navbar template
 │   |   └── footer.ejs           # Footer template
+|   |
+│   ├── error.ejs           # error template page
 │   | 
 │   ├── layouts/            # layout template
 │   |    └── boilerplate.ejs     # Boilerplate for all 
@@ -50,6 +58,7 @@ Accommate/
 │       └── show.ejs            # all listings page
 │       └── edit.ejs            # edit page
 |
+├── schema.js               # template page
 ├── docs.md                 # project documentation
 ├── LICENCE
 ├── .gitignore
