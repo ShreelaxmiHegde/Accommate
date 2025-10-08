@@ -15,11 +15,21 @@ Accommate/
 ├── public/
 │   └── css/                
 │       └── style.css           # Stylesheet of all routes
+│   └── js/                
+│       └── script.js       
+|   
+├── utils/                  
+│   └── ExpressError.js     # custom error class
+│   └── wrapAsync.js        
 |
 ├── views/                  # Routing pages for different routes
 │   ├── includes/           # template page
 │   |   └── navbar.ejs           # Navbar template
 │   |   └── footer.ejs           # Footer template
+|   |
+│   ├── errors              # error template page
+│   |   └── error.ejs           # Navbar template
+│   |   └── pageNotFound.ejs    # Footer template
 │   | 
 │   ├── layouts/            # layout template
 │   |    └── boilerplate.ejs     # Boilerplate for all 
@@ -30,6 +40,7 @@ Accommate/
 │       └── show.ejs            # all listings page
 │       └── edit.ejs            # edit page
 |
+├── schema.js               # template page
 ├── docs.md                 # project documentation
 ├── LICENCE
 ├── .gitignore
@@ -118,5 +129,47 @@ This folder contains layout templates:
 - `boilerplate.ejs`: The main layout template that wraps all route pages. 
 - It automatically includes the navbar and footer from the `includes/` folder, and injects the unique content of each route page into the body section. 
 - This approach improves code readability and reduces redundancy by centralizing common page structure.
+
+### 3. `listings/`
+Contains EJS template files for all pages related to accommodation listings.
+
+### 4. `errors/`
+EJS template file to display error messages. Typically rendered by error-handling middleware whenever error occurs, such as validation failure, a missing page or a server issue. It can display error details like error status code, message etc.
+
+---
+
+
+## `public/` (static files)
+
+### `css/style.css`
+File that contains whole project stylings
+
+### `js/script.js`
+Form validations script for both client and server-side validations.
+Used in dynamic rendering of form errors.
+
+---
+
+## `utils/`
+Stores reusable helper funcions and classes.
+
+### `ExpressError.js`
+Exports custom error class which extends Express's `Error` class. This helps our error handling middleware respond with the correct status code and message.
+
+### `wrapAsync.js`
+Typically exports a utility function that wraps async route handlers in Express. Its purpose is to catch errors in async functions and pass them to Express's error-handling middleware, so we don't need to use try/catch every route.
+
+<b>How it works : </b>
+- We pass your async function to `wrapAsync`.
+- If the async function throws an error or rejects a promise, `wrapAsync` cathces it and calls `next(err)`.
+
+This keeps route code clean and ensures all async errors are handled properly.
+
+---
+
+## `schema.js`
+Defines server-side validation rules for form fields using Joi package. When creating or editing a listing, the application uses these Joi schemas to valdiate the submitted data before saving it to the database. If the data does not meet the schema requirements, an arror is generated and the listing is not stored.
+
+*The error is generally throwed from our custom error class `ExpressError`.
 
 ---
