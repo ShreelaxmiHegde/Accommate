@@ -10,17 +10,17 @@
             <!-- Title -->
             <div class="mb-3">
                 <label for="title" class="form-label">Title : </label>
-                <input type="text" name="listing[title]" id="title" value="<%= listing.title %>" class="form-control" required>
+                <input type="text" name="listing[title]" id="title" value="<%= listing.title %>" class="form-control" minlength="5" maxlength="30" required>
 
-                    <div class="invalid-feedback">Give your space a name.</div>
+                <div class="invalid-feedback">Give your space a valid name.</div>
             </div>
 
             <!-- Description -->
             <div class="mb-3">
                 <label for="desc" class="form-label">Description : </label>
-                <textarea name="listing[desc]" id="desc" class="form-control" required><%= listing.desc %></textarea>
+                <textarea name="listing[desc]" id="desc" class="form-control" minlength="5" maxlength="100" required><%= listing.desc %></textarea>
 
-                <div class="valid-feedback">Looks great! Your listing will stand out.</div>
+                <!-- <div class="valid-feedback">Looks great! Your listing will stand out.</div> -->
                 <div class="invalid-feedback">Share a few details. What makes it stand out?</div>
             </div>
         
@@ -57,9 +57,9 @@
             </div>
         
             <!-- Image URL -->
-            <div class="mb-3">
+            <div class="mb-3 img-box">
                 <label for="image" class="form-label">Image URL : </label>
-                <input type="text" name="listing[image]" id="image" value="<%= listing.image %>" class="form-control" required>
+                <input type="text" pattern="https?://.*\.(png|jpg|jpeg|gif|webp)$" name="listing[image]" id="image" value="<%= listing.image %>" class="form-control" required>
 
                 <div class="invalid-feedback">Please add a valid image link.</div>
             </div>
