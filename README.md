@@ -27,6 +27,7 @@ Accommate/
 ├── app.js                  # Main application file
 ├── models/                 
 │   └── listing.js          # Mongoose schema/model for listings
+│   └── review.js           # schema for ratings and comments
 |
 ├── init/                 
 │   └── data.js             # mock data 
@@ -47,7 +48,9 @@ Accommate/
 │   |   └── navbar.ejs           # Navbar template
 │   |   └── footer.ejs           # Footer template
 |   |
-│   ├── error.ejs           # error template page
+│   ├── errors              # error template page
+│   |   └── error.ejs           # Navbar template
+│   |   └── pageNotFound.ejs    # Footer template
 │   | 
 │   ├── layouts/            # layout template
 │   |    └── boilerplate.ejs     # Boilerplate for all 
@@ -71,12 +74,12 @@ Accommate/
 ---
 
 ## Setup Instructions
-1.Clone the repository
-2.Install dependencies `npm install`
-3.Start MongoDB server
+1. Clone the repository
+2. Install dependencies `npm install`
+3. Start MongoDB server
     - Ensure MongoDB is running locally on `mongodb://127.0.0.1:27017/accommate`
-4.Run the application `node app.js`
-5.Access API 
+4. Run the application `node app.js`
+5. Access API 
     - Visit [http://localhost:8080/listings] to view all listings
 
 ---
@@ -122,6 +125,19 @@ DELETE /listings/:id
 - Params:
     - id: Listing ID
 - Response: Redirects to /listings after deletion.
+
+POST /listings/:id/reviews
+- Description: Add reviews on listing.
+- Params:
+    - id: Listing ID
+- Response: Redirects to listings/:id after saving.
+
+DELETE /listings/:id/reviews/:reviewId
+- Description: Deletes comment and rating.
+- Params: 
+    - id: Listing ID
+    - reviewId: comment ID
+- Response: Redirects to listings/:id after deleting.
 
 ---
 
