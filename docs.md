@@ -7,6 +7,7 @@ Accommate/
 ├── app.js                  # Main application file
 ├── models/                 
 │   └── listing.js          # Mongoose schema/model for listings
+│   └── review.js           # schema for ratings and comments
 |
 ├── init/                 
 │   └── data.js             # mock data 
@@ -55,6 +56,7 @@ Accommate/
 - Sets up an Express.js server on port 8080.
 - Connects to MongoDB database using Mongoose.
 - `Listing` is a Mongoose model imported from `listing.js` that interacts with the listings collection in MongoDB.
+- Have Form and Review data validation middlewares
 
 ### Routes Structure
 ```
@@ -65,6 +67,9 @@ POST        `/listings`                # save newly created listing to database
 GET         `/listings/:id/edit`       # edit specific listing show form
 PUT         `/listings/:id`            # update in database after edit
 DELETE      `/listings/:id`            # delete specific listing
+
+POST        `/listings/:id/reviews`             # save newly created review to database
+DELETE      `/listings/:id/reviews/:reviewId`   # delete specific review
 
 ```
 - ** `/listings` (dashboard route)
@@ -81,15 +86,29 @@ DELETE      `/listings/:id`            # delete specific listing
     - create a new object with those fields
     - use that obj to update the listing in the database
 
+- WorkFlow : `/listings/:id/reviews`
+    1. Find listing by its ID
+    2. Create a new review document using Review model & the submitted review data.
+    3. Push new review into listings's array(review referece is stored in listings)
+    4. Save the new review to collection.
+    5. Save the updated listing.
+    6. Redirect to the specific listing's page.
+
+- WorkFlow : `/listings/:id/reviews/reviewId`
+    1. Fetch listing ID and review ID from params
+    2. Update listing by removing the review reference
+    3. Delete the review from database
+    4. Redirect to the page `/listings/:id`
+
 
 ---
 
 ## `models/`
-### 1. `listing.js` (Accommodation Listings) :
 - Imports: `mongoose` to interact with MonogDB
 
+### 1. `listing.js` (Accommodation Listings) :
 - Schema Definition :
-    - `listingSchema` describes the structure of listing
+    - Describes the structure of listing
     - All fields except `image` are required, which has a default URL if not provided or if an empty string is given
 
 - Model Creation :
@@ -100,6 +119,17 @@ DELETE      `/listings/:id`            # delete specific listing
     - Model exported to be used in other files like `app.js`
     - Interact with listings in database.
 
+- Middleware : (Listing model with Cascade delete reviews)
+    `listingSchema.post()` middleware is internally invoked after `findByIdAndDelete` method called.
+    - Workflow :
+        1. Find matching Id in reviews array of the specific listing.
+        2. Delete all reviews
+
+### 2.`reviews.js` (Ratings and comments) :
+- Schema Definition :
+    - Describes rating and comment sturctures
+    - Rating range should be in between 1 to 5
+    
 ---
 
 ## `init/`
@@ -168,8 +198,12 @@ This keeps route code clean and ensures all async errors are handled properly.
 ---
 
 ## `schema.js`
-Defines server-side validation rules for form fields using Joi package. When creating or editing a listing, the application uses these Joi schemas to valdiate the submitted data before saving it to the database. If the data does not meet the schema requirements, an arror is generated and the listing is not stored.
+Defines server-side validation rules for form fields using Joi package. When creating or editing a listing, the application uses these <b>Joi</b> schemas to valdiate the submitted data before saving it to the database. If the data does not meet the schema requirements, an arror is generated and the listing is not stored.
 
 *The error is generally throwed from our custom error class `ExpressError`.
+
+`listingSchema` : Validates submitted data while creating or editing a listing.
+
+`reviewSchema` : Validates rating and comments submitted from specific listings.
 
 ---
