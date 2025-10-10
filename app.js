@@ -73,7 +73,7 @@ app.get("/listings/new", (req, res) => {
 // show route -> specific listing
 app.get("/listings/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
-    const listing = await Listing.findById(id).populate("reviews"); //find listing with the id in db
+    const listing = await Listing.findById(id).populate("reviews"); //using populate() to get actual doc in review 
 
     res.render("./listings/show.ejs", { listing });
 }));
@@ -123,26 +123,11 @@ app.post("/listings/:id/reviews", validateReview, wrapAsync(async (req, res) => 
 app.delete("/listings/:id/reviews/:reviewId", wrapAsync(async(req, res) => {
     let { id, reviewId } = req.params;
 
-    Listing.findByIdAndUpdate(id, {$pull: {reviews: reviewId}});
-    await Review.findByIdAndDelete(reviewId);
+    await Listing.findByIdAndUpdate(id, {$pull: {reviews: reviewId}}); //pull operator to remove the reference of review from listing
+    await Review.findByIdAndDelete(reviewId); //delete the review from db
 
     res.redirect(`/listings/${id}`);
-}))
-
-// app.get("/testListing", async (req, res) => {
-//     let sampleListing = new Listing({
-//         title: "teen accommodations",
-//         desc: "For teens in universities",
-//         location: "Banglore",
-//         state: "Karnataka",
-//         price: 8000,
-//         capacity: 4
-//     });
-
-//     await sampleListing.save();
-//     console.log("sample saved");
-//     res.send("succussefull test");
-// });
+}));
 
 // page not found error
 app.use((req, res) => {
