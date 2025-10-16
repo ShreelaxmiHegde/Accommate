@@ -13,9 +13,16 @@ router.post("/signup", wrapAsync(async(req, res) => {
         let { username, email, password} = req.body;
         const newUser = new User({email, username});
         const registeredUser = await User.register(newUser, password);
-        console.log(registeredUser);
-        req.flash("success", "Welcome to Accommate!");
-        res.redirect("/listings");
+        
+        // automatic login after signup
+        req.login(registeredUser, (err) => {
+            if(err) {
+                return next(err);
+            }
+
+            req.flash("success", "Welcome to Accommate!");
+            res.redirect("/listings");
+        });
     } catch(err) { // username entered is existing username
         req.flash("error", err.message);
         res.redirect("/signup");
@@ -36,5 +43,15 @@ router.post("/login",
         res.redirect("/listings");
     }
 );
+
+router.get("/logout", (req, res, next) => {
+    req.logout((err) => {
+        if(err)  { // to catch issues from passport.js if any occured.
+            return next();
+        }
+        req.flash("error", "You are logged out!");
+        res.redirect("/listings");
+    });
+});
 
 module.exports = router;
