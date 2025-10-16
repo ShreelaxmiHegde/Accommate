@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
-  <div class="container-fluid d-flex justify-content-between">
+  <div class="container-fluid d-flex justify-content-around">
     <a class="navbar-brand ps-3" href="/">
       <i class="fa-solid fa-house-tsunami"></i>  <span class="logo ms-2 d-none d-lg-inline d-md-inline">Accommate</span>
     </a>
@@ -7,6 +7,8 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
+      <!-- nav tabs -->
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <a class="nav-link active" href="/">Home</a>
@@ -14,6 +16,17 @@
           <a class="nav-link" href="/listings/new">Host Your Space</a>
         </div>
       </div>
+    </div>
+
+    <!-- SignIn / login / logout -->
+    <div class="navbar-nav">
+      <% if (!currUser) { %>
+        <a class="nav-link active" href="/signin">Sign up</a>
+        <a class="nav-link" href="/login">Log In</a>
+      <% } %>
+      <% if (currUser) { %>
+        <a class="nav-link" href="/logout">Log out</a>
+      <% } %>
     </div>
   </div>
 </nav>
