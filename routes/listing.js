@@ -31,7 +31,7 @@ router.get("/new", isLoggedIn, (req, res) => {
 // show route -> specific listing
 router.get("/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
-    const listing = await Listing.findById(id).populate("reviews"); //using populate() to get actual doc in review 
+    const listing = await Listing.findById(id).populate("reviews").populate("owner"); //using populate() to get actual doc in review 
 
     //show flash if listing doesnt exist
     if(!listing) {
@@ -45,6 +45,7 @@ router.get("/:id", wrapAsync(async (req, res) => {
 // create route
 router.post("/", isLoggedIn, validateListing, wrapAsync(async (req, res) => {
     const newlisting = new Listing(req.body.listing);
+    newlisting.owner = req.user._id; // assign logged in user as owner of listing
     await newlisting.save();
     
     req.flash("success", "New Listing created.");
