@@ -17,13 +17,17 @@
         Capacity : <%= listing.capacity %> <br>
         Price : &#8377; <%= listing.price.toLocaleString("en-IN") %> <!-- show in indian rupee style with ',' (num.toLocaleString("en-IN"))-->
 
-        <div class="btns">
-            <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark ps-4 pe-4">Edit</a>
-            
-            <form action="/listings/<%= listing._id %>?_method=DELETE" method="post">
-                <button class="btn btn-danger">Delete</button>
-            </form>
-        </div>
+        <!-- Hide buttons for non-authorized users -->
+        <% if (currUser && currUser._id.equals(listing.owner._id)) { %>
+            <div class="btns">
+                <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark ps-4 pe-4">Edit</a>
+                
+                <form action="/listings/<%= listing._id %>?_method=DELETE" method="post">
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        <% } %>
+
     </div>
     
     <hr>
