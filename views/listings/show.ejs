@@ -17,7 +17,7 @@
         Capacity : <%= listing.capacity %> <br>
         Price : &#8377; <%= listing.price.toLocaleString("en-IN") %> <!-- show in indian rupee style with ',' (num.toLocaleString("en-IN"))-->
 
-        <!-- Hide buttons for non-authorized users -->
+        <!-- Hide buttons for unauthorized users -->
         <% if (currUser && currUser._id.equals(listing.owner._id)) { %>
             <div class="btns">
                 <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark ps-4 pe-4">Edit</a>
@@ -30,23 +30,25 @@
 
     </div>
     
-    <hr>
-
+    
     <!-- Review form -->
-    <h4><u><b>Leave a review</b></u></h4>
-    <form action="/listings/<%= listing._id %>/reviews" method="POST" class="needs-validation" novalidate>
-        <div>
-            <label for="rating" class="form-label">Rating</label>
-            <input type="range" name="review[rating]" class="form-range" id="rating" min="1" max="5">
-        </div>
-        <div>
-            <label for="comment" class="form-label">Add Comment</label>
-            <textarea name="review[comment]" class="form-control" id="comment" required placeholder="Share experience about this housing..."></textarea>
+    <% if (currUser) { %>  <!-- Show review form only if logged in -->
+        <hr>
+        <h4><u><b>Leave a review</b></u></h4>
+        <form action="/listings/<%= listing._id %>/reviews" method="POST" class="needs-validation" novalidate>
+            <div>
+                <label for="rating" class="form-label">Rating</label>
+                <input type="range" name="review[rating]" class="form-range" id="rating" min="1" max="5">
+            </div>
+            <div>
+                <label for="comment" class="form-label">Add Comment</label>
+                <textarea name="review[comment]" class="form-control" id="comment" required placeholder="Share experience about this housing..."></textarea>
 
-            <div class="invalid-feedback">Please leave your experience before submitting the form</div>
-        </div>
-        <button class="btn btn-warning mt-2 mb-2">Submit</button>
-    </form>
+                <div class="invalid-feedback">Please leave your experience before submitting the form</div>
+            </div>
+            <button class="btn btn-warning mt-2 mb-2">Submit</button>
+        </form>
+    <% } %>
 
     <hr>
 
@@ -56,13 +58,16 @@
         <% for(review of listing.reviews) { %>
             <div class="card col-md-5 m-1">
                 <div class="card-body">
-                    <h5 class="card-title">Jessica</h5>
+                    <h5 class="card-title"><%= review.author.username %></h5>
                     <h6 class="card-text"><%= review.comment %></h6>
                     <p class="card-text">Rating : <%= review.rating %> Stars</p>
                 </div>
-                <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST" class="mb-3">
-                    <button class="btn btn-sm btn-dark">Delete</button>
-                </form>
+
+                <% if(currUser && currUser._id.equals(review.author._id)) { %>
+                    <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST" class="mb-3">
+                        <button class="btn btn-sm btn-dark">Delete</button>
+                    </form>
+                <% } %>
             </div>
         <% } %>
     </div>
