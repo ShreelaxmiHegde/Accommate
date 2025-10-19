@@ -4,7 +4,7 @@
     <h3 class="border-bottom pb-2"><%= listing.title %></h3>
     
     <div class="card col-md-6 listing-card">
-      <img src="<%= listing.image %>" class="card-img-top" alt="listing-img">
+      <img src="<%= listing.image.url %>" class="card-img-top" alt="listing-img">
     </div>
     
     <div class="card col-md-6 show-items listing-card">
@@ -37,9 +37,22 @@
         <h4><u><b>Leave a review</b></u></h4>
         <form action="/listings/<%= listing._id %>/reviews" method="POST" class="needs-validation" novalidate>
             <div>
-                <label for="rating" class="form-label">Rating</label>
-                <input type="range" name="review[rating]" class="form-range" id="rating" min="1" max="5">
+                <label for="rating" class="form-label">Rating : </label>
+                <fieldset class="starability-slot">
+                    <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+                    <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                    <label for="first-rate1" title="Terrible">1 star</label>
+                    <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                    <label for="first-rate2" title="Not good">2 stars</label>
+                    <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                    <label for="first-rate3" title="Average">3 stars</label>
+                    <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                    <label for="first-rate4" title="Very good">4 stars</label>
+                    <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                    <label for="first-rate5" title="Amazing">5 stars</label>
+                </fieldset>
             </div>
+
             <div>
                 <label for="comment" class="form-label">Add Comment</label>
                 <textarea name="review[comment]" class="form-control" id="comment" required placeholder="Share experience about this housing..."></textarea>
@@ -60,7 +73,7 @@
                 <div class="card-body">
                     <h5 class="card-title"><%= review.author.username %></h5>
                     <h6 class="card-text"><%= review.comment %></h6>
-                    <p class="card-text">Rating : <%= review.rating %> Stars</p>
+                    <p class="starability-result" data-rating="<%= review.rating %>"></p>
                 </div>
 
                 <% if(currUser && currUser._id.equals(review.author._id)) { %>
