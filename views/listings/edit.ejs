@@ -5,7 +5,7 @@
         <h3 class="text-center">Manage your property details.</h3>
         <h6 class="border-bottom pb-3 text-center fst-italic">--- Keep your stay info up-to-date so students can find you easily. ---</h6>
         
-        <form action="/listings/<%= listing._id%>?_method=PUT" method="post" class="pt-3 needs-validation" novalidate>
+        <form action="/listings/<%= listing._id%>?_method=PUT" method="post" class="pt-3 needs-validation" enctype="multipart/form-data" novalidate>
 
             <!-- Title -->
             <div class="mb-3">
@@ -44,22 +44,26 @@
             <div class="row">
                 <div class="mb-3 col-md-6">
                     <label for="price" class="form-label">Price : </label>
-                    <input type="text" name="listing[price]" id="price" value="<%= listing.price %>" class="form-control" required>
+                    <input type="text" name="listing[price]" id="price" value="<%= listing.price %>" class="form-control" min="0" required>
 
                     <div class="invalid-feedback">Add your listing price.</div>
                 </div>
                 <div class="mb-3 col-md-6">
                     <label for="capacity" class="form-label">Capacity : </label>
-                    <input type="number" name="listing[capacity]" id="capacity" value="<%= listing.capacity %>" class="form-control" required>
+                    <input type="number" name="listing[capacity]" id="capacity" value="<%= listing.capacity %>" class="form-control" min="1" max="20" required>
 
                     <div class="invalid-feedback">Add your room capacity.</div>
                 </div>
             </div>
         
             <!-- Image URL -->
+             <div class="mb-3">
+                <p>Original Image :</p>
+                <img src="<%= originalImgUrl %>" alt="image-preview">
+             </div>
             <div class="mb-3 img-box">
-                <label for="image" class="form-label">Image URL : </label>
-                <input type="text" pattern="https?://.*\.(png|jpg|jpeg|gif|webp)$" name="listing[image]" id="image" value="<%= listing.image %>" class="form-control" required>
+                <label for="image" class="form-label">Upload new Image : </label>
+                <input type="file" name="listing[image]" id="image" class="form-control">
 
                 <div class="invalid-feedback">Please add a valid image link.</div>
             </div>
