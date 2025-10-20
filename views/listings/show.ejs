@@ -66,22 +66,24 @@
     <hr>
 
     <!-- Reviews list -->
-    <h4><u><b>All Reviews</b></u></h4>
-    <div class="row">
-        <% for(review of listing.reviews) { %>
-            <div class="card col-md-5 m-1">
-                <div class="card-body">
-                    <h5 class="card-title"><%= review.author.username %></h5>
-                    <h6 class="card-text"><%= review.comment %></h6>
-                    <p class="starability-result" data-rating="<%= review.rating %>"></p>
+    <% if(listing.reviews.length > 0) { %>
+        <div class="row">
+            <h4><u><b>All Reviews</b></u></h4>
+            <% for(review of listing.reviews) { %>
+                <div class="card col-md-5 m-1">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= review.author.username %></h5>
+                        <h6 class="card-text"><%= review.comment %></h6>
+                        <p class="starability-result" data-rating="<%= review.rating %>"></p>
+                    </div>
+    
+                    <% if(currUser && currUser._id.equals(review.author._id)) { %>
+                        <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST" class="mb-3">
+                            <button class="btn btn-sm btn-dark">Delete</button>
+                        </form>
+                    <% } %>
                 </div>
-
-                <% if(currUser && currUser._id.equals(review.author._id)) { %>
-                    <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST" class="mb-3">
-                        <button class="btn btn-sm btn-dark">Delete</button>
-                    </form>
-                <% } %>
-            </div>
-        <% } %>
-    </div>
+            <% } %>
+        </div>
+    <% } %>
 </div>
