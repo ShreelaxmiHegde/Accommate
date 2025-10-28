@@ -6,6 +6,7 @@ Accommate is a Node.js web application for managing accommodation listings. It a
 ---
 
 ## Features
+- User Authentications for personalization
 - Connects to MongoDB for data storage
 - RESTful API endpoints for listing management
 - Easy integration with front-end frameworks
@@ -18,6 +19,10 @@ Accommate is a Node.js web application for managing accommodation listings. It a
 - MongoDB
 - Mongoose
 
+## Tools Used
+- Passport.js  # Authentication
+- EJS          # Show dynamic pages
+
 ---
 
 ## Project Sturcture
@@ -26,41 +31,10 @@ Accommate/
 │
 ├── app.js                  # Main application file
 ├── models/                 
-│   └── listing.js          # Mongoose schema/model for listings
-│   └── review.js           # schema for ratings and comments
-|
 ├── init/                 
-│   └── data.js             # mock data 
-│   └── index.js            # connect mock data to database
-|
-├── public/
-│   └── css/                
-│       └── style.css           # Stylesheet of all routes
-│   └── js/                
-│       └── script.js       
-|   
+├── public/ 
 ├── utils/                  
-│   └── ExpressError.js     # custom error class
-│   └── wrapAsync.js        
-|
-├── views/                  # Routing pages for different routes
-│   ├── includes/           # template page
-│   |   └── navbar.ejs           # Navbar template
-│   |   └── footer.ejs           # Footer template
-|   |
-│   ├── errors              # error template page
-│   |   └── error.ejs           # Navbar template
-│   |   └── pageNotFound.ejs    # Footer template
-│   | 
-│   ├── layouts/            # layout template
-│   |    └── boilerplate.ejs     # Boilerplate for all 
-│   |
-│   └── listings/           # dashboard page
-│       └── index.ejs           # dashboard page
-│       └── new.ejs             # new listing page
-│       └── show.ejs            # all listings page
-│       └── edit.ejs            # edit page
-|
+├── views/                  # Routing pages for different routes       
 ├── schema.js               # template page
 ├── docs.md                 # project documentation
 ├── LICENCE
@@ -138,6 +112,26 @@ DELETE /listings/:id/reviews/:reviewId
     - id: Listing ID
     - reviewId: comment ID
 - Response: Redirects to listings/:id after deleting.
+
+GET /signup
+- Description: Display signup form
+- Response: Render EJS signup form
+
+POST /signup
+- Description: Register user
+- Response: 
+    - varified : redirect to /listings
+    - non-verified: redirect again to /signup
+
+GET /login
+- Description: Display login form
+- Response: Renders login form
+
+POST /login
+- Description: Authenticate user with login details
+- Response: 
+    - varified : redirect to /listings
+    - non-verified: redirect again to /login
 
 ---
 

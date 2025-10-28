@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "22.19.0"
+  },
   "name": "Accommate",
   "version": "1.0.0",
   "description": "A student accommodation portal to list PGs, hostels, student rooms near Universities.",
@@ -9,8 +12,9 @@
   "author": "Shreelaxmi Hegde",
   "license": "MIT",
   "dependencies": {
-    "cloudinary": "^2.7.0",
+    "cloudinary": "^1.41.3",
     "connect-flash": "^0.1.1",
+    "connect-mongo": "^5.1.0",
     "dotenv": "^17.2.3",
     "ejs": "^3.1.10",
     "ejs-mate": "^4.0.0",

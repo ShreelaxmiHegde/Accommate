@@ -1,0 +1,14 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.blue-background {
+    height: 50vh;
+    width: 100%;
+    background-color: #2563eb;
+}
+
+.logo-name {
+    color: white;
+}

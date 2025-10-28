@@ -9,7 +9,7 @@ module.exports.isLoggedIn = (req, res, next) => {
         // redirect url after login
         req.session.redirectUrl = req.originalUrl;
 
-        req.flash("error", "You must be logged in to add your housings");
+        req.flash("error", "You must be logged in.");
         return res.redirect("/login");
     }
     next();

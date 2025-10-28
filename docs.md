@@ -5,17 +5,23 @@
 Accommate/
 │
 ├── app.js                  # Main application file
-├── models/                 
-│   └── listing.js          # Mongoose schema/model for listings
-│   └── review.js           # schema for ratings and comments
-|
 ├── init/                 
 │   └── data.js             # mock data 
 │   └── index.js            # connect mock data to database
 |
+├── models/                 
+│   └── listing.js          # Mongoose schema/model for listings
+│   └── review.js           # schema for ratings and comments
+│   └── user.js             # user schema
+|
+├── routes/                 
+│   └── listing.js          
+│   └── review.js           
+│   └── user.js
+|
 ├── public/
 │   └── css/                
-│       └── style.css           # Stylesheet of all routes
+│       └── style.css       # Stylesheet of all routes
 │   └── js/                
 │       └── script.js       
 |   
@@ -33,7 +39,7 @@ Accommate/
 │   |   └── pageNotFound.ejs    # Footer template
 │   | 
 │   ├── layouts/            # layout template
-│   |    └── boilerplate.ejs     # Boilerplate for all 
+│   |    └── boilerplate.ejs    # Boilerplate for all 
 │   |
 │   └── listings/           # dashboard page
 │       └── index.ejs           # dashboard page
@@ -41,6 +47,7 @@ Accommate/
 │       └── show.ejs            # all listings page
 │       └── edit.ejs            # edit page
 |
+├── middleware.js           # custom middlewares
 ├── schema.js               # template page
 ├── docs.md                 # project documentation
 ├── LICENCE
@@ -71,6 +78,12 @@ DELETE      `/listings/:id`            # delete specific listing
 POST        `/listings/:id/reviews`             # save newly created review to database
 DELETE      `/listings/:id/reviews/:reviewId`   # delete specific review
 
+GET         `/signup`                  # signup form
+POST        `/signup`                  # signup route
+
+GET         `/login`                   # login form
+POST        `/login`                   # login route
+
 ```
 - ** `/listings` (dashboard route)
     - async function => to handle database queries which are asynchronous.
@@ -100,6 +113,11 @@ DELETE      `/listings/:id/reviews/:reviewId`   # delete specific review
     3. Delete the review from database
     4. Redirect to the page `/listings/:id`
 
+- WordFlow : `/login`
+    1. User submits login credentials
+    2. POST request goes to /login route.
+    3. <i>Passport.js</i> middleware `.authenticate()`
+
 
 ---
 
@@ -125,10 +143,19 @@ DELETE      `/listings/:id/reviews/:reviewId`   # delete specific review
         1. Find matching Id in reviews array of the specific listing.
         2. Delete all reviews
 
-### 2.`reviews.js` (Ratings and comments) :
+### 2. `reviews.js` (Ratings and comments) :
 - Schema Definition :
     - Describes rating and comment sturctures
     - Rating range should be in between 1 to 5
+
+### 3. `user.js`
+- Schema Definition :
+    - Describes user schema
+    - Uses `passport-local-mongoose` plugin which automates most of the repetitive work like:
+        - Hashing & salting passwords 
+        - Checking password validity
+        - Handling authentication methods
+        - Managing serialization & deserialization cleanly
     
 ---
 
@@ -166,22 +193,20 @@ Contains EJS template files for all pages related to accommodation listings.
 ### 4. `errors/`
 EJS template file to display error messages. Typically rendered by error-handling middleware whenever error occurs, such as validation failure, a missing page or a server issue. It can display error details like error status code, message etc.
 
----
+### 5. `users/`
+Includes EJS templates for login and signup pages.
 
+---
 
 ## `public/` (static files)
 
-### `css/style.css`
-File that contains whole project stylings
+`css/style.css` : File that contains whole project stylings
 
-### `js/script.js`
-Form validations script for both client and server-side validations.
-Used in dynamic rendering of form errors.
+`js/script.js` : Form validations script for both client and server-side validations. Used in dynamic rendering of form errors.
 
 ---
 
-## `utils/`
-Stores reusable helper funcions and classes.
+## `utils/` (Stores reusable helper funcions and classes)
 
 ### `ExpressError.js`
 Exports custom error class which extends Express's `Error` class. This helps our error handling middleware respond with the correct status code and message.
@@ -207,3 +232,17 @@ Defines server-side validation rules for form fields using Joi package. When cre
 `reviewSchema` : Validates rating and comments submitted from specific listings.
 
 ---
+
+### `middleware.js`
+Exports custom middlewares.
+1. `isLoggedIn` : 
+    uses `.isAuthenticated()` method of passport.js for login state verification
+
+---
+
+### pending...
+/// flash messages
+routes/user.js
+
+- User Authentication
+- owner authorisation to listing (client & server side)

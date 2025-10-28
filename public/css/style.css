@@ -36,6 +36,12 @@ body {
     font-weight: 500 !important;
 }
 
+.navbar-nav .btn {
+    height: 2.5rem;
+    margin: 0;
+    padding: 0;
+}
+
 /* Footer */
 .f-info {
     height: 3rem;
@@ -61,7 +67,7 @@ body {
 
 .f-info-links a:hover {
     text-decoration: underline;
-    color: #fe424d;
+    color: #2563eb;
 } 
 
 

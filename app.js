@@ -1,7 +1,6 @@
 if(process.env.NODE_ENV != "production"){
     require("dotenv").config();
 }
-console.log(process.env.SECRET);
 
 const express = require("express");
 const app = express(); 
@@ -11,13 +10,15 @@ const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate"); //for better templating
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 
 // connect db with backend
-const MONGO_URL = "mongodb://127.0.0.1:27017/accommate";
+// const MONGO_URL = "mongodb://127.0.0.1:27017/accommate";
+const dbUrl = process.env.ATLASDB_URL;
 main()
 .then((res) => {
     console.log("Connected to MongoDB");
@@ -25,10 +26,24 @@ main()
     console.log(err);
 });
 async function main() {
-    await mongoose.connect(MONGO_URL);
+    await mongoose.connect(dbUrl);
+    // await mongoose.connect(MONGO_URL);
 }
 
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    crypto: {
+        secret: "sessionsecretecode"
+    },
+    touchAfter: 24 * 3600
+});
+
+store.on("error", () => {
+    console.log("ERROR - MONOGO SESSION STORE", err);
+});
+
 const sessionOptions = {
+    store,
     secret: "sessionsecretecode",
     resave: false,
     saveUninitialized: true,
@@ -55,11 +70,6 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.get("/home", (req, res) => {
-    // res.send("its home")
-    res.render("home.ejs")
-})
-
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
@@ -69,6 +79,14 @@ app.use((req, res, next) => {
     res.locals.error = req.flash("error");
     res.locals.currUser = req.user;
     next();
+});
+
+app.get("/Accommate", (req, res) => {
+    res.render("home.ejs");
+});
+
+app.get("/support", (req, res) => {
+  res.render("support.ejs");
 });
 
 app.use("/listings", listingRouter);
@@ -82,10 +100,10 @@ app.use((req, res) => {
 });
 
 // generic error handler
-// app.use((err, req, res, next) => {
-//     let { statusCode = 500, message = "Something went wrong!" } = err;
-//     res.render("errors/error.ejs", { err });
-// });
+app.use((err, req, res, next) => {
+    let { statusCode = 500, message = "Something went wrong!" } = err;
+    res.render("errors/error.ejs", { err });
+});
 
 app.listen(port, () => {
     console.log(`App is listning on port ${port}`);

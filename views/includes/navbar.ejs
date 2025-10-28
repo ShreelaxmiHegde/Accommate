@@ -1,9 +1,9 @@
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
   <div class="container-fluid d-flex justify-content-around">
-    <a class="navbar-brand ps-3" href="/">
+    <a class="navbar-brand ps-3" href="/Accommate">
       <i class="fa-solid fa-house-tsunami"></i>  <span class="logo ms-2 d-none d-lg-inline d-md-inline">Accommate</span>
     </a>
-    <div class="navs pe-5">
+    <div class="pe-5">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -11,21 +11,21 @@
       <!-- nav tabs -->
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-link active" href="/">Home</a>
-          <a class="nav-link" href="/listings">Find a Stay</a>
+          <a class="nav-link active" href="/Accommate">Home</a>
+          <a class="nav-link" href="/listings">Explore</a>
           <a class="nav-link" href="/listings/new">Host Your Space</a>
         </div>
       </div>
     </div>
-
+    
     <!-- SignIn / login / logout -->
     <div class="navbar-nav">
       <% if (!currUser) { %>
-        <a class="nav-link active" href="/signup">Sign up</a>
-        <a class="nav-link" href="/login">Log In</a>
+        <button class="btn btn-warning me-2"><a class="nav-link active" href="/signup"><b>Sign up</b></a></button>
+        <button class="btn btn-primary"><a class="nav-link" href="/login"><b style="color: white;">Log In</b></a></button>
       <% } %>
       <% if (currUser) { %>
-        <a class="nav-link" href="/logout">Log out</a>
+        <button class="btn btn-primary"><a class="nav-link" href="/logout"><b style="color: white;">Log out</b></a></button>
       <% } %>
     </div>
   </div>
