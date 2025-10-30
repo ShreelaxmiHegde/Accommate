@@ -1,22 +1,22 @@
 <% layout("/layouts/boilerplate") %>
 
-<div class="row show-box">
-    <h3 class="border-bottom pb-2"><%= listing.title %></h3>
-    
+<div class="row show-box mx-3 mx-md-3">    
     <div class="card col-md-6 listing-card">
       <img src="<%= listing.image.url %>" class="card-img-top" alt="listing-img">
     </div>
     
-    <div class="card col-md-6 show-items listing-card">
-        <i>Owned by : <%= listing.owner.username %></i>
-        <div>
-            <%= listing.desc %>
+    <div class="card col-md-6  listing-card">
+        <h3 class="mb-2"><%= listing.title %></h3>
+        <p style="font-size: large;"><%= listing.desc %></p>
+        <div class="mt-2 mb-2 details">
+            <p><b>State</b> : <%= listing.state %></p>
+            <p><b>Location</b> : <%= listing.location %></p>
+            <p><b>Capacity</b> : <%= listing.capacity %></p>
+            <p><b>Price</b> : &#8377; <%= listing.price.toLocaleString("en-IN") %></p>
         </div>
-        State : <%= listing.state %> <br>
-        Location : <%= listing.location %> <br>
-        Capacity : <%= listing.capacity %> <br>
-        Price : &#8377; <%= listing.price.toLocaleString("en-IN") %> <!-- show in indian rupee style with ',' (num.toLocaleString("en-IN"))-->
 
+        <p>Owned by <b>@<%= listing.owner.username %></b></p>
+        
         <!-- Hide buttons for unauthorized users -->
         <% if (currUser && currUser._id.equals(listing.owner._id)) { %>
             <div class="btns">
@@ -55,7 +55,7 @@
 
             <div>
                 <label for="comment" class="form-label">Add Comment</label>
-                <textarea name="review[comment]" class="form-control" id="comment" required placeholder="Share experience about this housing..."></textarea>
+                <textarea name="review[comment]" class="form-control" id="comment" required placeholder="Share experience about this housing..." rows="5"></textarea>
 
                 <div class="invalid-feedback">Please leave your experience before submitting the form</div>
             </div>
@@ -72,7 +72,7 @@
             <% for(review of listing.reviews) { %>
                 <div class="card col-md-5 m-1">
                     <div class="card-body">
-                        <h5 class="card-title"><%= review.author.username %></h5>
+                        <h5 class="card-title">@<%= review.author.username %></h5>
                         <h6 class="card-text"><%= review.comment %></h6>
                         <p class="starability-result" data-rating="<%= review.rating %>"></p>
                     </div>
