@@ -17,7 +17,6 @@ const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 
 // connect db with backend
-// const MONGO_URL = "mongodb://127.0.0.1:27017/accommate";
 const dbUrl = process.env.ATLASDB_URL;
 main()
 .then((res) => {
@@ -27,13 +26,12 @@ main()
 });
 async function main() {
     await mongoose.connect(dbUrl);
-    // await mongoose.connect(MONGO_URL);
 }
 
 const store = MongoStore.create({
     mongoUrl: dbUrl,
     crypto: {
-        secret: "sessionsecretecode"
+        secret: process.env.SECRET
     },
     touchAfter: 24 * 3600
 });
@@ -44,7 +42,7 @@ store.on("error", () => {
 
 const sessionOptions = {
     store,
-    secret: "sessionsecretecode",
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
