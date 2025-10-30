@@ -2,6 +2,10 @@
     --clr-primary: #2563eb;
 }
 
+.blue-text {
+    color: #0b3083;
+}
+
 body {
   font-family: "Plus Jakarta Sans", sans-serif !important;
   background-color: #f9fafb !important;
@@ -42,22 +46,39 @@ body {
     padding: 0;
 }
 
+/* mobile screen size => navs -> menuIcon */
+@media (max-width: 768px) {
+    #navbarNavAltMarkup {
+        position: absolute;
+        top: 60px; /* height of navbar */
+        right: 10px;
+        width: 250px;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border-radius: 12px;
+        padding: 1rem;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+
+    .navbar-nav .btn {
+        margin-top: 1rem;
+        max-width: 5rem;
+    }
+}
+
+
 /* Footer */
-.f-info {
-    height: 3rem;
+.footer {
+    min-height: 3rem;
     background-color: #ebebeb;
     font-size: small !important;
+    padding-inline: 0.5rem;
 }
 
 @media (width < 726px) {
     .footer {
         flex-direction: column !important;
     }
-}
-
-.f-info-socials i {
-    font-size: 1.2rem;
-    margin: 0.2rem 0.5rem 0; /* top | left&right | bottom */
 }
 
 .f-info-links a {
@@ -141,4 +162,8 @@ span {
 
 h3 {
     font-weight: 500 !important;
+}
+
+.details p{
+    margin: 0;
 }
