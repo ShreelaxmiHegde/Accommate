@@ -1,10 +1,24 @@
 <% layout("/layouts/boilerplate") %>
 
-<div id="filter">
-    <div class="filter">
-        
-    </div>
-</div>
+<style>
+    .glassy-card {
+        background: rgb(255, 255, 255);
+        backdrop-filter: blur(12px);
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        padding: 1rem;
+        text-align: center;
+    }
+    
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+
+    .like-rating {
+        display: flex;
+        justify-content: space-between;
+    }
+</style>
 
 <h3 class="text-center blue-text">Find your perfect student stay.</h3>
 <h6 class="border-bottom pb-3 text-center fst-italic">Explore verified student accommodations near your campus</h6>
@@ -17,11 +31,18 @@
             class="card-img-top"
             alt="listing-img"
             style="height: 10rem;">
-            <div class="card-img-overlay"></div>
-            <div class="card-body">
-                <p class="card-text">
-                    <b><%= listing.title %></b> - &#8377;<%= listing.price.toLocaleString("en-IN") %>/month
-                </p>
+
+            <div class="m-2">
+                <div class="like-rating">
+                    <span style="color: black;"><i class="fa-regular fa-heart"></i>19</span>
+                    <div class="starability-result" data-rating="4.5"></div>
+                </div>
+
+                <div class="card-body">
+                    <p class="card-text">
+                        <b><%= listing.title %></b> <br> &#8377;<%= listing.price.toLocaleString("en-IN") %>/month
+                    </p>
+                </div>
             </div>
         </div>
     </a>
