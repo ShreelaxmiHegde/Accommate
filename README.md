@@ -1,145 +1,79 @@
 # Accommate
+**Accommate** is a student accommodation platform built with the main goal of helping students easily find and book stays near their college or campus.
 
-## Overview
-Accommate is a Node.js web application for managing accommodation listings. It allows users to view, add, and manage property listings, making it easier for students and individuals to find suitable accommodations.
-
----
-
-## Features
-- User Authentications for personalization
-- Connects to MongoDB for data storage
-- RESTful API endpoints for listing management
-- Easy integration with front-end frameworks
+Check out the live version 👉 [Accommate](https://accommate.onrender.com/Accommate).
+<br>
+It’s a Full Stack MERN application deployed on Render.
 
 ---
 
-## Technologies Used
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose
-
-## Tools Used
-- Passport.js  # Authentication
-- EJS          # Show dynamic pages
+## ✨ Features Accommate Provide
+⤷ 🔐 User Authentication & Authorization for personalized experience <br>
+⤷ 🏘️ Connects students directly with housing owners <br>
+⤷ ⭐ Flexible ratings and reviews system <br>
+⤷ ⚡ Smooth and modern browsing experience 
 
 ---
 
-## Project Sturcture
+## 🧩 Technologies Used (MERN)
+| Category  | Technologies |
+|------------|--------------|
+| **Frontend** | HTML / CSS <br> Bootstrap |
+| **Backend** | Node.js <br> Express.js |
+| **Database** | MongoDB (Mongoose) |
+
+## 🛠️ Tools Used
+| Tool | Purpose |
+|------|----------|
+| **Render** | Deployment platform |
+| **Cloudinary** | Image storage & management |
+| **Passport.js** | Authentication & Authorization |
+| **EJS** | Dynamic page rendering |
+| **MongoDB Atlas** | Cloud database service |
+
+---
+
+## 🤝 Wanna Contribute? You are Welcome!
+### If you have ideas for: <br>
+● 💡 Feature enhancements <br>
+● 🐞 Bug fixes <br>
+● 🎨 UI/UX improvements
+
+OR
+
+If you’re just starting with open source and want to learn how to collaborate, <br> You’re **warmly welcomed!**
+I’ll be **happy** to guide and support you along the way. 💪
+
+### How to Contribute
+1. Fork the repository
+2. Create a new branch for your feature/fix
+3. Make your changes
+4. Submit a pull request 🎉
+
+Check out the [Technical Documentation](docs.md) 📘 for a detailed overview of the project.
+
+---
+
+## ⚙️ Setup Instructions
+1. Clone the repository 
 ```
-Accommate/
-│
-├── app.js                  # Main application file
-├── models/                 
-├── init/                 
-├── public/ 
-├── utils/                  
-├── views/                  # Routing pages for different routes       
-├── schema.js               # template page
-├── docs.md                 # project documentation
-├── LICENCE
-├── .gitignore
-├── package.json            # Project dependencies
-├── package-lock.json       # imp file to install all dependencies
-└── README.md       
-
+git clone https://github.com/your-username/Accommate.git
+```
+2. Install dependencies 
+```
+npm install
 ```
 
----
-
-## Setup Instructions
-1. Clone the repository
-2. Install dependencies `npm install`
-3. Start MongoDB server
-    - Ensure MongoDB is running locally on `mongodb://127.0.0.1:27017/accommate`
+3. Start MongoDB server and environment variables
+    - setup .env file and add your credentials
 4. Run the application `node app.js`
 5. Access API 
-    - Visit [http://localhost:8080/listings] to view all listings
+    - Visit [http://localhost:8080/Accommate] to view the website
+
+Then boom 💥.
+Start building and make your first PR!
 
 ---
 
-## API Endpoints
-
-GET `/listings`
-- Description: Retrieve all accommodation listings.
-- Response: Renders the dashboard page with all listings.
-
-GET /listings/new
-- Description: Display the form to create a new listing.
-- Response: Renders the new listing form page.
-
-POST /listings
-- Description: Create a new listing with user-provided data.
-- Request Body:
-    - listing: Object containing listing details (title, desc, location, state, price, capacity, image)
-- Response: Redirects to /listings after saving.
-
-GET /listings/:id
-- Description: Show details of a specific listing.
-- Params:
-    - id: Listing ID
-- Response: Renders the show page for the selected listing.
-
-GET /listings/:id/edit
-- Description: Display the edit form for a specific listing.
-- Params:
-    - id: Listing ID
-- Response: Renders the edit page for the selected listing.
-
-PUT /listings/:id
-- Description: Update a specific listing with new data.
-- Params:
-    - id: Listing ID
-- Request Body:
-    -listing: Object containing updated listing details
-- Response: Redirects to /listings/:id after updating.
-
-DELETE /listings/:id
-- Description: Delete a specific listing.
-- Params:
-    - id: Listing ID
-- Response: Redirects to /listings after deletion.
-
-POST /listings/:id/reviews
-- Description: Add reviews on listing.
-- Params:
-    - id: Listing ID
-- Response: Redirects to listings/:id after saving.
-
-DELETE /listings/:id/reviews/:reviewId
-- Description: Deletes comment and rating.
-- Params: 
-    - id: Listing ID
-    - reviewId: comment ID
-- Response: Redirects to listings/:id after deleting.
-
-GET /signup
-- Description: Display signup form
-- Response: Render EJS signup form
-
-POST /signup
-- Description: Register user
-- Response: 
-    - varified : redirect to /listings
-    - non-verified: redirect again to /signup
-
-GET /login
-- Description: Display login form
-- Response: Renders login form
-
-POST /login
-- Description: Authenticate user with login details
-- Response: 
-    - varified : redirect to /listings
-    - non-verified: redirect again to /login
-
----
-
-## Contributing
-- Feel free to fork the repository and submit pull requests for improvements or new features.
-- Checkout the [Technical Documentation](docs.md) for clear view of the project.
-
----
-
-## License
-This project is open source and available under the MIT License.
+## 📄 License
+This project is open source and available under the <b>MIT License</b>.
