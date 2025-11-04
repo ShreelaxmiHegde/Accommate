@@ -1,14 +1,32 @@
-body {
-    margin: 0;
-    padding: 0;
+.wrapper {
+    width: 90%;
+    margin: auto;
 }
 
-.blue-background {
-    height: 50vh;
-    width: 100%;
-    background-color: #2563eb;
+.card {
+    width: 300px;
+    min-height: 200px;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.logo-name {
-    color: white;
+.cards {
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.glassy-card {
+    background: rgb(255, 255, 255);
+    backdrop-filter: blur(12px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+}
+
+.hero-intro {
+    font-size: 1.2rem;
 }
