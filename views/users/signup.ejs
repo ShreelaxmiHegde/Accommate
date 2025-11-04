@@ -1,14 +1,14 @@
 <% layout("/layouts/boilerplate") %>
 
-<div class="row">
-    <div class="col-8 offset-2">
-        <h3 class="border-bottom pb-2">Join Accommate and find your perfect student stay.</h3>
+<div class="auth-card-container">
+    <div class="auth-card">
+        <h3 class="border-bottom pb-2 blue-text">Sign Up</h3>
 
         <form action="/signup" method="POST" class="needs-validation pt-3" novalidate>
             <!-- username -->
             <div class="mb-3">
                 <label for="username" class="form-label">Username : </label>
-                <input type="text" name="username" id="username" class="form-control" required>
+                <input type="text" name="username" id="username" class="form-control" placeholder="Enter username..." required>
         
                 <div class="invalid-feedback">Enter a valid username.</div>
             </div>
@@ -16,7 +16,7 @@
             <!-- email -->
             <div class="mb-3">
                 <label for="email" class="form-label">Email : </label>
-                <input type="email" name="email" id="email" class="form-control" required>
+                <input type="email" name="email" id="email" class="form-control" placeholder="Enter email..." required>
         
                 <div class="invalid-feedback">Enter a valid Email.</div>
             </div>
@@ -24,7 +24,7 @@
             <!-- password -->
              <div class="mb-3">
                 <label for="password" class="form-label">Password : </label>
-                <input type="password" name="password" id="password" class="form-control" required>
+                <input type="password" name="password" id="password" class="form-control" placeholder="Enter password..." required>
         
                 <div class="invalid-feedback">Enter a valid password.</div>
             </div>
@@ -33,7 +33,7 @@
         </form>
 
         <div class="mt-3">
-            <p>Already have an account? <a href="/login">login</a></p>
+            <p>Already have an account on Accommate? <a href="/login">login</a></p>
         </div>
     </div>
 </div>
