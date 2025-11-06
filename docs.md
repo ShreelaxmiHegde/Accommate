@@ -59,6 +59,86 @@ Accommate/
 ```
 ---
 
+## API Endpoints
+
+#### Listings
+GET `/listings`
+- Description: Retrieve all accommodation listings.
+- Response: Renders the dashboard page with all listings.
+
+GET /listings/new
+- Description: Display the form to create a new listing.
+- Response: Renders the new listing form page.
+
+POST /listings
+- Description: Create a new listing with user-provided data.
+- Request Body:
+    - listing: Object containing listing details (title, desc, location, state, price, capacity, image)
+- Response: Redirects to /listings after saving.
+
+GET /listings/:id
+- Description: Show details of a specific listing.
+- Params:
+    - id: Listing ID
+- Response: Renders the show page for the selected listing.
+
+GET /listings/:id/edit
+- Description: Display the edit form for a specific listing.
+- Params:
+    - id: Listing ID
+- Response: Renders the edit page for the selected listing.
+
+PUT /listings/:id
+- Description: Update a specific listing with new data.
+- Params:
+    - id: Listing ID
+- Request Body:
+    -listing: Object containing updated listing details
+- Response: Redirects to /listings/:id after updating.
+
+DELETE /listings/:id
+- Description: Delete a specific listing.
+- Params:
+    - id: Listing ID
+- Response: Redirects to /listings after deletion.
+
+#### Listing reviews
+POST /listings/:id/reviews
+- Description: Add reviews on listing.
+- Params:
+    - id: Listing ID
+- Response: Redirects to listings/:id after saving.
+
+DELETE /listings/:id/reviews/:reviewId
+- Description: Deletes comment and rating.
+- Params: 
+    - id: Listing ID
+    - reviewId: comment ID
+- Response: Redirects to listings/:id after deleting.
+
+#### Authentication and Authorization
+GET /signup
+- Description: Display signup form
+- Response: Render EJS signup form
+
+POST /signup
+- Description: Register user
+- Response: 
+    - varified : redirect to /listings
+    - non-verified: redirect again to /signup
+
+GET /login
+- Description: Display login form
+- Response: Renders login form
+
+POST /login
+- Description: Authenticate user with login details
+- Response: 
+    - varified : redirect to /listings
+    - non-verified: redirect again to /login
+
+---
+
 ## `app.js`
 - Sets up an Express.js server on port 8080.
 - Connects to MongoDB database using Mongoose.
