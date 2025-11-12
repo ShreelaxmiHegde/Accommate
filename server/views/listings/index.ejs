@@ -9,8 +9,8 @@
         text-align: center;
     }
     
-    .card:hover {
-        transform: translateY(-5px);
+    .card {
+        min-height: 250px;
         box-shadow: 0 6px 20px rgba(0,0,0,0.4);
     }
 
@@ -35,13 +35,13 @@
             <div class="m-2">
                 <div class="like-rating">
                     <span style="color: black;"><i class="fa-regular fa-heart"></i>19</span>
-                    <div class="starability-result" data-rating="4.5"></div>
+                    <div class="starability-result" data-rating="4"></div>
                 </div>
 
                 <div class="card-body">
-                    <p class="card-text">
+                    <span class="card-text">
                         <b><%= listing.title %></b> <br> &#8377;<%= listing.price.toLocaleString("en-IN") %>/month
-                    </p>
+                    </span>
                 </div>
             </div>
         </div>

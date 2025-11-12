@@ -15,6 +15,8 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
+import cors from "cors";
+app.use(cors());
 
 // connect db with backend
 const dbUrl = process.env.ATLASDB_URL;

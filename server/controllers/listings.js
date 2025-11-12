@@ -2,7 +2,8 @@ const Listing = require("../models/listing.js");
 
 module.exports.index = async (req, res) => {
     const allListings = await Listing.find({});
-    res.render("./listings/index.ejs", { allListings });
+    // res.render("./listings/index.ejs", { allListings });
+    res.json(allListings);
 };
 
 module.exports.renderNewForm = (req, res) => {
@@ -24,7 +25,8 @@ module.exports.showListing = async (req, res) => {
         req.flash("error", "The listing you are searching for - doesn't exist!");
         res.redirect("/listings");
     } else {
-        res.render("./listings/show.ejs", { listing });
+        // res.render("./listings/show.ejs", { listing });
+        res.json(listing);
     }
 };
 
@@ -52,7 +54,8 @@ module.exports.renderEditForm = async (req, res) => {
 
     let originalImgUrl = listing.image.url;
     originalImgUrl = originalImgUrl.replace("/upload", "/upload/w_250");
-    res.render("./listings/edit.ejs", { listing, originalImgUrl });
+    // res.render("./listings/edit.ejs", { listing, originalImgUrl });
+    res.json({listing, originalImgUrl});
 };
 
 module.exports.updateListing = async (req, res) => {

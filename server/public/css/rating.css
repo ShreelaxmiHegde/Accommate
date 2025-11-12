@@ -196,41 +196,10 @@
   transition: background-position .7s;
 }
 
-
-/*Starability: Accessible star rating*/
-
-/* Compact star display (no gaps, clean alignment) */
+/* Shrink stars size */
 .starability-result {
+  font-size: 0; /* remove gaps */
   display: inline-block;
-  position: relative;
-  font-size: 0;
-  width: 100px; /* total width of all 5 stars */
-  height: 20px; /* star height */
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><polygon points="10,0 12.94,6.18 20,7.27 15,11.97 16.18,18.09 10,15 3.82,18.09 5,11.97 0,7.27 7.06,6.18" fill="%23ddd"/></svg>') repeat-x;
-  background-size: 20px 20px; /* star width and height */
-  background-position: left center;
+  transform: scale(0.6);  /* shrink the whole block */
+  transform-origin: right center; /* adjust anchor if needed */
 }
-
-/* Filled portion */
-.starability-result::after {
-  content: '';
-  display: block;
-  width: var(--rating-percent, 0%);
-  height: 20px;
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><polygon points="10,0 12.94,6.18 20,7.27 15,11.97 16.18,18.09 10,15 3.82,18.09 5,11.97 0,7.27 7.06,6.18" fill="%23f5b301"/></svg>') repeat-x;
-  background-size: 20px 20px;
-  background-position: left center;
-}
-
-/* Rating levels */
-.starability-result[data-rating='5']::after { --rating-percent: 100%; }
-.starability-result[data-rating='4.5']::after { --rating-percent: 90%; }
-.starability-result[data-rating='4']::after { --rating-percent: 80%; }
-.starability-result[data-rating='3.5']::after { --rating-percent: 70%; }
-.starability-result[data-rating='3']::after { --rating-percent: 60%; }
-.starability-result[data-rating='2.5']::after { --rating-percent: 50%; }
-.starability-result[data-rating='2']::after { --rating-percent: 40%; }
-.starability-result[data-rating='1.5']::after { --rating-percent: 30%; }
-.starability-result[data-rating='1']::after { --rating-percent: 20%; }
-.starability-result[data-rating='0.5']::after { --rating-percent: 10%; }
-.starability-result[data-rating='0']::after { --rating-percent: 0%; }
