@@ -1,9 +1,15 @@
+import Navbar from "./components/layouts/Navbar"
+import './index.css'
+import ListingCard from "./ListingCard"
+import Footer from "./components/layouts/Footer"
 
 function App() {
 
   return (
     <>
-      <h1>I'm home</h1>
+      <Navbar />
+      <ListingCard />
+      <Footer />
     </>
   )
 }
