@@ -42,9 +42,9 @@ export default function Navbar() {
 
   return (
     <AppBar position="sticky" color="transparent" elevation={3} sx={{backgroundColor:"white"}}>
-      <Toolbar sx={{ display: "flex", justifyContent:{xs:"space-between", sm:"space-around"} , alignItems: "center", color: "#2563eb", fontWeight: 700 }}>
-        <Typography variant="h5" sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-          <i className="fa-solid fa-house-tsunami" style={{ color: "#2563eb", fontSize: "1.7rem" }}></i> <span>Accommate</span>
+      <Toolbar sx={{ display: "flex", justifyContent:{xs:"space-between", sm:"space-around"} , alignItems: "center", color: "#215da9" }}>
+        <Typography variant="h5" sx={{ display: "flex", alignItems: "center", gap: 1, fontWeight: 900 }}>
+          <i className="fa-solid fa-house-tsunami" style={{ color: "#215da9", fontSize: "1.7rem" }}></i>Accommate
         </Typography>
 
         <Tabs centered sx={{display: {xs:"none", sm:"flex"}, gap:2}}>
