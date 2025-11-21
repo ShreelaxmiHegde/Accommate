@@ -1,0 +1,69 @@
+.searchbar-box {
+  display: flex;
+  flex-direction: column;
+  flex: 1
+}
+
+.searchbar-icon-box {
+  display: flex;
+  align-items: center;
+  gap: 1
+}
+
+.gradient-box1 {
+  position: relative;
+  width: 100%;
+  min-height: 400;
+  border-radius: 4;
+  overflow: hidden;
+  background-image: url('/hostel-img-home.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+}
+
+.left-gradient-img {
+  width: 100%;
+  height: 100%;
+  padding: 4;
+  background:
+    linear-gradient(to right,
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(255, 255, 255, 0.75) 40%,
+      rgba(255, 255, 255, 0.35) 70%,
+      rgba(255, 255, 255, 0) 100%);
+  backdrop-filter: blur(4px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.gradient-box2 {
+  position: relative;
+  width: 100%;
+  min-height: 400;
+  border-radius: 4;
+  overflow: hidden;
+  background-image: url('/host-img-home.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+}
+
+.right-gradient-img {
+  width: 100%;
+  height: 100%;
+  padding: 4;
+  background:
+    linear-gradient(to left,
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(255, 255, 255, 0.75) 40%,
+      rgba(255, 255, 255, 0.35) 70%,
+      rgba(255, 255, 255, 0) 100%);
+  backdrop-filter: blur(4px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
