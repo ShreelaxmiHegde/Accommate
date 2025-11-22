@@ -1,13 +1,13 @@
-import Button from '@mui/material/Button';
-import { Paper, Box, Typography, InputBase, Divider, IconButton, Card } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
-import PeopleIcon from "@mui/icons-material/People";
-import "./Hero.css"
-import { Container } from "@mui/material";
+import { 
+    Box, 
+    Typography, 
+    Divider,
+    Container
+} from "@mui/material";
 import IconText from './IconText';
-
+import "./Hero.css"
+import "./MainBox"
+import MainBox from "./MainBox";
 
 export default function Hero() {
 
@@ -29,102 +29,16 @@ export default function Hero() {
 
     return (
         <>
-            <Container maxWidth="lg">
-                <section>
-                    <Typography variant="h3"
-                        sx={{
-                            fontWeight: 800,
-                            letterSpacing: "-1px",
-                            backgroundColor: "#215da9",
-                            textAlign: "center",
-                            color: 'white',
-                            paddingTop: 5
-                        }}
-                    >Live closer, hustle harder</Typography>
-                    <Typography variant="h6" sx={{ fontWeight: 300 }}>
-                        Find your Student Stay. Effortlessly.
-                    </Typography>
-
-                    <Button variant="contained">Explore Listings</Button>
-                    <Button variant="outlined">Post a Listing</Button>
-                </section>
-
-                <section>
-                    <Paper
-                        elevation={3}
-                        sx={{
-                            p: "6px 16px",
-                            display: "flex",
-                            alignItems: "center",
-                            borderRadius: "60px",
-                            gap: 2,
-                            width: "100%",
-                            maxWidth: 850,
-                            mx: "auto",
-                            mt: 4,
-                            cursor: "pointer",
-                            marginBottom: "10rem"
-                        }}
-                    >
-                        {/* Location */}
-                        <Box className="searchbar-box" >
-                            <Box className="searchbar-icon-box">
-                                <LocationOnIcon fontSize="small" />
-                                <Typography variant="caption" color="text.secondary">
-                                    Where
-                                </Typography>
-                            </Box>
-                            <InputBase placeholder="Search destinations" fullWidth />
-                        </Box>
-
-                        <Divider orientation="vertical" flexItem />
-
-                        {/* Check-in */}
-                        <Box className="searchbar-box">
-                            <Box className="searchbar-icon-box">
-                                <CurrencyRupeeIcon fontSize="small" />
-                                <Typography variant="caption" color="text.secondary">
-                                    Budget range
-                                </Typography>
-                            </Box>
-                            <InputBase placeholder="Your budget" fullWidth />
-                        </Box>
-
-                        <Divider orientation="vertical" flexItem />
-
-                        {/* Category */}
-                        <Box className="searchbar-box">
-                            <Box className="searchbar-icon-box">
-                                <PeopleIcon fontSize="small" />
-                                <Typography variant="caption" color="text.secondary">
-                                    Category
-                                </Typography>
-                            </Box>
-                            <InputBase placeholder="single/double" fullWidth />
-                        </Box>
-
-                        {/* Search button */}
-                        <IconButton
-                            sx={{
-                                bgcolor: "primary.main",
-                                color: "white",
-                                "&:hover": { bgcolor: "primary.dark" },
-                                width: 45,
-                                height: 45,
-                            }}
-                        >
-                            <SearchIcon />
-                        </IconButton>
-                    </Paper>
-                </section>
+            <MainBox />
+            <Container maxWidth="lg" sx={{position: "relative", transform:{xs:"translateY(30%)", md:"translateY(10%)"}}}>
 
                 <Divider>Why Accommate?</Divider>
 
                 <section>
-                    <Box className="gradient-box1">
+                    <Box className="gradient-box1" sx={{marginY: "3rem"}} >
                         <Box className="left-gradient-img">
                             <Typography variant="h4" sx={{fontWeight: 800,
-                            letterSpacing: "-1px"}}>
+                            letterSpacing: "-1px", color:"#215da9", fontSize:{xs:"1.7rem", md:"2rem"}}}>
                                 Designed for Students Who Just Want a Peaceful Stay
                             </Typography>
                             <IconText benifitList={studBenifitList} alignDir={"left"} />
@@ -133,10 +47,10 @@ export default function Hero() {
                 </section>
 
                 <section>
-                    <Box className="gradient-box2">
+                    <Box className="gradient-box2" sx={{marginY: "3rem"}} >
                         <Box className="right-gradient-img">
                             <Typography variant="h4" sx={{ fontWeight: 800,
-                            letterSpacing: "-1px", textAlign: "end" }}>
+                            letterSpacing: "-1px", textAlign: "end", color:"#215da9", fontSize:{xs:"1.7rem", md:"2rem"} }}>
                                 Built for Hosts, Powered by Smart Technology
                             </Typography>
                             <IconText benifitList={hostBenifitList} alignDir={"right"} />
