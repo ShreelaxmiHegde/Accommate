@@ -1,14 +1,14 @@
 import Navbar from "./components/layouts/Navbar"
 import './index.css'
-import ListingCard from "./ListingCard"
 import Footer from "./components/layouts/Footer"
+import ListingFacility from "./components/listingPage/ListingFacility"
 
 function App() {
 
   return (
     <>
       <Navbar />
-      <ListingCard />
+      <ListingFacility />
       <Footer />
     </>
   )
