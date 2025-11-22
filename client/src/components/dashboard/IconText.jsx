@@ -3,7 +3,8 @@ import {
     ListItem,
     ListItemAvatar,
     ListItemText,
-    Avatar
+    Avatar,
+    Typography
 } from "@mui/material";
 import MessageIcon from '@mui/icons-material/Message';
 import VerifiedIcon from '@mui/icons-material/Verified';
@@ -52,7 +53,20 @@ export default function IconText({ benifitList, alignDir }) {
                         <ListItemAvatar sx={alignStyles.avatar}>
                             <Avatar><IconComponent /></Avatar>
                         </ListItemAvatar>
-                        <ListItemText primary={text} sx={{...alignStyles.text, fontWeight: "bold", fontSize: "2rem", letterSpacing: "-1px"}} />
+                        <ListItemText
+                            primary={
+                                <Typography
+                                    sx={{
+                                        ...alignStyles.text,
+                                        fontWeight: {xs:"600", md:"700"},
+                                        fontSize: {xs: "0.9rem", md: "1.2rem"},
+                                        letterSpacing: "-0.5px",
+                                    }}
+                                >
+                                    {text}
+                                </Typography>
+                            }
+                        />
                     </ListItem>
                 )
             })}

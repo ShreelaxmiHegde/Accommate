@@ -14,7 +14,6 @@
   position: relative;
   width: 100%;
   min-height: 400;
-  border-radius: 4;
   overflow: hidden;
   background-image: url('/hostel-img-home.jpg');
   background-size: cover;
@@ -28,11 +27,11 @@
   height: 100%;
   padding: 4;
   background:
-    linear-gradient(to right,
-      rgba(255, 255, 255, 0.95) 0%,
-      rgba(255, 255, 255, 0.75) 40%,
-      rgba(255, 255, 255, 0.35) 70%,
-      rgba(255, 255, 255, 0) 100%);
+    linear-gradient(to right, 
+    rgba(255, 255, 255, 78.95) 0%, 
+    rgba(255, 255, 255, 1.75) 40%, 
+    rgba(255, 255, 255, 0.35) 70%, 
+    rgba(255, 255, 255, 36) 100%);
   backdrop-filter: blur(4px);
   display: flex;
   flex-direction: column;
@@ -43,7 +42,6 @@
   position: relative;
   width: 100%;
   min-height: 400;
-  border-radius: 4;
   overflow: hidden;
   background-image: url('/host-img-home.jpg');
   background-size: cover;
@@ -58,12 +56,46 @@
   padding: 4;
   background:
     linear-gradient(to left,
-      rgba(255, 255, 255, 0.95) 0%,
-      rgba(255, 255, 255, 0.75) 40%,
+      rgba(255, 255, 255, 10) 0%,
+      rgba(255, 255, 255, 13) 40%,
       rgba(255, 255, 255, 0.35) 70%,
       rgba(255, 255, 255, 0) 100%);
   backdrop-filter: blur(4px);
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.searchbar-item {
+  flex: 1;
+  width: 100%;
+  display:flex; 
+  flex-direction:column; 
+  align-items:center;
+  margin-bottom: 0.2rem;
+}
+
+.searchbar-item-inputbase {
+  font-size: 1rem;          /* default for mobile */
+}
+
+@media (min-width: 600px) {  /* sm breakpoint */
+  .searchbar-item-inputbase {
+    font-size: 0.95rem;
+  }
+}
+
+/* Actual input element inside InputBase */
+.searchbar-item-inputbase input {
+  text-align: center;
+}
+
+@media (max-width: 600px) {  /* sm breakpoint */
+  /* Placeholder styling */
+  .searchbar-item-inputbase input::placeholder {
+    font-size: inherit;
+    text-align: center;
+    border: 1px solid gray;
+    border-radius: 0.5rem;
+  }
 }
