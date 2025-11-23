@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
     Button,
     Typography,
@@ -29,9 +30,15 @@ export default function MainBox() {
                     Find your Student Stay. Effortlessly.
                 </Typography>
 
-                <Box sx={{marginTop: "2rem", marginBottom: "2rem", display:"flex", flexWrap: "wrap", alignItems: "center", justifyContent:"center"}}>
-                    <Button variant="contained" sx={{backgroundColor:"#f6cb3cff", color:"black", marginInline:"0.5rem"}}>Explore Stays</Button>
-                    <Button variant="contained"sx={{marginInline:"0.5rem"}}>Post a Stay</Button>
+                <Box sx={{ marginTop: "2rem", marginBottom: "2rem", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center" }}>
+                    <Button variant="contained"
+                        component={Link} to="/explore"
+                        sx={{ backgroundColor: "#f6cb3cff", color: "black", marginInline: "0.5rem" }}
+                    >Explore Stays</Button>
+                    <Button variant="contained"
+                        component={Link} to="/host"
+                        sx={{ marginInline: "0.5rem" }}
+                    >Post a Stay</Button>
                 </Box>
 
                 <SearchBar />
