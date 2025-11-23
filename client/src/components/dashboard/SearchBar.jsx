@@ -28,8 +28,6 @@ export default function SearchBar() {
                 width: { xs: "70%", md: "90%" },
                 maxWidth: 750,
                 mx: "auto",
-                position: "relative",
-                transform: "translateY(50%)"
             }}
         >
             {/* Location */}

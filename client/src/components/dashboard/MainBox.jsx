@@ -15,7 +15,8 @@ export default function MainBox() {
                     backgroundColor: "#215da9",
                     textAlign: "center",
                     color: 'white',
-                    paddingTop: 5
+                    paddingTop: 5,
+                    paddingBottom: 5
                 }}>
                 <Typography variant="h3"
                     sx={{
@@ -28,7 +29,7 @@ export default function MainBox() {
                     Find your Student Stay. Effortlessly.
                 </Typography>
 
-                <Box sx={{marginTop: "2rem", display:"flex", flexWrap: "wrap", alignItems: "center", justifyContent:"center"}}>
+                <Box sx={{marginTop: "2rem", marginBottom: "2rem", display:"flex", flexWrap: "wrap", alignItems: "center", justifyContent:"center"}}>
                     <Button variant="contained" sx={{backgroundColor:"#f6cb3cff", color:"black", marginInline:"0.5rem"}}>Explore Stays</Button>
                     <Button variant="contained"sx={{marginInline:"0.5rem"}}>Post a Stay</Button>
                 </Box>
