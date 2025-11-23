@@ -1,0 +1,58 @@
+import {
+  Card,
+  CardContent,
+  Typography,
+  Rating,
+  TextField,
+  Button,
+  Stack,
+} from "@mui/material";
+import { useState } from "react";
+
+export default function AddReviewCard({ onSubmit }) {
+  const [rating, setRating] = useState(0);
+  const [review, setReview] = useState("");
+
+  const handleSubmit = () => {
+    if (!rating || review.trim() === "") return; // basic validation
+    onSubmit({ rating, review });
+    setRating(0);
+    setReview("");
+  };
+
+  return (
+    <Card sx={{ p: 2, borderRadius: 3, boxShadow: 3, width: "80%", mx: "auto" }}>
+      <CardContent>
+        <Typography variant="h6" fontWeight={600} mb={1}>
+          Add Your Review
+        </Typography>
+
+        <Stack spacing={2}>
+          <Rating
+            value={rating}
+            onChange={(e, val) => setRating(val)}
+            size="large"
+          />
+
+          <TextField
+            multiline
+            minRows={3}
+            fullWidth
+            placeholder="Share your experience..."
+            value={review}
+            onChange={(e) => setReview(e.target.value)}
+          />
+
+          <Button
+            variant="contained"
+            fullWidth
+            disabled={!rating || review.trim() === ""}
+            onClick={handleSubmit}
+          >
+            Submit Review
+          </Button>
+        </Stack>
+      </CardContent>
+    </Card>
+  );
+}

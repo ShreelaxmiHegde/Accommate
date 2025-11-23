@@ -19,8 +19,7 @@ export default function ListingHead() {
             }
             sx={{
                 p: { xs: 1, md: 2 },
-                width: "100%",
-                maxWidth: "900px",
+                width: "90%",
                 mx: "auto",
                 mt: 2,
             }}

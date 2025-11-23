@@ -7,8 +7,7 @@ export default function ListingDetails() {
             direction={{ xs: "column", md: "row" }}
             spacing={4}
             sx={{
-                width: "100%",
-                maxWidth: "1100px",
+                width: "90%",
                 mx: "auto",
                 mt: 4,
                 px: { xs: 2, md: 0 },
