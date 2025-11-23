@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import {
   AppBar,
@@ -18,7 +19,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import AddBusinessIcon from "@mui/icons-material/AddBusiness";
 import MenuIcon from "@mui/icons-material/Menu";
-import AuthDialog from "../auth/AuthDialog";
+import AuthDialog from "../../pages/AuthDialog";
 
 export default function Navbar() {
   const navItems = ["Home", "Find Stays", "Become a Host"];
@@ -48,9 +49,9 @@ export default function Navbar() {
         </Typography>
 
         <Tabs centered sx={{display: {xs:"none", sm:"flex"}, gap:2}}>
-          <Tab icon={<HomeIcon />} sx={fontDefStyle}  label="Home" />
-          <Tab icon={<TravelExploreIcon />} label="Find Stays" sx={fontDefStyle}  />
-          <Tab icon={<AddBusinessIcon />} label="Become a Host" sx={fontDefStyle}  />
+          <Tab icon={<HomeIcon />} sx={fontDefStyle}  label="Home" component={Link} to="/" />
+          <Tab icon={<TravelExploreIcon />} label="Find Stays" sx={fontDefStyle} component={Link} to="/explore" />
+          <Tab icon={<AddBusinessIcon />} label="Become a Host" sx={fontDefStyle} component={Link} to="/listing" />
         </Tabs>                  
 
         <Box direction="row" spacing={2} sx={{display: {xs:"none", sm:"flex"}, gap:2}}>
