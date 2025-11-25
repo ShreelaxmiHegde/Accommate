@@ -6,17 +6,22 @@ const express = require("express");
 const app = express(); 
 const port = 8080;
 const mongoose = require("mongoose");
-const path = require("path");
 const methodOverride = require("method-override");
-const ejsMate = require("ejs-mate"); //for better templating
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
-import cors from "cors";
-app.use(cors());
+const cors = require("cors");
+// import cors from "cors";
+// const path = require("path");
+// const ejsMate = require("ejs-mate"); //for better templating
+
+app.use(cors({
+    origin: "http://localhost:5173",
+    credentials: true
+}));
 
 // connect db with backend
 const dbUrl = process.env.ATLASDB_URL;
@@ -44,22 +49,24 @@ store.on("error", () => {
 
 const sessionOptions = {
     store,
-    secret: process.env.SECRET,
+    secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false, //Don’t create a session until the user actually logs in.
     cookie: {
         expires: Date.now() + 7*24*60*60*1000,
         maxAge: 7*24*60*60*1000,
-        httpOnly: true
+        httpOnly: true,
+        secure: false,
+        sameSite: "lax"
     }
 }
 
-app.set("view engine", "ejs");
-app.engine("ejs", ejsMate);
+// app.set("view engine", "ejs");
+// app.engine("ejs", ejsMate);
 app.use(express.urlencoded( { extended: true })); //parse data
 app.use(methodOverride("_method"));
-app.set("views", path.join(__dirname, "views"));
-app.use(express.static(path.join(__dirname, "/public")));
+// app.set("views", path.join(__dirname, "views"));
+// app.use(express.static(path.join(__dirname, "/public")));
 
 app.use(session(sessionOptions)); //setup express-session middleware
 app.use(flash());
@@ -81,13 +88,13 @@ app.use((req, res, next) => {
     next();
 });
 
-app.get("/Accommate", (req, res) => {
-    res.render("home.ejs");
-});
+// app.get("/Accommate", (req, res) => {
+//     res.render("home.ejs");
+// });
 
-app.get("/support", (req, res) => {
-  res.render("support.ejs");
-});
+// app.get("/support", (req, res) => {
+//   res.render("support.ejs");
+// });
 
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
@@ -95,14 +102,14 @@ app.use("/", userRouter);
 
 
 // page not found error
-app.use((req, res) => {
-    res.render("errors/pageNotFound.ejs");
-});
+// app.use((req, res) => {
+//     res.render("errors/pageNotFound.ejs");
+// });
 
 // generic error handler
 app.use((err, req, res, next) => {
     let { statusCode = 500, message = "Something went wrong!" } = err;
-    res.render("errors/error.ejs", { err });
+    // res.render("errors/error.ejs", { err });
 });
 
 app.listen(port, () => {
