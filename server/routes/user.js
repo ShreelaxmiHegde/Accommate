@@ -2,8 +2,12 @@ const express = require("express");
 const wrapAsync = require("../utils/wrapAsync");
 const router = express.Router();
 const passport = require("passport");
-const { saveRedirectUrl } = require("../../middleware.js");
+const { saveRedirectUrl } = require("../middleware.js");
 const listingsController = require("../controllers/users.js");
+
+router.get("/me", (req, res) => {
+    res.send("@userme");
+});
 
 router.route("/signup")
 .get(listingsController.renderSignupFrom)
