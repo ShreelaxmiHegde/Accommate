@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import api from "../api/axios"
 import ListingCarousel from "../components/listingsExplore/ListingCarousel"
 import { Box } from "@mui/material"
-import ListingExploreSkeleton from "../components/skeletons/ListingExploreSkeleton"
+import ListingExploreSkeleton from "../components/loaders/ListingExploreSkeleton"
 import SearchBar from "../components/dashboard/SearchBar"
 
 export default function ListingExplore() {

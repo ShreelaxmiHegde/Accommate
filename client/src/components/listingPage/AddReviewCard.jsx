@@ -21,7 +21,15 @@ export default function AddReviewCard({ onSubmit }) {
   };
 
   return (
-    <Card sx={{ p: 2, borderRadius: 3, boxShadow: 3, width: "80%", mx: "auto" }}>
+    <Card sx={{
+      p: 2,
+      borderRadius: 3,
+      boxShadow: 3,
+      width:{xs:"80%", md:"50%"},
+      mt:{xs:5, md:0},
+      mx: "auto",
+      maxWidth:{md: "500px"}
+    }}>
       <CardContent>
         <Typography variant="h6" fontWeight={600} mb={1}>
           Add Your Review

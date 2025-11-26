@@ -30,7 +30,7 @@ export default function AmenitiesSection() {
     ];
 
     return (
-        <Box sx={{ mt: 6, mb: 4 }}>
+        <Box sx={{ mt: 6, mb: 4}}>
             <Typography variant="h5" sx={{ fontWeight: 700, }} >
                 Amenities & Facilities
             </Typography>

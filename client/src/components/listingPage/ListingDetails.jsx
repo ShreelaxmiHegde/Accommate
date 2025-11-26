@@ -1,24 +1,21 @@
 import { Box, Stack, Typography, Button, Paper } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 
-export default function ListingDetails() {
+export default function ListingDetails({desc, price}) {
     return (
-        <Stack
-            direction={{ xs: "column", md: "row" }}
-            spacing={4}
-            sx={{
+        <Stack sx={{
                 width: "90%",
                 mx: "auto",
                 mt: 4,
                 px: { xs: 2, md: 0 },
+                display: "flex",
+                flexDirection:{xs: "column", md:"row"},
+                justifyContent: "space-around",
             }}
         >
-
-            {/* LEFT SECTION — About + Address */}
-            <Stack flex={1} spacing={3}>
-
-                {/* About / Description */}
-                <Box>
+            <Stack sx={{mb: 4}}>
+                <Box sx={{mb:4}}>
                     <Typography variant="h5" sx={{ fontWeight: 700, mb: 1 }} >
                         About this accommodation
                     </Typography>
@@ -29,16 +26,9 @@ export default function ListingDetails() {
                             color: "text.secondary",
                             lineHeight: 1.6
                         }}
-                    >
-                        This is a modern and spacious accommodation located in a
-                        peaceful residential area. Designed for comfort, the
-                        property includes well-maintained rooms, high-quality
-                        furnishings, reliable water supply, and easy access to
-                        nearby colleges, eateries, and public transport.
-                    </Typography>
+                    > {desc} </Typography>
                 </Box>
 
-                {/* Address */}
                 <Box>
                     <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }} >
                         Address
@@ -53,22 +43,40 @@ export default function ListingDetails() {
                 </Box>
             </Stack>
 
-            {/* RIGHT SECTION — Price + CTA */}
             <Paper elevation={3}
                 sx={{
                     p: 3,
-                    width: { xs: "50%", md: "170px" },
+                    width: { xs: "90%", md: "250px" },
                     borderRadius: "20px",
                     height: "fit-content",
-                    position: { md: "sticky" },
-                    top: { md: "80px" }   // makes it sticky on desktop
                 }}
             >
-                {/* Price */}
-                <Typography variant="h6" sx={{ fontWeight: 700 }} >
-                    ₹6,000 / month
+                <Typography variant="h6" 
+                    sx={{ 
+                        fontWeight: 700,
+                        display: "flex",
+                        alignItems: "center" 
+                    }} >
+                    <CurrencyRupeeIcon sx={{ fontSize: { xs: 18, sm: 20 } }} />
+                    {price} / month
                 </Typography>
 
+                <Typography
+                    sx={{
+                        fontSize: "0.9rem",
+                        color: "text.secondary",
+                    }}
+                >
+                    (Excluding utilities)
+                </Typography>
+                <Typography
+                    sx={{
+                        fontSize: "0.9rem",
+                        color: "text.secondary",
+                    }}
+                >
+                    No booking fee
+                </Typography>
                 <Typography
                     sx={{
                         fontSize: "0.9rem",
@@ -76,7 +84,7 @@ export default function ListingDetails() {
                         mb: 2
                     }}
                 >
-                    (excluding utilities)
+                    Free cancellation before 24 hours
                 </Typography>
 
                 <Button variant="contained"

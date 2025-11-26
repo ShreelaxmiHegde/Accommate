@@ -10,13 +10,16 @@ export default function ListingCarousel({ listings }) {
                 mt: "3rem",
                 justifyContent: "center",
                 alignItems: "center"
-            }}>
+            }}
+        >
             {listings.map((listing) => (
-                <Box sx={{
-                    width: { xs: 250, md: 210 },
-                    marginRight: 2,
-                    my: 5,
-                }}>
+                <Box key={listing._id}
+                    sx={{
+                        width: { xs: 250, md: 210 },
+                        marginRight: 2,
+                        my: 5,
+                    }}
+                >
                     <ListingCard listing={listing} />
                 </Box >
             ))}

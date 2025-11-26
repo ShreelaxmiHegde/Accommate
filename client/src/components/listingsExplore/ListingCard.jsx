@@ -1,12 +1,13 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   CardMedia,
   CardContent,
   CardActions,
   Typography,
   Rating,
-  IconButton, 
-  Box, 
+  IconButton,
+  Box,
   Paper
 } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
@@ -25,13 +26,21 @@ export default function ListingCard({ listing }) {
     }
   }
 
+  const navigate = useNavigate();
+
+  const imageClickHandler = async (id) => {
+    navigate(`listings/${id}`);
+  }
+
   return (
-    <Paper elevation={5} sx={{width: { xs: 250, md: 210 } }}>
+    <Paper elevation={5} sx={{ width: { xs: 250, md: 210 } }}>
       <CardMedia
         component="img"
         height="118"
         image={listing.image.url}
-        alt={listing.title} sx={{ width: { xs: 250, md: 210 }, borderRadius: 1}} />
+        alt={listing.title} sx={{ width: { xs: 250, md: 210 }, borderRadius: 1 }}
+        onClick={() => imageClickHandler(listing._id)}
+      />
       <CardContent sx={{ padding: "0.5rem" }}>
         <CardActions disableSpacing sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: 0, marginBottom: "0.5rem" }}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
