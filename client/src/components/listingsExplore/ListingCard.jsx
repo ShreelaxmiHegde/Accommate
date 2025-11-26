@@ -1,47 +1,59 @@
-import { useState } from 'react';
-import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Typography from '@mui/material/Typography';
-import Rating from '@mui/material/Rating';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import { IconButton, Box } from '@mui/material';
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import {
+  CardMedia,
+  CardContent,
+  CardActions,
+  Typography,
+  Rating,
+  IconButton,
+  Box,
+  Paper
+} from '@mui/material'
+import FavoriteIcon from '@mui/icons-material/Favorite'
 
-export default function ListingCard() {
-  let [ isLiked, setIsLiked ] = useState(false);
-  let [ count, setCount ] = useState(15);
+export default function ListingCard({ listing }) {
+  let [isLiked, setIsLiked] = useState(false);
+  let [count, setCount] = useState(15);
 
   const handleLike = () => {
-    if(isLiked) {
+    if (isLiked) {
       setIsLiked(false);
-      setCount(count-1);
+      setCount(count - 1);
     } else {
       setIsLiked(true);
-      setCount(count+1);
+      setCount(count + 1);
     }
   }
 
+  const navigate = useNavigate();
+
+  const imageClickHandler = async (id) => {
+    navigate(`listings/${id}`);
+  }
+
   return (
-    <Card variant="outlined" sx={{ maxWidth: 200 }}>
-       <CardMedia
+    <Paper elevation={5} sx={{ width: { xs: 250, md: 210 } }}>
+      <CardMedia
         component="img"
-        height="100"
-        image="/static/images/cards/paella.jpg"
-        alt="Paella dish" sx={{backgroundColor: "skyblue"}}/>
-      <CardContent sx={{padding:"0.5rem"}}>
-        <CardActions disableSpacing sx={{display:"flex", justifyContent:"space-between", alignItems:"center", padding:0, marginBottom:"0.5rem"}}>
-          <Box sx={{display:"flex", alignItems:"center"}}>
-            <IconButton sx={{padding:0}} onClick={handleLike} color={ isLiked ? "error" : "default"}>
-              <FavoriteIcon fontSize="small" /> 
+        height="118"
+        image={listing.image.url}
+        alt={listing.title} sx={{ width: { xs: 250, md: 210 }, borderRadius: 1 }}
+        onClick={() => imageClickHandler(listing._id)}
+      />
+      <CardContent sx={{ padding: "0.5rem" }}>
+        <CardActions disableSpacing sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: 0, marginBottom: "0.5rem" }}>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <IconButton sx={{ padding: 0 }} onClick={handleLike} color={isLiked ? "error" : "default"}>
+              <FavoriteIcon fontSize="small" />
             </IconButton>
             <Typography>{count}</Typography>
           </Box>
           <Rating name="read-only" size="small" value={3} readOnly />
         </CardActions>
 
-        <Typography>New Hostel</Typography>
+        <Typography variant="body2">{listing.title}</Typography>
       </CardContent>
-    </Card>
+    </Paper>
   );
 }

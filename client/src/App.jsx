@@ -17,8 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Hero />} />
         <Route path="/explore" element={<ListingExplore />} />
-
-        <Route path="/listing" element={<ListingPage />} />
+        <Route path="explore/listings/:id" element={<ListingPage />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

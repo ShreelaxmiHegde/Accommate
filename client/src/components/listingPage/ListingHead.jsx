@@ -1,10 +1,11 @@
-import Divider from '@mui/material/Divider';
-import Paper from '@mui/material/Paper';
-import Stack from '@mui/material/Stack';
-import { Typography } from '@mui/material';
-import Rating from '@mui/material/Rating';
+import {
+    Divider,
+    Stack,
+    Typography,
+    Rating
+} from '@mui/material';
 
-export default function ListingHead() {
+export default function ListingHead({title, location}) {
     return (
         <Stack
             direction={{ xs: "column", md: "row" }}
@@ -24,7 +25,6 @@ export default function ListingHead() {
                 mt: 2,
             }}
         >
-            {/* Heading */}
             <Typography
                 variant="h4"
                 sx={{
@@ -32,10 +32,9 @@ export default function ListingHead() {
                     fontWeight: 700,
                 }}
             >
-                Listing Heading
+                {title}
             </Typography>
 
-            {/* Address */}
             <Typography
                 variant="h6"
                 sx={{
@@ -44,10 +43,9 @@ export default function ListingHead() {
                     maxWidth: "300px",
                 }}
             >
-                Address, City
+                {location}
             </Typography>
 
-            {/* Rating */}
             <Rating
                 name="read-only"
                 size="large"
