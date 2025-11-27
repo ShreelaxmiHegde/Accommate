@@ -63,6 +63,7 @@ const sessionOptions = {
 
 // app.set("view engine", "ejs");
 // app.engine("ejs", ejsMate);
+app.use(express.json()); //parse axios req json data from the frontend
 app.use(express.urlencoded( { extended: true })); //parse data
 app.use(methodOverride("_method"));
 // app.set("views", path.join(__dirname, "views"));
