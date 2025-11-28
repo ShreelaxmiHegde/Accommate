@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { 
+import { useNavigate } from 'react-router-dom'
+import api from '../api/axios'
+import {
   useState,
   useEffect
 } from 'react';
@@ -27,14 +29,54 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-export default function AuthDialog({open, initialMode, onClose}) {
+export default function AuthDialog({ open, initialMode, onClose }) {
   const [mode, setMode] = useState(initialMode);
-  
+  const navigate = useNavigate();
+
   useEffect(() => {
-    if(open) {
+    if (open) {
       setMode(initialMode);
     }
   }, [open, initialMode]);
+
+  let [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: ""
+  });
+
+  let handleChange = (evt) => {
+    setFormData({
+      ...formData,
+      [evt.target.name]: evt.target.value
+    })
+  }
+
+  const handleSignupSubmit = async (evt) => {
+    evt.preventDefault();
+    try {
+      const res = await api.post("/signup", formData);
+      if (res.data.success) {
+        onClose();
+        navigate("/");
+      }
+    } catch (err) {
+      console.error("Error :", err.message);
+    }
+  }
+
+  const handleLoginSubmit = async (evt) => {
+    evt.preventDefault();
+    try {
+      const res = await api.post("/login", formData);
+      if (res.data.success) {
+        onClose();
+        navigate(`"${res.data.url}"`);
+      }
+    } catch (err) {
+      console.error("Error :", err.message);
+    }
+  }
 
   return (
     <React.Fragment>
@@ -42,12 +84,14 @@ export default function AuthDialog({open, initialMode, onClose}) {
         onClose={onClose}
         aria-labelledby="customized-dialog-title"
         open={open}
-        PaperProps={{
-          sx: {
-            width: { xs: '80%', sm: '400px' },
-            maxWidth: '90vw',
-            borderRadius: 2,
-            overflow: "visible"
+        slotProps={{
+          paper: {
+            sx: {
+              width: { xs: '80%', sm: '400px' },
+              maxWidth: '90vw',
+              borderRadius: 2,
+              overflow: "visible"
+            }
           }
         }}
       >
@@ -67,21 +111,25 @@ export default function AuthDialog({open, initialMode, onClose}) {
           <CloseIcon />
         </IconButton>
         <DialogContent>
-          {mode === "login" ? <Login /> : <Signup />}
+          {mode === "login" ?
+            (<Login onChange={handleChange} />) :
+            (<Signup onChange={handleChange} />)}
         </DialogContent>
         <DialogActions style={{ paddingInline: "16px" }}>
-            <Button variant="contained" autoFocus onClick={onClose} fullWidth>
-                {mode === "login" ? "Log In" : "Sign Up"}
-            </Button>
+          <Button variant="contained" autoFocus
+            onClick={mode == "login" ? handleLoginSubmit : handleSignupSubmit}
+            fullWidth>
+            {mode === "login" ? "Log In" : "Sign Up"}
+          </Button>
         </DialogActions>
 
         <Typography p={"2rem"} sx={{ flexWrap: "wrap", textAlign: "center" }} variant="body2">
           {mode === "login" ? "Don't have an account?" : "Already have an account?"}
-          <Link 
-          component="button" 
-          variant="body2" 
-          sx={{ fontWeight: 600, marginLeft: 1 }}
-          onClick={() => setMode(mode === "login" ? "signup" : "login")}>
+          <Link
+            component="button"
+            variant="body2"
+            sx={{ fontWeight: 600, marginLeft: 1 }}
+            onClick={() => setMode(mode === "login" ? "signup" : "login")}>
             {mode === "login" ? "Sign Up" : "Log In"}
           </Link>
         </Typography>
