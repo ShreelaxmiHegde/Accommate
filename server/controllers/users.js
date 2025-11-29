@@ -18,11 +18,19 @@ module.exports.signup = async (req, res) => {
         });
 
         //flash success
-        return res.status(200).json({ success: true, registeredUser })
+        return res.status(200).json(
+            { 
+                success: true, 
+                user: registeredUser 
+            })
 
     } catch (err) { // username entered is existing username
         //flash error
-        return res.status(400).json({ success: false, message: "Please recheck the credentials. You have submitted already existing ones!" })
+        return res.status(400).json(
+            { 
+                success: false, 
+                message: "Please recheck the credentials. You have submitted already existing ones!" 
+            })
     }
 };
 
