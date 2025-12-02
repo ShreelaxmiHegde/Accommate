@@ -16,20 +16,18 @@ module.exports.signup = async (req, res) => {
                 return next(err);
             }
         });
-
-        //flash success
+ 
         return res.status(200).json(
-            { 
-                success: true, 
-                user: registeredUser 
+            {
+                success: true,
+                user: registeredUser
             })
 
     } catch (err) { // username entered is existing username
-        //flash error
         return res.status(400).json(
-            { 
-                success: false, 
-                message: "Please recheck the credentials. You have submitted already existing ones!" 
+            {
+                success: false,
+                message: "Please recheck the credentials. You have submitted already existing ones!"
             })
     }
 };
@@ -39,6 +37,7 @@ module.exports.renderLoginFrom = (req, res) => {
 };
 
 module.exports.login = async (req, res) => {
+    console.log("@login controller")
     //flash
     let redirectUrl = res.locals.redirectUrl || "/";
     return res.json({ success: true, url: redirectUrl });
@@ -49,7 +48,10 @@ module.exports.logout = (req, res, next) => {
         if (err) { // to catch issues from passport.js if any occured.
             return next();
         }
-        req.flash("error", "You are logged out!");
-        res.redirect("/listings");
+
+        req.session.destroy(() => {
+            res.clearCookie("connect.sid");
+            return res.json({ success: true, message: "logout was successful" })
+        });
     });
 };
