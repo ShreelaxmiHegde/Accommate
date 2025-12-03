@@ -23,12 +23,14 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import AuthDialog from "../../pages/AuthDialog";
 import { useAuth } from "../../context/AuthContext";
 import api from "../../api/axios"
+import { useFlash } from '../../context/FlashContext';
 
 export default function Navbar() {
   const navItems = ["Home", "Find Stays", "Become a Host"];
   const [initialMode, setInitialMode] = useState("");
   const [authOpen, setAuthOpen] = useState(false);
   const { currUser, setCurrUser } = useAuth();
+  const { showFlash } = useFlash();
 
   const handleModeChange = (mode) => {
     setInitialMode(mode);
@@ -51,8 +53,10 @@ export default function Navbar() {
     try {
       await api.get("/logout");
       setCurrUser(null);
+      showFlash("success", "You Logged Out Successfully!");
     } catch (err) {
       console.error("Error :", err.message);
+      showFlash("error", `Logout was Failed! ${err.message}`);
     }
   }
 

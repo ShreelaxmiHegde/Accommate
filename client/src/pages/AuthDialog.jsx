@@ -20,6 +20,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Signup from '../components/auth/Signup';
 import Login from '../components/auth/Login';
 import { useAuth } from '../context/AuthContext';
+import { useFlash } from '../context/FlashContext';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -34,6 +35,7 @@ export default function AuthDialog({ open, initialMode, onClose }) {
   const [mode, setMode] = useState(initialMode);
   const { setCurrUser } = useAuth();
   const navigate = useNavigate();
+  const { showFlash } = useFlash(); 
 
   useEffect(() => {
     if (open) {
@@ -61,10 +63,12 @@ export default function AuthDialog({ open, initialMode, onClose }) {
       if (res.data.success) {
         setCurrUser(res.data.user);
         onClose();
+        showFlash("success", "Signup was Successful!");
         navigate("/");
       }
     } catch (err) {
       console.error("Error :", err.message);
+      showFlash("error", `Signup was Failed! ${err.message}`);
     }
   }
 
@@ -72,15 +76,20 @@ export default function AuthDialog({ open, initialMode, onClose }) {
     evt.preventDefault();
     try {
       const res = await api.post("/login", formData);
+      console.log("Login Response:", res.data);
       if (res.data.success) {
         setCurrUser(res.data.user);
         onClose();
+        showFlash("success", "Login was Successful!");
+      } else {
+        showFlash("error", "Login was Failed! Please check your credentials.");
       }
     } catch (err) {
       console.error("Error :", err.message);
+      console.error("Error Log:", err)
+      showFlash("error", `Login was Failed! ${err.message}`);
     }
   }
-
   return (
     <React.Fragment>
       <BootstrapDialog
