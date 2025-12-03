@@ -19,6 +19,7 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import Signup from '../components/auth/Signup';
 import Login from '../components/auth/Login';
+import { useAuth } from '../context/AuthContext';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -31,6 +32,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 export default function AuthDialog({ open, initialMode, onClose }) {
   const [mode, setMode] = useState(initialMode);
+  const { setCurrUser } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -57,6 +59,7 @@ export default function AuthDialog({ open, initialMode, onClose }) {
     try {
       const res = await api.post("/signup", formData);
       if (res.data.success) {
+        setCurrUser(res.data.user);
         onClose();
         navigate("/");
       }
@@ -70,8 +73,8 @@ export default function AuthDialog({ open, initialMode, onClose }) {
     try {
       const res = await api.post("/login", formData);
       if (res.data.success) {
+        setCurrUser(res.data.user);
         onClose();
-        navigate(`"${res.data.url}"`);
       }
     } catch (err) {
       console.error("Error :", err.message);
