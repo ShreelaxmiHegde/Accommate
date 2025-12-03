@@ -1,9 +1,5 @@
 const User = require("../models/user.js");
 
-module.exports.renderSignupFrom = (req, res) => {
-    // res.render("users/signup.ejs");
-};
-
 module.exports.signup = async (req, res) => {
     try {
         let { username, email, password } = req.body;
@@ -32,23 +28,13 @@ module.exports.signup = async (req, res) => {
     }
 };
 
-module.exports.renderLoginFrom = (req, res) => {
-    // res.render("users/login.ejs")
-};
-
-module.exports.login = async (req, res) => {
-    console.log("@login controller")
-    //flash
-    let redirectUrl = res.locals.redirectUrl || "/";
-    return res.json({ success: true, url: redirectUrl });
-};
-
 module.exports.logout = (req, res, next) => {
     req.logout((err) => {
         if (err) { // to catch issues from passport.js if any occured.
             return next();
         }
 
+        //prevent undefined user after logout
         req.session.destroy(() => {
             res.clearCookie("connect.sid");
             return res.json({ success: true, message: "logout was successful" })
