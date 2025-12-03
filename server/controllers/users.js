@@ -1,9 +1,5 @@
 const User = require("../models/user.js");
 
-module.exports.renderSignupFrom = (req, res) => {
-    // res.render("users/signup.ejs");
-};
-
 module.exports.signup = async (req, res) => {
     try {
         let { username, email, password } = req.body;
@@ -16,24 +12,20 @@ module.exports.signup = async (req, res) => {
                 return next(err);
             }
         });
-
-        //flash success
-        return res.status(200).json({ success: true, registeredUser })
+ 
+        return res.status(200).json(
+            {
+                success: true,
+                user: registeredUser
+            })
 
     } catch (err) { // username entered is existing username
-        //flash error
-        return res.status(400).json({ success: false, message: "Please recheck the credentials. You have submitted already existing ones!" })
+        return res.status(400).json(
+            {
+                success: false,
+                message: "Please recheck the credentials. You have submitted already existing ones!"
+            })
     }
-};
-
-module.exports.renderLoginFrom = (req, res) => {
-    // res.render("users/login.ejs")
-};
-
-module.exports.login = async (req, res) => {
-    //flash
-    let redirectUrl = res.locals.redirectUrl || "/";
-    return res.json({ success: true, url: redirectUrl });
 };
 
 module.exports.logout = (req, res, next) => {
@@ -41,7 +33,11 @@ module.exports.logout = (req, res, next) => {
         if (err) { // to catch issues from passport.js if any occured.
             return next();
         }
-        req.flash("error", "You are logged out!");
-        res.redirect("/listings");
+
+        //prevent undefined user after logout
+        req.session.destroy(() => {
+            res.clearCookie("connect.sid");
+            return res.json({ success: true, message: "logout was successful" })
+        });
     });
 };
