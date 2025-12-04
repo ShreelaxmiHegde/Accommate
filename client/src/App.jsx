@@ -10,6 +10,7 @@ import Hero from "./pages/Hero"
 import ListingExplore from "./pages/ListingExplore"
 import ListingPage from "./pages/ListingPage"
 import NotFound from "./pages/NotFound"
+import NewListingForm from "./components/forms/NewListing.jsx";
 import './index.css'
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/" element={<Hero />} />
         <Route path="/explore" element={<ListingExplore />} />
         <Route path="explore/listings/:id" element={<ListingPage />} />
+        <Route path="/listings/new" element={<NewListingForm />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
