@@ -67,10 +67,10 @@ export default function Navbar() {
           <i className="fa-solid fa-house-tsunami" style={{ color: "#215da9", fontSize: "1.7rem" }}></i>Accommate
         </Typography>
 
-        <Tabs centered sx={{ display: { xs: "none", sm: "flex" }, gap: 2 }}>
+        <Tabs value={false} centered sx={{ display: { xs: "none", sm: "flex" }, gap: 2 }}>
           <Tab icon={<HomeIcon />} sx={fontDefStyle} label="Home" component={Link} to="/" />
           <Tab icon={<TravelExploreIcon />} label="Find Stays" sx={fontDefStyle} component={Link} to="/explore" />
-          <Tab icon={<AddBusinessIcon />} label="Become a Host" sx={fontDefStyle} component={Link} to="/listing" />
+          <Tab icon={<AddBusinessIcon />} label="Become a Host" sx={fontDefStyle} component={Link} to="/listings/new" />
         </Tabs>
 
         <Box direction="row" spacing={2} sx={{ display: { xs: "none", sm: "flex" }, gap: 2 }}>
