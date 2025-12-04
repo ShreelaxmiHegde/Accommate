@@ -26,7 +26,8 @@ function App() {
 
         <Route path="*" element={<NotFound />} />
       </Routes>
-      <FlashMsg flash={flash} setFlash={setFlash} />
+      
+      {flash?.msg && <FlashMsg flash={flash} setFlash={setFlash} />}
       <Footer />
     </>
   )
