@@ -2,7 +2,6 @@ const Listing = require("../models/listing.js");
 
 module.exports.index = async (req, res) => {
     const allListings = await Listing.find({});
-    // res.render("./listings/index.ejs", { allListings });
     res.json(allListings);
 };
 
@@ -30,6 +29,7 @@ module.exports.showListing = async (req, res) => {
 };
 
 module.exports.createListing = async (req, res) => {
+    //url, filename from multer file upload
     let url = req.file.path;
     let filename = req.file.filename;
 
@@ -38,8 +38,13 @@ module.exports.createListing = async (req, res) => {
     newlisting.image = { url, filename }; // assign image data to listing
     await newlisting.save();
     
-    req.flash("success", "New Listing created.");
-    res.redirect("/listings");
+    let redirectUrl = `/listings/${newlisting._id}`;
+    return res.json({ 
+        success: true, 
+        message: "Listing created successfully!", 
+        listing: newlisting,
+        url: redirectUrl
+    });
 };
 
 module.exports.renderEditForm = async (req, res) => {
