@@ -5,10 +5,13 @@ const passportLocalMongoose = require("passport-local-mongoose"); // adds userna
 const userSchema = new Schema({
     email : {
         type: String,
-        required: true
+        required: true,
+        unique: true
     }
 });
 
-userSchema.plugin(passportLocalMongoose);
+userSchema.plugin(passportLocalMongoose, {
+    usernameField: "email"
+});
 
 module.exports = mongoose.model("User", userSchema);
