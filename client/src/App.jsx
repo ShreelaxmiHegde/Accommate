@@ -3,8 +3,9 @@ import { Routes, Route } from "react-router-dom"
 import Navbar from "./components/layouts/Navbar"
 import Footer from "./components/layouts/Footer"
 
-import { useFlash} from './context/FlashContext';
+import { useFlash } from './context/FlashContext';
 import FlashMsg from './components/FlashMsg.jsx';
+import ProtectedRoute from "./routes/ProtectedRoute.jsx";
 
 import Hero from "./pages/Hero"
 import ListingExplore from "./pages/ListingExplore"
@@ -14,8 +15,7 @@ import NewListingForm from "./components/forms/NewListing.jsx";
 import './index.css'
 
 function App() {
-  
-  const {flash, setFlash} = useFlash();
+  const { flash, setFlash } = useFlash();
 
   return (
     <>
@@ -24,11 +24,19 @@ function App() {
         <Route path="/" element={<Hero />} />
         <Route path="/explore" element={<ListingExplore />} />
         <Route path="explore/listings/:id" element={<ListingPage />} />
-        <Route path="/listings/new" element={<NewListingForm />} />
+
+        <Route
+          path="/listings/new"
+          element={
+            <ProtectedRoute>
+              <NewListingForm />
+            </ProtectedRoute>
+          }
+        />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
-      
+
       {flash?.msg && <FlashMsg flash={flash} setFlash={setFlash} />}
       <Footer />
     </>
