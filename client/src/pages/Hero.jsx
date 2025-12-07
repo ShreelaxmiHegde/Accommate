@@ -88,7 +88,7 @@ export default function Hero() {
             title: "Become a Verified Host",
             desc: "List your property, manage bookings easily, and reach thousands of students nearby.",
             ctaText: "Start Hosting",
-            to: "/host"
+            to: "/listings/new"
         }
     ]
 

@@ -11,11 +11,15 @@ const listingSchema = new Schema({
         type: String,
         required: true
     },
-    location: {
+    address: {
         type: String,
         required: true
     },
-    state: {
+    nearestCampus: {
+        type: String,
+        required: true
+    },
+    stateCity: {
         type: String,
         required: true
     },
@@ -23,8 +27,16 @@ const listingSchema = new Schema({
         type: Number,
         required: true
     },
+    propertyType: {
+        type: String,
+        required: true
+    },
     capacity: {
         type: Number,
+        required: true
+    },
+    facilities: {
+        type: [String],
         required: true
     },
     image: {

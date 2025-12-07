@@ -39,11 +39,10 @@ const store = MongoStore.create({
     mongoUrl: dbUrl,
     crypto: {
         secret: process.env.SECRET
-    },
-    touchAfter: 24 * 3600
+    }
 });
 
-store.on("error", () => {
+store.on("error", (err) => {
     console.log("ERROR - MONOGO SESSION STORE", err);
 });
 
@@ -53,7 +52,6 @@ const sessionOptions = {
     resave: false,
     saveUninitialized: false, //Don’t create a session until the user actually logs in.
     cookie: {
-        expires: Date.now() + 7*24*60*60*1000,
         maxAge: 7*24*60*60*1000,
         httpOnly: true,
         secure: false,
@@ -74,7 +72,10 @@ app.use(flash());
 
 app.use(passport.initialize()); //setup Passport
 app.use(passport.session()); //connect to session
-passport.use(new LocalStrategy(User.authenticate()));
+passport.use(new LocalStrategy(
+    { usernameField: "email" },
+    User.authenticate())
+);
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 

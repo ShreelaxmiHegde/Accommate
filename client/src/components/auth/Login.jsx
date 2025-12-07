@@ -30,7 +30,7 @@ export default function Login({ onChange }) {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
       <TextField
-        id="outlined-basic"
+        id="login-email"
         label="Email"
         variant="outlined"
         name="email"
@@ -41,7 +41,7 @@ export default function Login({ onChange }) {
       <FormControl sx={{ m: 0 }} variant="outlined" fullWidth required>
         <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
         <OutlinedInput
-          id="outlined-adornment-password"
+          id="outlined-adornment-password login-password"
           name="password"
           onChange={onChange}
           type={showPassword ? 'text' : 'password'}

@@ -35,7 +35,7 @@ export default function AuthDialog({ open, initialMode, onClose }) {
   const [mode, setMode] = useState(initialMode);
   const { setCurrUser } = useAuth();
   const navigate = useNavigate();
-  const { showFlash } = useFlash(); 
+  const { showFlash } = useFlash();
 
   useEffect(() => {
     if (open) {
@@ -122,19 +122,20 @@ export default function AuthDialog({ open, initialMode, onClose }) {
         >
           <CloseIcon />
         </IconButton>
-        <DialogContent>
-          {mode === "login" ?
-            (<Login onChange={handleChange} />) :
-            (<Signup onChange={handleChange} />)}
-        </DialogContent>
-        <DialogActions style={{ paddingInline: "16px" }}>
-          <Button variant="contained" autoFocus
-            onClick={mode == "login" ? handleLoginSubmit : handleSignupSubmit}
-            fullWidth>
-            {mode === "login" ? "Log In" : "Sign Up"}
-          </Button>
-        </DialogActions>
-
+        <form onSubmit={mode === "login" ? handleLoginSubmit : handleSignupSubmit}>
+          <DialogContent>
+            {mode === "login" ?
+              (<Login onChange={handleChange} />) :
+              (<Signup onChange={handleChange} />)}
+          </DialogContent>
+          <DialogActions style={{ paddingInline: "16px" }}>
+            <Button variant="contained" autoFocus
+              type='submit'
+              fullWidth>
+              {mode === "login" ? "Log In" : "Sign Up"}
+            </Button>
+          </DialogActions>
+        </form>
         <Typography p={"2rem"} sx={{ flexWrap: "wrap", textAlign: "center" }} variant="body2">
           {mode === "login" ? "Don't have an account?" : "Already have an account?"}
           <Link

@@ -36,7 +36,7 @@ export default function MainBox() {
                         sx={{ backgroundColor: "#f6cb3cff", color: "black", marginInline: "0.5rem" }}
                     >Explore Stays</Button>
                     <Button variant="contained"
-                        component={Link} to="/host"
+                        component={Link} to="/listings/new"
                         sx={{ marginInline: "0.5rem" }}
                     >Post a Stay</Button>
                 </Box>
