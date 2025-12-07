@@ -36,8 +36,8 @@ export default function AmenitiesSection() {
             </Typography>
 
             <List>
-                {amenities.map((a) =>
-                    <ListItem>
+                {amenities.map((a, idx) =>
+                    <ListItem key={idx}>
                         <ListItemIcon sx={{ color: "primary.main" }}> {a.icon} </ListItemIcon>
                         <ListItemText primary={a.label} />
                     </ListItem>,

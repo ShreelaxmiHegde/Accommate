@@ -12,6 +12,7 @@ import ListingExplore from "./pages/ListingExplore"
 import ListingPage from "./pages/ListingPage"
 import NotFound from "./pages/NotFound"
 import NewListingForm from "./components/forms/NewListing.jsx";
+import EditListingForm from "./components/forms/EditListing.jsx";
 import './index.css'
 
 function App() {
@@ -30,6 +31,15 @@ function App() {
           element={
             <ProtectedRoute>
               <NewListingForm />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/listings/edit/:id"
+          element={
+            <ProtectedRoute>
+              <EditListingForm />
             </ProtectedRoute>
           }
         />

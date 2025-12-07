@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext"
 import AuthDialog from "../pages/AuthDialog";
-import AccessDenied from "../pages/AccessDenied";
+import AccessDenied from "../pages/Unauthorized";
 
 export default function ProtectedRoute({ children }) {
     const { currUser } = useAuth();
