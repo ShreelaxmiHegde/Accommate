@@ -12,12 +12,14 @@ import ListingDetails from "../components/listingPage/ListingDetails"
 import ListingReview from "../components/listingPage/ListingReview"
 import HostDetailsCard from "../components/listingPage/HostDetailCard"
 import CircularLoader from "../components/loaders/CircularLoader"
+import { useFlash } from "../context/FlashContext.jsx";
 
 export default function ListingPage() {
     const [listing, setListing] = useState({});
     const [loading, setLoading] = useState(true);
     const { id } = useParams();
     const navigate = useNavigate();
+    const { showFlash } = useFlash();
 
     const fetchListing = async () => {
         try {
@@ -61,6 +63,21 @@ export default function ListingPage() {
         }
     }
 
+    const handleDeleteClick = async(evt) => {
+        evt.preventDefault();
+        try {
+            let res = await api.delete(`/listings/${listing._id}`);
+            console.log(res)
+            if(res.data.success) {
+                showFlash("success", "Listing Deleted Successfully!");
+                navigate("/explore");
+            }
+        } catch(err) {
+            console.error("Error editing listing:", err.message);
+            showFlash("error", `${err.message}! Listing Deletion Failed.`);
+        }
+    }
+
     return (
         <>
             <Box>
@@ -75,7 +92,10 @@ export default function ListingPage() {
                         variant="contained"
                         onClick={handleEditClick}
                     >Edit Listing</Button>
-                    <Button variant="outlined">Delete Listing</Button>
+                    <Button 
+                        variant="outlined"
+                        onClick={handleDeleteClick}
+                    >Delete Listing</Button>
                 </Stack>
             </Box>
         </>
