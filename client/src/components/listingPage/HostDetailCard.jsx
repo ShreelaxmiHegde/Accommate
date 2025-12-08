@@ -8,9 +8,9 @@ import {
 } from "@mui/material";
 import AddReviewCard from "./AddReviewCard";
 
-export default function HostDetailsCard() {
+export default function HostDetailsCard({listing}) {
     const host = {
-        name: "Rahul Mehta",
+        name: "Rohit Verma",
         joined: "2021",
         listings: 3,
         photo: "/host.jpg",
@@ -43,7 +43,7 @@ export default function HostDetailsCard() {
 
                     <Stack spacing={0.4}>
                         <Typography variant="h6" fontWeight={600}>
-                            {host.name}
+                            {listing.owner.email}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
                             Host since {host.joined}
