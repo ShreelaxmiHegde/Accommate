@@ -36,7 +36,7 @@ function App() {
         />
 
         <Route
-          path="/listings/edit/:id"
+          path="/listings/:id/edit"
           element={
             <ProtectedRoute>
               <EditListingForm />
