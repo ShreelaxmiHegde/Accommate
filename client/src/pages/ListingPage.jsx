@@ -13,6 +13,7 @@ import ListingReview from "../components/listingPage/ListingReview"
 import HostDetailsCard from "../components/listingPage/HostDetailCard"
 import CircularLoader from "../components/loaders/CircularLoader"
 import { useFlash } from "../context/FlashContext.jsx";
+import { useAuth } from "../context/AuthContext.jsx"
 
 export default function ListingPage() {
     const [listing, setListing] = useState({});
@@ -20,6 +21,7 @@ export default function ListingPage() {
     const { id } = useParams();
     const navigate = useNavigate();
     const { showFlash } = useFlash();
+    const { currUser } = useAuth();
 
     const fetchListing = async () => {
         try {
@@ -63,16 +65,20 @@ export default function ListingPage() {
         }
     }
 
-    const handleDeleteClick = async(evt) => {
+    const handleDeleteClick = async (evt) => {
         evt.preventDefault();
         try {
-            let res = await api.delete(`/listings/${listing._id}`);
-            console.log(res)
-            if(res.data.success) {
-                showFlash("success", "Listing Deleted Successfully!");
-                navigate("/explore");
+            if (currUser && currUser._id === listing.owner._id) {
+                let res = await api.delete(`/listings/${listing._id}`);
+                console.log(res)
+                if (res.data.success) {
+                    showFlash("success", "Listing Deleted Successfully!");
+                    navigate("/explore");
+                }
+            } else {
+                showFlash("error", "You are not authorized to delete this listing.");
             }
-        } catch(err) {
+        } catch (err) {
             console.error("Error editing listing:", err.message);
             showFlash("error", `${err.message}! Listing Deletion Failed.`);
         }
@@ -87,16 +93,18 @@ export default function ListingPage() {
                     </Box>
                 ))}
 
-                <Stack gap={2} direction="row" justifyContent="center" sx={{ mb: 5 }}>
-                    <Button
-                        variant="contained"
-                        onClick={handleEditClick}
-                    >Edit Listing</Button>
-                    <Button 
-                        variant="outlined"
-                        onClick={handleDeleteClick}
-                    >Delete Listing</Button>
-                </Stack>
+                {currUser && currUser._id === listing.owner._id && (
+                    <Stack gap={2} direction="row" justifyContent="center" sx={{ mb: 5 }}>
+                        <Button
+                            variant="contained"
+                            onClick={handleEditClick}
+                        >Edit Listing</Button>
+                        <Button
+                            variant="outlined"
+                            onClick={handleDeleteClick}
+                        >Delete Listing</Button>
+                    </Stack>
+                )}
             </Box>
         </>
     );
