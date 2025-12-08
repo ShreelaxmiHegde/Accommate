@@ -24,9 +24,11 @@ module.exports.saveRedirectUrl = (req, res, next) => {
 module.exports.isOwner = async (req, res, next) => {
     let { id } = req.params;
     let listing = await Listing.findById(id);
+    
     if (!listing.owner.equals(res.locals.currUser._id)) {
-        req.flash("error", "Access Denied!");
-        return res.redirect(`/listings/${id}`);
+        console.log("3.5.owner mismatch...");
+        // req.flash("error", "Access Denied!");
+        // return res.redirect(`/listings/${id}`);
     }
 
     next();
@@ -34,13 +36,17 @@ module.exports.isOwner = async (req, res, next) => {
 
 // form data validation error handling middleware
 module.exports.validateListing = (req, res, next) => {
+    //if no new image uploaded, delete image field to avoid validation error
+    if(!req.file) delete req.body.listing.image;
+
     let { error } = listingSchema.validate(req.body);
     if (error) {
+        console.log("Validation error:", error);
         let errMsg = error.details.map((el) => el.message).join(",");
         next(new ExpressError(400, errMsg)); //call next err handler middleware
-    } else {
-        next();
     }
+
+    next();
 }
 
 // review validation
