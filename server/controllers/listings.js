@@ -23,9 +23,9 @@ module.exports.showListing = async (req, res) => {
     if(!listing) {
         req.flash("error", "The listing you are searching for - doesn't exist!");
         res.redirect("/listings");
-    } else {
-        res.json({listing});
     }
+
+    return res.json({success: true, message: "Listing found", listing: listing});
 };
 
 module.exports.createListing = async (req, res) => {
@@ -73,8 +73,10 @@ module.exports.updateListing = async (req, res) => {
         await listing.save();
     }
 
-    req.flash("success", "Listing updated.");
-    res.redirect(`/listings/${id}`);
+    return res.json({
+        success: true,
+        message: "Listing updated successfully!",
+    })
 };
 
 module.exports.destroyListing = async (req, res) => {
