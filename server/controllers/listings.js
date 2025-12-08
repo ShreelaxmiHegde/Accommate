@@ -21,11 +21,17 @@ module.exports.showListing = async (req, res) => {
 
     //show flash if listing doesnt exist
     if(!listing) {
-        req.flash("error", "The listing you are searching for - doesn't exist!");
-        res.redirect("/listings");
+        return res.json({
+            success: false,
+            message: "Listing not Found"
+        });
     }
 
-    return res.json({success: true, message: "Listing found", listing: listing});
+    return res.json({
+        success: true, 
+        message: "Listing found", 
+        listing: listing
+    });
 };
 
 module.exports.createListing = async (req, res) => {
@@ -66,7 +72,8 @@ module.exports.updateListing = async (req, res) => {
     let { id } = req.params;
     let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
 
-    if(typeof req.file !== "undefined") { //update image only if new image added
+    //update image only if new image added
+    if(typeof req.file !== "undefined") { 
         let url = req.file.path;
         let filename = req.file.filename;
         listing.image = { url, filename };
@@ -75,7 +82,7 @@ module.exports.updateListing = async (req, res) => {
 
     return res.json({
         success: true,
-        message: "Listing updated successfully!",
+        message: "Listing updated successfully!"
     })
 };
 
@@ -83,6 +90,8 @@ module.exports.destroyListing = async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndDelete(id);
 
-    req.flash("error", "Listing deleted!");
-    res.redirect("/listings");
+    return res.json({
+        success: true,
+        message: "Listing deleted successfully!"
+    })
 };
