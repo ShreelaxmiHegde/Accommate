@@ -13,9 +13,18 @@ export default function AddReviewCard({ onSubmit }) {
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
 
-  const handleSubmit = () => {
+  let reviewData = {
+    review: {
+      rating: rating,
+      comment: review
+    }
+  }
+  
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
     if (!rating || review.trim() === "") return; // basic validation
-    onSubmit({ rating, review });
+
+    onSubmit(reviewData);
     setRating(0);
     setReview("");
   };
@@ -25,10 +34,10 @@ export default function AddReviewCard({ onSubmit }) {
       p: 2,
       borderRadius: 3,
       boxShadow: 3,
-      width:{xs:"80%", md:"50%"},
-      mt:{xs:5, md:0},
+      width: { xs: "80%", md: "50%" },
+      mt: { xs: 5, md: 0 },
       mx: "auto",
-      maxWidth:{md: "500px"}
+      maxWidth: { md: "500px" }
     }}>
       <CardContent>
         <Typography variant="h6" fontWeight={600} mb={1}>
