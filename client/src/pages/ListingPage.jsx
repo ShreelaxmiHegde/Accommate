@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import api from "../api/axios"
 import {
     Box,
-    CardMedia
+    CardMedia,
+    Button,
+    Stack
 } from "@mui/material"
 import ListingHead from "../components/listingPage/ListingHead"
 import ListingDetails from "../components/listingPage/ListingDetails"
@@ -15,6 +17,7 @@ export default function ListingPage() {
     const [listing, setListing] = useState({});
     const [loading, setLoading] = useState(true);
     const { id } = useParams();
+    const navigate = useNavigate();
 
     const fetchListing = async () => {
         try {
@@ -37,17 +40,26 @@ export default function ListingPage() {
     }
 
     const children = [
-        <ListingHead title={listing.title} location={listing.location} />,
+        <ListingHead title={listing.title} location={listing.location} />, //statecity
         <CardMedia
             component="img"
             height={300}
             image={listing.image.url}
             alt={listing.image.title}
         />,
-        <ListingDetails desc={listing.desc} price={listing.price} />,
+        <ListingDetails listing={listing} />,
         <ListingReview reviews={listing.reviews} />,
-        <HostDetailsCard />,
+        <HostDetailsCard listing={listing} />,
     ]
+
+    const handleEditClick = (evt) => {
+        evt.preventDefault();
+        try {
+            navigate(`/listings/${listing._id}/edit`, { state: { listing } });
+        } catch (err) {
+            console.log("Error editing listing:", err);
+        }
+    }
 
     return (
         <>
@@ -57,6 +69,14 @@ export default function ListingPage() {
                         {child}
                     </Box>
                 ))}
+
+                <Stack gap={2} direction="row" justifyContent="center" sx={{ mb: 5 }}>
+                    <Button
+                        variant="contained"
+                        onClick={handleEditClick}
+                    >Edit Listing</Button>
+                    <Button variant="outlined">Delete Listing</Button>
+                </Stack>
             </Box>
         </>
     );
