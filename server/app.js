@@ -14,8 +14,6 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 const cors = require("cors");
-// const path = require("path");
-// const ejsMate = require("ejs-mate"); //for better templating
 
 app.use(cors({
     origin: "http://localhost:5173",
@@ -25,7 +23,7 @@ app.use(cors({
 // connect db with backend
 const dbUrl = process.env.ATLASDB_URL;
 main()
-.then((res) => {
+.then(() => {
     console.log("Connected to MongoDB");
 }).catch((err) => {
     console.log(err);
@@ -58,13 +56,9 @@ const sessionOptions = {
     }
 }
 
-// app.set("view engine", "ejs");
-// app.engine("ejs", ejsMate);
 app.use(express.json()); //parse axios req json data from the frontend
 app.use(express.urlencoded( { extended: true })); //parse data
 app.use(methodOverride("_method"));
-// app.set("views", path.join(__dirname, "views"));
-// app.use(express.static(path.join(__dirname, "/public")));
 
 app.use(session(sessionOptions)); //setup express-session middleware
 app.use(flash());

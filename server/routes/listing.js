@@ -14,8 +14,6 @@ router.route("/")
     wrapAsync(listingsController.createListing)
 );
 
-router.get("/new", isLoggedIn, listingsController.renderNewForm);
-
 router.route("/:id")
 .get(wrapAsync(listingsController.showListing))
 .put( 

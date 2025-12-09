@@ -2,11 +2,7 @@ const Listing = require("../models/listing.js");
 
 module.exports.index = async (req, res) => {
     const allListings = await Listing.find({});
-    res.json(allListings);
-};
-
-module.exports.renderNewForm = (req, res) => {
-    // res.render("./listings/new.ejs");
+    return res.json(allListings);
 };
 
 module.exports.showListing = async (req, res) => {
@@ -64,7 +60,6 @@ module.exports.renderEditForm = async (req, res) => {
 
     let originalImgUrl = listing.image.url;
     originalImgUrl = originalImgUrl.replace("/upload", "/upload/w_250");
-    // res.render("./listings/edit.ejs", { listing, originalImgUrl });
     res.json({listing, originalImgUrl});
 };
 
