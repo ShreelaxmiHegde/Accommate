@@ -7,9 +7,11 @@ const passport = require("passport");
 
 module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
-        // redirect url after login
-        req.session.redirectUrl = req.originalUrl;
-        return res.json({success: false, message:"Login Authentication Required!"})
+        return next(new ExpressError(
+            401, 
+            "Unauthorized", 
+            "Authentication needed!",
+        ));
     }
     next();
 }
@@ -24,9 +26,14 @@ module.exports.saveRedirectUrl = (req, res, next) => {
 module.exports.isOwner = async (req, res, next) => {
     let { id } = req.params;
     let listing = await Listing.findById(id);
+    
     if (!listing.owner.equals(res.locals.currUser._id)) {
-        req.flash("error", "Access Denied!");
-        return res.redirect(`/listings/${id}`);
+        console.log("owner mismatch...");
+        return next(new ExpressError(
+            401, 
+            "Unauthorized", 
+            "Unauthorized access!",
+        ));
     }
 
     next();
@@ -34,10 +41,19 @@ module.exports.isOwner = async (req, res, next) => {
 
 // form data validation error handling middleware
 module.exports.validateListing = (req, res, next) => {
+    //if no new image uploaded, delete image field to avoid validation error
+    if(!req.file) delete req.body.listing.image;
+
     let { error } = listingSchema.validate(req.body);
     if (error) {
         let errMsg = error.details.map((el) => el.message).join(",");
-        next(new ExpressError(400, errMsg)); //call next err handler middleware
+        console.log("listing validation error:", errMsg);
+        return next(new ExpressError(
+            400, 
+            "Bad Request", 
+            "Listing validation failed. Please check if any fields are missing or contain invalid values.",
+            errMsg
+        ));
     } else {
         next();
     }
@@ -48,7 +64,13 @@ module.exports.validateReview = (req, res, next) => {
     let { error } = reviewSchema.validate(req.body);
     if (error) {
         let errMsg = error.details.map((el) => el.message).join(",");
-        next(new ExpressError(400, errMsg)); //call next err handler middleware
+        console.log("review validation error:", errMsg);
+        return next(new ExpressError(
+            400, 
+            "Bad Request", 
+            "Review validation failed!",
+            errMsg
+        ));
     } else {
         next();
     }

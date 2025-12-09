@@ -14,9 +14,6 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 const cors = require("cors");
-// import cors from "cors";
-// const path = require("path");
-// const ejsMate = require("ejs-mate"); //for better templating
 
 app.use(cors({
     origin: "http://localhost:5173",
@@ -26,7 +23,7 @@ app.use(cors({
 // connect db with backend
 const dbUrl = process.env.ATLASDB_URL;
 main()
-.then((res) => {
+.then(() => {
     console.log("Connected to MongoDB");
 }).catch((err) => {
     console.log(err);
@@ -59,13 +56,9 @@ const sessionOptions = {
     }
 }
 
-// app.set("view engine", "ejs");
-// app.engine("ejs", ejsMate);
 app.use(express.json()); //parse axios req json data from the frontend
 app.use(express.urlencoded( { extended: true })); //parse data
 app.use(methodOverride("_method"));
-// app.set("views", path.join(__dirname, "views"));
-// app.use(express.static(path.join(__dirname, "/public")));
 
 app.use(session(sessionOptions)); //setup express-session middleware
 app.use(flash());
@@ -90,28 +83,20 @@ app.use((req, res, next) => {
     next();
 });
 
-// app.get("/Accommate", (req, res) => {
-//     res.render("home.ejs");
-// });
-
-// app.get("/support", (req, res) => {
-//   res.render("support.ejs");
-// });
-
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 
-
-// page not found error
-// app.use((req, res) => {
-//     res.render("errors/pageNotFound.ejs");
-// });
-
 // generic error handler
 app.use((err, req, res, next) => {
-    let { statusCode = 500, message = "Something went wrong!" } = err;
-    // res.render("errors/error.ejs", { err });
+    let { statusCode=500, error, message="Something went wrong!", details } = err;
+
+    return res.json({
+        status: statusCode,
+        error: error,
+        message: message,
+        details: details
+    });
 });
 
 app.listen(port, () => {

@@ -2,11 +2,7 @@ const Listing = require("../models/listing.js");
 
 module.exports.index = async (req, res) => {
     const allListings = await Listing.find({});
-    res.json(allListings);
-};
-
-module.exports.renderNewForm = (req, res) => {
-    // res.render("./listings/new.ejs");
+    return res.json(allListings);
 };
 
 module.exports.showListing = async (req, res) => {
@@ -21,11 +17,17 @@ module.exports.showListing = async (req, res) => {
 
     //show flash if listing doesnt exist
     if(!listing) {
-        req.flash("error", "The listing you are searching for - doesn't exist!");
-        res.redirect("/listings");
-    } else {
-        res.json({listing});
+        return res.json({
+            success: false,
+            message: "Listing not Found"
+        });
     }
+
+    return res.json({
+        success: true, 
+        message: "Listing found", 
+        listing: listing
+    });
 };
 
 module.exports.createListing = async (req, res) => {
@@ -58,7 +60,6 @@ module.exports.renderEditForm = async (req, res) => {
 
     let originalImgUrl = listing.image.url;
     originalImgUrl = originalImgUrl.replace("/upload", "/upload/w_250");
-    // res.render("./listings/edit.ejs", { listing, originalImgUrl });
     res.json({listing, originalImgUrl});
 };
 
@@ -66,21 +67,26 @@ module.exports.updateListing = async (req, res) => {
     let { id } = req.params;
     let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
 
-    if(typeof req.file !== "undefined") { //update image only if new image added
+    //update image only if new image added
+    if(typeof req.file !== "undefined") { 
         let url = req.file.path;
         let filename = req.file.filename;
         listing.image = { url, filename };
         await listing.save();
     }
 
-    req.flash("success", "Listing updated.");
-    res.redirect(`/listings/${id}`);
+    return res.json({
+        success: true,
+        message: "Listing updated successfully!"
+    })
 };
 
 module.exports.destroyListing = async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndDelete(id);
 
-    req.flash("error", "Listing deleted!");
-    res.redirect("/listings");
+    return res.json({
+        success: true,
+        message: "Listing deleted successfully!"
+    })
 };

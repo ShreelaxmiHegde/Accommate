@@ -2,10 +2,10 @@ import { Box, Stack, Typography, Button, Paper } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 
-export default function ListingDetails({desc, price}) {
+export default function ListingDetails({listing}) {
     return (
         <Stack sx={{
-                width: "90%",
+                width: { xs: "90%", md: "80%" },
                 mx: "auto",
                 mt: 4,
                 px: { xs: 2, md: 0 },
@@ -14,7 +14,7 @@ export default function ListingDetails({desc, price}) {
                 justifyContent: "space-around",
             }}
         >
-            <Stack sx={{mb: 4}}>
+            <Stack sx={{mb: 4, width: { xs: "100%", md: "60%" }}}>
                 <Box sx={{mb:4}}>
                     <Typography variant="h5" sx={{ fontWeight: 700, mb: 1 }} >
                         About this accommodation
@@ -26,7 +26,7 @@ export default function ListingDetails({desc, price}) {
                             color: "text.secondary",
                             lineHeight: 1.6
                         }}
-                    > {desc} </Typography>
+                    > {listing.desc} </Typography>
                 </Box>
 
                 <Box>
@@ -37,7 +37,8 @@ export default function ListingDetails({desc, price}) {
                     <Stack direction="row" spacing={1.5} alignItems="center" >
                         <LocationOnIcon color="primary" />
                         <Typography sx={{ fontSize: "1rem", color: "text.secondary" }} >
-                            45 MG Road, Near XYZ College, Bengaluru
+                            {/* 45 MG Road, Near XYZ College, Bengaluru  */}
+                            {listing.address}
                         </Typography>
                     </Stack>
                 </Box>
@@ -46,7 +47,7 @@ export default function ListingDetails({desc, price}) {
             <Paper elevation={3}
                 sx={{
                     p: 3,
-                    width: { xs: "90%", md: "250px" },
+                    width: { xs: "80%", md: "350px" },
                     borderRadius: "20px",
                     height: "fit-content",
                 }}
@@ -58,7 +59,7 @@ export default function ListingDetails({desc, price}) {
                         alignItems: "center" 
                     }} >
                     <CurrencyRupeeIcon sx={{ fontSize: { xs: 18, sm: 20 } }} />
-                    {price} / month
+                    {listing.price} / month
                 </Typography>
 
                 <Typography

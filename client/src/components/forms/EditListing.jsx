@@ -1,5 +1,5 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import {
     Box,
     Paper,
@@ -16,17 +16,17 @@ import {
     FormControlLabel,
     FormGroup,
     Divider,
-    Avatar,
 } from "@mui/material";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
-import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import api from "../../api/axios.js"
 import { useFlash } from "../../context/FlashContext.jsx";
 
-export default function NewListingForm() {
+export default function EditListingForm() {
     const { showFlash } = useFlash();
     const [imgPreview, setImgPreview] = useState("");
     const navigate = useNavigate();
+    const location = useLocation();
+    const listing = location.state.listing;
 
     const propertyTypes = [
         { value: 'pg', label: 'PG / Shared' },
@@ -59,6 +59,23 @@ export default function NewListingForm() {
         image: ""
     });
 
+    useEffect(() => {
+        if (listing) {
+            setFormData({
+                title: listing.title,
+                stateCity: listing.stateCity,
+                nearestCampus: listing.nearestCampus,
+                address: listing.address,
+                price: listing.price,
+                propertyType: listing.propertyType,
+                capacity: listing.capacity,
+                desc: listing.desc,
+                facilities: listing.facilities || [],
+                image: listing.image || ""
+            })
+        }
+    }, [listing])
+
     let handleChange = (evt) => {
         const { name, value, checked, files } = evt.target;
         if (name === "facilities") {
@@ -79,15 +96,15 @@ export default function NewListingForm() {
         } else if (files && files[0]) {
             const file = files[0];
             setImgPreview(URL.createObjectURL(file));
-            setFormData({
-                ...formData,
+            setFormData((prev) => ({
+                ...prev,
                 [name]: file
-            });
+            }));
         } else {
-            setFormData({
-                ...formData,
+            setFormData((prev) => ({
+                ...prev,
                 [name]: value
-            });
+            }));
         }
     }
 
@@ -96,7 +113,7 @@ export default function NewListingForm() {
 
         const fd = new FormData();
         for (let key in formData) {
-            if (key === "image") {
+            if (key === "image" instanceof File) {
                 fd.append("image", formData.image); //append file separately
             } else if (key === "facilities") {
                 formData.facilities.forEach((facility) =>
@@ -108,14 +125,14 @@ export default function NewListingForm() {
         }
 
         try {
-            let res = await api.post("/listings", fd);
+            let res = await api.put(`/listings/${listing._id}`, fd);
             if (res.data.success) {
-                showFlash("success", "Listing Created Successfully!");
-                navigate(`explore/${res.data.url}`);
+                showFlash("success", "Listing Updated Successfully!");
+                navigate(`/explore/listings/${listing._id}`);
             }
         } catch (err) {
-            console.error("Error creating listing:", err);
-            showFlash("error", `${err.message}! Listing creation Failed.`);
+            console.error("Error editing listing:", err.message);
+            showFlash("error", `${err.message}! Listing updation Failed.`);
         }
     }
 
@@ -123,7 +140,7 @@ export default function NewListingForm() {
         <Box sx={{ p: { xs: 2, md: 4 }, maxWidth: "90%", mx: "auto" }}>
             <Paper elevation={3} sx={{ p: { xs: 2, md: 4 }, borderRadius: 2 }}>
                 <Typography variant="h5" sx={{ fontWeight: 800, mb: 2 }}>
-                    Create a new listing
+                    Edit Listing
                 </Typography>
                 <form onSubmit={handleSubmit} >
                     <Grid container spacing={3}>
@@ -132,7 +149,7 @@ export default function NewListingForm() {
                                 <TextField
                                     name="title"
                                     label="Listing title"
-                                    placeholder="Cozy single room near campus"
+                                    value={formData.title}
                                     sx={{ width: "100%" }}
                                     onChange={handleChange}
                                     slotProps={{
@@ -145,7 +162,7 @@ export default function NewListingForm() {
                                 />
                                 <TextField
                                     label="State, City"
-                                    placeholder="Eg: Karnataka, Bangalore"
+                                    value={formData.stateCity}
                                     sx={{ width: "100%" }}
                                     name="stateCity"
                                     onChange={handleChange}
@@ -159,7 +176,7 @@ export default function NewListingForm() {
                                 />
                                 <TextField
                                     label="Nearest Campus"
-                                    placeholder="Eg: ABC University"
+                                    value={formData.nearestCampus}
                                     sx={{ width: "100%" }}
                                     name="nearestCampus"
                                     onChange={handleChange}
@@ -173,7 +190,7 @@ export default function NewListingForm() {
                                 />
                                 <TextField
                                     label="Full Address"
-                                    placeholder="Eg: 45 MG Road, Near ABC University, Bengaluru"
+                                    value={formData.address}
                                     sx={{ width: "100%" }}
                                     name="address"
                                     onChange={handleChange}
@@ -191,7 +208,7 @@ export default function NewListingForm() {
                                         <TextField
                                             type="number"
                                             label="Price (/month)"
-                                            placeholder="₹ 8000"
+                                            value={formData.price}
                                             fullWidth
                                             name="price"
                                             onChange={handleChange}
@@ -217,7 +234,7 @@ export default function NewListingForm() {
                                         <TextField
                                             type="number"
                                             label="Capacity"
-                                            placeholder="Eg: 4"
+                                            value={formData.capacity}
                                             fullWidth
                                             name="capacity"
                                             onChange={handleChange}
@@ -234,10 +251,9 @@ export default function NewListingForm() {
 
                                 <TextField
                                     label="Short description"
-                                    placeholder="What makes this place special..."
+                                    value={formData.desc}
                                     sx={{ width: "100%" }}
                                     multiline
-                                    rows={3}
                                     name="desc"
                                     onChange={handleChange}
                                     slotProps={{
@@ -264,6 +280,7 @@ export default function NewListingForm() {
                                                 control={<Checkbox
                                                     name="facilities"
                                                     value={facility}
+                                                    checked={formData.facilities.includes(facility)}
                                                     onChange={handleChange}
                                                 />}
                                             />
@@ -279,9 +296,11 @@ export default function NewListingForm() {
 
                                 <Paper variant="outlined" sx={{ p: 2, display: "flex", gap: 2, flexDirection: "column" }}>
                                     {!imgPreview && (
-                                        <Avatar variant="rounded" sx={{ width: 72, height: 72 }}>
-                                            <InsertPhotoIcon sx={{ width: 65, height: 65 }} />
-                                        </Avatar>
+                                        <img
+                                            src={formData.image.url}
+                                            alt="selected listing"
+                                            style={{ height: "200px" }}
+                                        />
                                     )}
 
                                     {imgPreview && (
@@ -303,7 +322,7 @@ export default function NewListingForm() {
                                     />
                                     <label htmlFor="contained-button-file">
                                         <Button startIcon={<PhotoCamera />} component="span" variant="outlined">
-                                            Upload a photo
+                                            Upload another photo
                                         </Button>
                                     </label>
 
@@ -317,7 +336,7 @@ export default function NewListingForm() {
                         </Grid>
                     </Grid>
                     <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1, mt: 1 }}>
-                        <Button type="submit" variant="contained">Create listing</Button>
+                        <Button type="submit" variant="contained">Submit</Button>
                         <Button variant="outlined" component={Link} to="/explore">Cancel</Button>
                     </Box>
                 </form>
