@@ -1,7 +1,6 @@
 const Listing = require("../models/listing.js");
 const Review = require("../models/reviews.js");
 
-
 module.exports.createReview = async (req, res) => {
     let listing = await Listing.findById(req.params.id);
     let newReview = new Review(req.body.review);
@@ -12,18 +11,21 @@ module.exports.createReview = async (req, res) => {
     await newReview.save();
     await listing.save();
 
-    req.flash("success", "Review created.");
+    return res.json({
+        success: true,
+        message: "Review created successfully",
+    });
+}
 
-    res.redirect(`/listings/${listing._id}`);
-};
-
-module.exports.destroyReview = async(req, res) => {
+module.exports.destroyReview = async (req, res) => {
+    console.log("@delete review");
     let { id, reviewId } = req.params;
 
-    await Listing.findByIdAndUpdate(id, {$pull: {reviews: reviewId}}); //pull operator to remove the reference of review from listing
+    await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } }); //pull operator to remove the reference of review from listing
     await Review.findByIdAndDelete(reviewId); //delete the review from db
 
-    req.flash("error", "Review deleted.");
-
-    res.redirect(`/listings/${id}`);
+    return res.json({
+        success: true,
+        message: "Review deleted successfully"
+    })
 };
