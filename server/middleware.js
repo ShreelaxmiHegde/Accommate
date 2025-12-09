@@ -9,6 +9,11 @@ module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
         // redirect url after login
         req.session.redirectUrl = req.originalUrl;
+        next(new ExpressError(
+            401, 
+            "Unauthorized", 
+            "Authentication needed!",
+        ));
         return res.json({success: false, message:"Login Authentication Required!"})
     }
     next();
@@ -26,9 +31,12 @@ module.exports.isOwner = async (req, res, next) => {
     let listing = await Listing.findById(id);
     
     if (!listing.owner.equals(res.locals.currUser._id)) {
-        console.log("3.5.owner mismatch...");
-        // req.flash("error", "Access Denied!");
-        // return res.redirect(`/listings/${id}`);
+        console.log("owner mismatch...");
+        next(new ExpressError(
+            401, 
+            "Unauthorized", 
+            "Unauthorized access!",
+        ));
     }
 
     next();
@@ -41,12 +49,17 @@ module.exports.validateListing = (req, res, next) => {
 
     let { error } = listingSchema.validate(req.body);
     if (error) {
-        console.log("Validation error:", error);
         let errMsg = error.details.map((el) => el.message).join(",");
-        next(new ExpressError(400, errMsg)); //call next err handler middleware
+        console.log("listing validation error:", errMsg);
+        next(new ExpressError(
+            400, 
+            "Bad Request", 
+            "Listing validation failed. Please check if any fields are missing or contain invalid values.",
+            errMsg
+        )); //call next err handler middleware
+    } else {
+        next();
     }
-
-    next();
 }
 
 // review validation
@@ -54,7 +67,13 @@ module.exports.validateReview = (req, res, next) => {
     let { error } = reviewSchema.validate(req.body);
     if (error) {
         let errMsg = error.details.map((el) => el.message).join(",");
-        next(new ExpressError(400, errMsg)); //call next err handler middleware
+        console.log("review validation error:", errMsg);
+        next(new ExpressError(
+            400, 
+            "Bad Request", 
+            "Review validation failed!",
+            errMsg
+        )); //call next err handler middleware
     } else {
         next();
     }
