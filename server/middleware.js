@@ -7,14 +7,11 @@ const passport = require("passport");
 
 module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
-        // redirect url after login
-        req.session.redirectUrl = req.originalUrl;
-        next(new ExpressError(
+        return next(new ExpressError(
             401, 
             "Unauthorized", 
             "Authentication needed!",
         ));
-        return res.json({success: false, message:"Login Authentication Required!"})
     }
     next();
 }
@@ -32,7 +29,7 @@ module.exports.isOwner = async (req, res, next) => {
     
     if (!listing.owner.equals(res.locals.currUser._id)) {
         console.log("owner mismatch...");
-        next(new ExpressError(
+        return next(new ExpressError(
             401, 
             "Unauthorized", 
             "Unauthorized access!",
@@ -51,12 +48,12 @@ module.exports.validateListing = (req, res, next) => {
     if (error) {
         let errMsg = error.details.map((el) => el.message).join(",");
         console.log("listing validation error:", errMsg);
-        next(new ExpressError(
+        return next(new ExpressError(
             400, 
             "Bad Request", 
             "Listing validation failed. Please check if any fields are missing or contain invalid values.",
             errMsg
-        )); //call next err handler middleware
+        ));
     } else {
         next();
     }
@@ -68,12 +65,12 @@ module.exports.validateReview = (req, res, next) => {
     if (error) {
         let errMsg = error.details.map((el) => el.message).join(",");
         console.log("review validation error:", errMsg);
-        next(new ExpressError(
+        return next(new ExpressError(
             400, 
             "Bad Request", 
             "Review validation failed!",
             errMsg
-        )); //call next err handler middleware
+        ));
     } else {
         next();
     }
