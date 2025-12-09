@@ -34,6 +34,12 @@ export default function Signup({ onChange }) {
         variant="outlined"
         name="username"
         onChange={onChange}
+        slotProps={{
+          htmlInput:{
+            minLength: 3,
+            maxLength: 20
+          }
+        }}
         fullWidth
         required
       />

@@ -135,6 +135,12 @@ export default function NewListingForm() {
                                     placeholder="Cozy single room near campus"
                                     sx={{ width: "100%" }}
                                     onChange={handleChange}
+                                    slotProps={{
+                                        htmlInput: {
+                                            minLength: 3,
+                                            maxLength: 50
+                                        }
+                                    }}
                                     required
                                 />
                                 <TextField
@@ -143,6 +149,12 @@ export default function NewListingForm() {
                                     sx={{ width: "100%" }}
                                     name="stateCity"
                                     onChange={handleChange}
+                                    slotProps={{
+                                        htmlInput: {
+                                            minLength: 3,
+                                            maxLength: 50
+                                        }
+                                    }}
                                     required
                                 />
                                 <TextField
@@ -151,6 +163,12 @@ export default function NewListingForm() {
                                     sx={{ width: "100%" }}
                                     name="nearestCampus"
                                     onChange={handleChange}
+                                    slotProps={{
+                                        htmlInput: {
+                                            minLength: 3,
+                                            maxLength: 50
+                                        }
+                                    }}
                                     required
                                 />
                                 <TextField
@@ -159,6 +177,12 @@ export default function NewListingForm() {
                                     sx={{ width: "100%" }}
                                     name="address"
                                     onChange={handleChange}
+                                    slotProps={{
+                                        htmlInput: {
+                                            minLength: 3,
+                                            maxLength: 200
+                                        }
+                                    }}
                                     required
                                 />
 
@@ -171,6 +195,11 @@ export default function NewListingForm() {
                                             fullWidth
                                             name="price"
                                             onChange={handleChange}
+                                            slotProps={{
+                                                htmlInput: {
+                                                    min: 0
+                                                }
+                                            }}
                                             required
                                         />
                                     </Grid>
@@ -192,6 +221,12 @@ export default function NewListingForm() {
                                             fullWidth
                                             name="capacity"
                                             onChange={handleChange}
+                                            slotProps={{
+                                                htmlInput: {
+                                                    min: 1,
+                                                    max: 50
+                                                }
+                                            }}
                                             required
                                         />
                                     </Grid>
@@ -205,6 +240,12 @@ export default function NewListingForm() {
                                     rows={3}
                                     name="desc"
                                     onChange={handleChange}
+                                    slotProps={{
+                                        htmlInput: {
+                                            minLength: 3,
+                                            maxLength: 500
+                                        }
+                                    }}
                                     required
                                 />
 
@@ -258,6 +299,7 @@ export default function NewListingForm() {
                                         type="file"
                                         name="image"
                                         onChange={handleChange}
+                                        required
                                     />
                                     <label htmlFor="contained-button-file">
                                         <Button startIcon={<PhotoCamera />} component="span" variant="outlined">

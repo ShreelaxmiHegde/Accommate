@@ -35,6 +35,7 @@ export default function Login({ onChange }) {
         variant="outlined"
         name="email"
         onChange={onChange}
+        type="email"
         fullWidth
         required
       />

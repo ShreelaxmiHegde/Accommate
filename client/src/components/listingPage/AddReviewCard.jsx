@@ -19,7 +19,7 @@ export default function AddReviewCard({ onSubmit }) {
       comment: review
     }
   }
-  
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
     if (!rating || review.trim() === "") return; // basic validation
@@ -58,6 +58,12 @@ export default function AddReviewCard({ onSubmit }) {
             placeholder="Share your experience..."
             value={review}
             onChange={(e) => setReview(e.target.value)}
+            slotProps={{
+              htmlInput: {
+                minLength: 3,
+                maxLength: 500
+              }
+            }}
           />
 
           <Button
