@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import api from "../api/axios"
+import { deleteListing, fetchListing } from "../api/listing.js"
 import {
     Box,
     CardMedia,
@@ -12,6 +12,7 @@ import ListingDetails from "../components/listingPage/ListingDetails"
 import ListingReview from "../components/listingPage/ListingReview"
 import HostDetailsCard from "../components/listingPage/HostDetailCard"
 import CircularLoader from "../components/loaders/CircularLoader"
+import NoListingFound from "./NoListingFound.jsx"
 import { useFlash } from "../context/FlashContext.jsx";
 import { useAuth } from "../context/AuthContext.jsx"
 
@@ -23,28 +24,32 @@ export default function ListingPage() {
     const { showFlash } = useFlash();
     const { currUser } = useAuth();
 
-    const fetchListing = async () => {
+    const getListing = async () => {
         try {
             setLoading(true);
-            let res = await api.get(`/listings/${id}`);
-            setListing(res.data.listing);
+            let data = await fetchListing(id);
+            setListing(data);
         } catch (err) {
-            console.log(err)
+            setListing(null)
         } finally {
             setLoading(false);
         }
     }
 
     useEffect(() => {
-        fetchListing();
+        getListing();
     }, [id]);
 
+    if (!listing && !loading) {
+        return <NoListingFound />;
+    }
+
     if (loading) {
-        return <CircularLoader />
+        return <CircularLoader msg={"Loading your listing..."} />
     }
 
     const children = [
-        <ListingHead title={listing.title} location={listing.location} />, //statecity
+        <ListingHead title={listing.title} stateCity={listing.stateCity} />, //statecity
         <CardMedia
             component="img"
             height={300}
@@ -69,9 +74,9 @@ export default function ListingPage() {
         evt.preventDefault();
         try {
             if (currUser && currUser._id === listing.owner._id) {
-                let res = await api.delete(`/listings/${listing._id}`);
-                console.log(res)
-                if (res.data.success) {
+                let data = await deleteListing(id);
+
+                if (data.success) {
                     showFlash("success", "Listing Deleted Successfully!");
                     navigate("/explore");
                 }

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom'
-import api from '../api/axios'
+import { signup, login } from "../api/user"
 import {
   useState,
   useEffect
@@ -14,7 +14,8 @@ import {
   IconButton,
   Typography,
   Link,
-  styled
+  styled,
+  LinearProgress
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import Signup from '../components/auth/Signup';
@@ -32,6 +33,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 
 export default function AuthDialog({ open, initialMode, onClose }) {
+  const [loading, setLoading] = useState(false);
   const [mode, setMode] = useState(initialMode);
   const { setCurrUser } = useAuth();
   const navigate = useNavigate();
@@ -59,37 +61,42 @@ export default function AuthDialog({ open, initialMode, onClose }) {
   const handleSignupSubmit = async (evt) => {
     evt.preventDefault();
     try {
-      const res = await api.post("/signup", formData);
-      if (res.data.success) {
-        setCurrUser(res.data.user);
+      setLoading(true);
+      const data = await signup(formData);
+
+      if (data.success) {
+        setCurrUser(data.user);
         onClose();
         showFlash("success", "Signup was Successful!");
         navigate("/");
       }
     } catch (err) {
-      console.error("Error :", err.message);
-      showFlash("error", `Signup was Failed! ${err.message}`);
+      showFlash("error", "An account with this email already exists");
+    } finally {
+      setLoading(false);
     }
   }
 
   const handleLoginSubmit = async (evt) => {
     evt.preventDefault();
     try {
-      const res = await api.post("/login", formData);
-      console.log("Login Response:", res.data);
-      if (res.data.success) {
-        setCurrUser(res.data.user);
+      setLoading(true);
+      const data = await login(formData);
+
+      if (data.success) {
+        setCurrUser(data.user);
         onClose();
         showFlash("success", "Login was Successful!");
       } else {
         showFlash("error", "Login was Failed! Please check your credentials.");
       }
     } catch (err) {
-      console.error("Error :", err.message);
-      console.error("Error Log:", err)
       showFlash("error", `Login was Failed! ${err.message}`);
+    } finally {
+      setLoading(false);
     }
   }
+
   return (
     <React.Fragment>
       <BootstrapDialog
@@ -107,6 +114,7 @@ export default function AuthDialog({ open, initialMode, onClose }) {
           }
         }}
       >
+        {loading && <LinearProgress />}
         <DialogTitle sx={{ m: 0, p: 2, textAlign: "center" }} id="customized-dialog-title" >
           {mode === "login" ? "Log In" : "Sign Up"}
         </DialogTitle>

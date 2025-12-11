@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import api from "../api/axios"
+import { fetchListings } from "../api/listing"
 import ListingCarousel from "../components/listingsExplore/ListingCarousel"
 import { Box } from "@mui/material"
 import ListingExploreSkeleton from "../components/loaders/ListingExploreSkeleton"
@@ -9,11 +9,11 @@ export default function ListingExplore() {
     const [listings, setListings] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const fetchListings = async () => {
+    const getListings = async () => {
         try {
             setLoading(true); //start loading
-            let res = await api.get("/listings");
-            setListings(res.data);
+            let data = await fetchListings();
+            setListings(data);
         } catch (err) {
             console.log(err);
         } finally {
@@ -22,7 +22,7 @@ export default function ListingExplore() {
     }
 
     useEffect(() => {
-        fetchListings();
+        getListings();
     }, []);
 
     return (
