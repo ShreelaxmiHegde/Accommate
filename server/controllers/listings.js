@@ -15,7 +15,6 @@ module.exports.showListing = async (req, res) => {
             } 
         }).populate("owner"); //using populate() to get actual doc in review 
 
-    //show flash if listing doesnt exist
     if(!listing) {
         return res.json({
             success: false,
@@ -40,7 +39,7 @@ module.exports.createListing = async (req, res) => {
     newlisting.image = { url, filename }; // assign image data to listing
     await newlisting.save();
     
-    let redirectUrl = `/listings/${newlisting._id}`;
+    let redirectUrl = `listings/${newlisting._id}`;
     return res.json({ 
         success: true, 
         message: "Listing created successfully!", 
