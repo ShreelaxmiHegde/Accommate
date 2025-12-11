@@ -22,7 +22,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import LogoutIcon from '@mui/icons-material/Logout';
 import AuthDialog from "../../pages/AuthDialog";
 import { useAuth } from "../../context/AuthContext";
-import api from "../../api/axios"
+import { logout } from "../../api/user";
 import { useFlash } from '../../context/FlashContext';
 
 export default function Navbar() {
@@ -51,11 +51,10 @@ export default function Navbar() {
     evt.preventDefault();
 
     try {
-      await api.get("/logout");
+      await logout();
       setCurrUser(null);
       showFlash("success", "You Logged Out Successfully!");
     } catch (err) {
-      console.error("Error :", err.message);
       showFlash("error", `Logout was Failed! ${err.message}`);
     }
   }
