@@ -90,9 +90,23 @@ app.use("/", userRouter);
 // generic error handler
 app.use((err, req, res, next) => {
     let { statusCode=500, error, message="Something went wrong!", details } = err;
+    console.log(err)
 
-    return res.json({
-        status: statusCode,
+    if(err.name === "CastError") {
+        return res.status(statusCode).json({
+            success: false,
+            message: "Invalid listing ID"
+        })
+    }
+
+    if(err.name === "ValidationError") {
+        return res.status(statusCode).json({
+            success: false,
+            message: "Invalid input. Please check your data."
+        })
+    }
+
+    return res.status(statusCode).json({
         error: error,
         message: message,
         details: details
