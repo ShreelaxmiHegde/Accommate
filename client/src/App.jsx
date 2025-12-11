@@ -6,6 +6,8 @@ import Footer from "./components/layouts/Footer"
 import { useFlash } from './context/FlashContext';
 import FlashMsg from './components/FlashMsg.jsx';
 import ProtectedRoute from "./routes/ProtectedRoute.jsx";
+import { useErr } from "./context/ErrContext.jsx";
+import { setInterceptors } from "./api/axios.js";
 
 import Hero from "./pages/Hero"
 import ListingExplore from "./pages/ListingExplore"
@@ -16,6 +18,8 @@ import EditListingForm from "./components/forms/EditListing.jsx";
 import './index.css'
 
 function App() {
+  const { setErr } = useErr();
+  setInterceptors(setErr);
   const { flash, setFlash } = useFlash();
 
   return (
