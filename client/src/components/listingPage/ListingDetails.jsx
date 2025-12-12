@@ -1,103 +1,107 @@
-import { Box, Stack, Typography, Button, Paper } from "@mui/material";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
+import { 
+    Box, 
+    Stack, 
+    Typography, 
+    Paper,
+    Divider,
+    Avatar
+} from "@mui/material";
+import LocationPinIcon from '@mui/icons-material/LocationPin';
+import DirectionsIcon from '@mui/icons-material/Directions';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+import RoomIcon from "@mui/icons-material/MeetingRoom";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import HomeWorkIcon from "@mui/icons-material/HomeWork";
+import PaymentsIcon from "@mui/icons-material/Payments";
 
-export default function ListingDetails({listing}) {
+export default function ListingDetails({ listing }) {
     return (
-        <Stack sx={{
-                width: { xs: "90%", md: "80%" },
-                mx: "auto",
-                mt: 4,
-                px: { xs: 2, md: 0 },
-                display: "flex",
-                flexDirection:{xs: "column", md:"row"},
-                justifyContent: "space-around",
+        <Paper
+            elevation={2}
+            sx={{
+                borderRadius: 4,
+                overflow: "hidden",
+                mb: 4,
             }}
         >
-            <Stack sx={{mb: 4, width: { xs: "100%", md: "60%" }}}>
-                <Box sx={{mb:4}}>
-                    <Typography variant="h5" sx={{ fontWeight: 700, mb: 1 }} >
+            <Box
+                component="img"
+                src={listing.image?.url}
+                alt={listing.title}
+                sx={{
+                    width: "100%",
+                    height: 400,
+                    objectFit: "cover",
+                }}
+            />
+
+            <Box sx={{ p: 4, display: "flex", flexWrap: "wrap", justifyContent: "space-between" }}>
+                <Box sx={{ mb: 2, width: { xs: "100%", sm: "100%", md: "50%" }}}>
+                    <Typography variant="h4" sx={{ mb: 2, fontWeight: 700, fontSize: { xs: "1.4rem", sm: "1.8rem", md: "2rem" } }}>
+                        {listing.title}
+                    </Typography>
+
+                    <Typography variant="subtitle1" sx={{ color: "text.secondary", display: "flex", mt: 1 }}>
+                        <LocationPinIcon sx={{ color: "error.main" }} />{listing.stateCity}
+                    </Typography>
+                    <Typography variant="subtitle1" sx={{ color: "text.secondary", display: "flex", mt: 1 }}>
+                        <DirectionsIcon sx={{ color: "info.main" }} />{listing.address}
+                    </Typography>
+
+                    <Typography variant="h5" sx={{ fontWeight: 700, mt: 2, fontSize: { xs: "1.2rem", sm: "1.4rem", md: "1.8rem" } }}>
                         About this accommodation
                     </Typography>
-
-                    <Typography
-                        sx={{
-                            fontSize: "1rem",
-                            color: "text.secondary",
-                            lineHeight: 1.6
-                        }}
-                    > {listing.desc} </Typography>
-                </Box>
-
-                <Box>
-                    <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }} >
-                        Address
+                    <Typography sx={{ lineHeight: 1.7 }}>
+                        {listing.desc}
                     </Typography>
-
-                    <Stack direction="row" spacing={1.5} alignItems="center" >
-                        <LocationOnIcon color="primary" />
-                        <Typography sx={{ fontSize: "1rem", color: "text.secondary" }} >
-                            {/* 45 MG Road, Near XYZ College, Bengaluru  */}
-                            {listing.address}
-                        </Typography>
-                    </Stack>
                 </Box>
-            </Stack>
 
-            <Paper elevation={3}
-                sx={{
-                    p: 3,
-                    width: { xs: "80%", md: "350px" },
-                    borderRadius: "20px",
-                    height: "fit-content",
-                }}
-            >
-                <Typography variant="h6" 
-                    sx={{ 
-                        fontWeight: 700,
-                        display: "flex",
-                        alignItems: "center" 
-                    }} >
-                    <CurrencyRupeeIcon sx={{ fontSize: { xs: 18, sm: 20 } }} />
-                    {listing.price} / month
-                </Typography>
+                <Paper
+                    elevation={2}
+                    sx={{
+                        borderRadius: 4,
+                        bgcolor: "white",
+                        width: { xs: "100%", sm: "100%", md: "40%" },
+                        ml: {md:3}
+                    }}
+                >
+                    <Typography variant="h6" sx={{ ml: 2, mt: 2, fontWeight: 800 }}>
+                        Room Details
+                    </Typography>
+                    <Divider sx={{ my: 1 }} />
 
-                <Typography
-                    sx={{
-                        fontSize: "0.9rem",
-                        color: "text.secondary",
-                    }}
-                >
-                    (Excluding utilities)
-                </Typography>
-                <Typography
-                    sx={{
-                        fontSize: "0.9rem",
-                        color: "text.secondary",
-                    }}
-                >
-                    No booking fee
-                </Typography>
-                <Typography
-                    sx={{
-                        fontSize: "0.9rem",
-                        color: "text.secondary",
-                        mb: 2
-                    }}
-                >
-                    Free cancellation before 24 hours
-                </Typography>
-
-                <Button variant="contained"
-                    sx={{
-                        py: 1.3,
-                        fontSize: "1rem",
-                        borderRadius: "10px"
-                    }}
-                >
-                    Book Now
-                </Button>
-            </Paper>
-        </Stack>
+                    <Stack spacing={2} sx={{ ml: 2, mb: 1 }}>
+                        <DetailRow label="Price" value={<span style={{ display: "flex", alignItems: "center" }}>
+                            <CurrencyRupeeIcon sx={{ fontSize: "1rem" }} />
+                            {listing.price} / month
+                        </span>} icon={<PaymentsIcon />} />
+                        <DetailRow label="Capacity" value={`${listing.capacity} persons`} icon={<RoomIcon />} />
+                        <DetailRow label="Nearest Campus" value={listing.nearestCampus} icon={<LocationOnIcon />} />
+                        <DetailRow label="Property Type" value={listing.propertyType} icon={<HomeWorkIcon />} />
+                    </Stack>
+                </Paper>
+            </Box>
+        </Paper>
     );
 }
+
+const DetailRow = ({ label, value, icon }) => (
+    <Box sx={{ display: "flex", alignItems: "center", gap: 1.5}}>
+        <Avatar
+            sx={{
+                bgcolor: "primary.main",
+                width: 32,
+                height: 32,
+                fontSize: 18,
+            }}
+        >
+            {icon}
+        </Avatar>
+        <Box>
+            <Typography sx={{ fontSize: 13, color: "text.secondary" }}>
+                {label}
+            </Typography>
+            <Typography sx={{ fontWeight: 700 }}>{value}</Typography>
+        </Box>
+    </Box>
+);

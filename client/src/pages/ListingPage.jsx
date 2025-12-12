@@ -1,20 +1,14 @@
 import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { deleteListing, fetchListing } from "../api/listing.js"
-import {
-    Box,
-    CardMedia,
-    Button,
-    Stack
-} from "@mui/material"
-import ListingHead from "../components/listingPage/ListingHead"
-import ListingDetails from "../components/listingPage/ListingDetails"
-import ListingReview from "../components/listingPage/ListingReview"
-import HostDetailsCard from "../components/listingPage/HostDetailCard"
+import { Box, Stack, Button } from "@mui/material"
 import CircularLoader from "../components/loaders/CircularLoader"
 import NoListingFound from "./NoListingFound.jsx"
 import { useFlash } from "../context/FlashContext.jsx";
 import { useAuth } from "../context/AuthContext.jsx"
+import ListingDetails from "../components/listingPage/ListingDetails"
+import FacilityReview from "../components/listingPage/Facility&Review"
+import HostDetailAddReview from "../components/listingPage/HostDetail&AddReview.jsx"
 
 export default function ListingPage() {
     const [listing, setListing] = useState({});
@@ -47,20 +41,7 @@ export default function ListingPage() {
     if (loading) {
         return <CircularLoader msg={"Loading your listing..."} />
     }
-
-    const children = [
-        <ListingHead title={listing.title} stateCity={listing.stateCity} />, //statecity
-        <CardMedia
-            component="img"
-            height={300}
-            image={listing.image.url}
-            alt={listing.image.title}
-        />,
-        <ListingDetails listing={listing} />,
-        <ListingReview reviews={listing.reviews} />,
-        <HostDetailsCard listing={listing} />,
-    ]
-
+    
     const handleEditClick = (evt) => {
         evt.preventDefault();
         try {
@@ -90,27 +71,23 @@ export default function ListingPage() {
     }
 
     return (
-        <>
-            <Box>
-                {children.map((child, index) => (
-                    <Box key={index} sx={{ mt: 5, mb: 5 }}>
-                        {child}
-                    </Box>
-                ))}
+        <Box sx={{ maxWidth: 1200, mx: "auto", py: 4, px: 2 }}>
+            <ListingDetails listing={listing} />
+            <FacilityReview listing={listing} />
+            <HostDetailAddReview listing={listing} />
 
-                {currUser && currUser._id === listing.owner._id && (
-                    <Stack gap={2} direction="row" justifyContent="center" sx={{ mb: 5 }}>
-                        <Button
-                            variant="contained"
-                            onClick={handleEditClick}
-                        >Edit Listing</Button>
-                        <Button
-                            variant="outlined"
-                            onClick={handleDeleteClick}
-                        >Delete Listing</Button>
-                    </Stack>
-                )}
-            </Box>
-        </>
+            {currUser && currUser._id === listing.owner._id && (
+                <Stack gap={2} direction="row" justifyContent="center" sx={{ mb: 5 }}>
+                    <Button
+                        variant="contained"
+                        onClick={handleEditClick}
+                    >Edit Listing</Button>
+                    <Button
+                        variant="outlined"
+                        onClick={handleDeleteClick}
+                    >Delete Listing</Button>
+                </Stack>
+            )}
+        </Box>
     );
 }
