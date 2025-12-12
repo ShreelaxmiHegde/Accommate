@@ -6,27 +6,20 @@ import {
   Tabs,
   Tab,
   Button,
-  IconButton,
   Typography,
   Box,
-  Drawer,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemButton,
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import AddBusinessIcon from "@mui/icons-material/AddBusiness";
-import MenuIcon from "@mui/icons-material/Menu";
 import LogoutIcon from '@mui/icons-material/Logout';
 import AuthDialog from "../../pages/AuthDialog";
 import { useAuth } from "../../context/AuthContext";
 import { logout } from "../../api/user";
 import { useFlash } from '../../context/FlashContext';
+import NavDrawer from "./NavDrawer";
 
 export default function Navbar() {
-  const navItems = ["Home", "Find Stays", "Become a Host"];
   const [initialMode, setInitialMode] = useState("");
   const [authOpen, setAuthOpen] = useState(false);
   const { currUser, setCurrUser } = useAuth();
@@ -40,11 +33,6 @@ export default function Navbar() {
   const fontDefStyle = {
     textTransform: "none",
     fontWeight: 500
-  };
-
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
   };
 
   const handleLogout = async (evt) => {
@@ -88,40 +76,7 @@ export default function Navbar() {
           )}
         </Box>
 
-        <IconButton sx={{ display: { xs: "flex", sm: "none" } }} onClick={handleDrawerToggle}>
-          <MenuIcon />
-        </IconButton>
-
-        <Drawer anchor="right" open={mobileOpen} onClose={handleDrawerToggle}
-          sx={{
-            "& .MuiDrawer-paper": { width: 200, height: 250, paddingTop: 2 },
-          }}>
-
-          <List>
-            {navItems.map((item) => (
-              <ListItem key={item} disablePadding>
-                <ListItemButton onClick={handleDrawerToggle}>
-                  <ListItemText primary={item} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 1, alignItems: "start", paddingLeft: 2 }}>
-              {!currUser && (
-                <>
-                  <Button variant="outlined" sx={fontDefStyle} onClick={() => handleModeChange("login")}>Log In</Button>
-                  <Button variant="contained" sx={fontDefStyle} onClick={() => handleModeChange("signup")}>Sign Up</Button>
-                </>
-              )}
-
-              {currUser && (
-                <Button variant="contained" sx={fontDefStyle}
-                  onClick={handleLogout} >
-                  Logout<LogoutIcon sx={{ fontSize: "medium", ml: "0.3rem" }} />
-                </Button>
-              )}
-            </Box>
-          </List>
-        </Drawer>
+        <NavDrawer handleModeChange={handleModeChange} handleLogout={handleLogout} />
 
         <AuthDialog open={authOpen} initialMode={initialMode} onClose={() => setAuthOpen(false)} />
       </Toolbar>
