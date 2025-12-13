@@ -4,6 +4,7 @@ import ListingCarousel from "../components/listingsExplore/ListingCarousel"
 import { Box } from "@mui/material"
 import ListingExploreSkeleton from "../components/loaders/ListingExploreSkeleton"
 import SearchBar from "../components/dashboard/SearchBar"
+import NoListingsFound from "./NoListing"
 
 export default function ListingExplore() {
     const [listings, setListings] = useState([]);
@@ -24,6 +25,10 @@ export default function ListingExplore() {
     useEffect(() => {
         getListings();
     }, []);
+    
+    if(listings.length === 0) {
+        return <NoListingsFound onRetry={getListings} />
+    }
 
     return (
         <>
