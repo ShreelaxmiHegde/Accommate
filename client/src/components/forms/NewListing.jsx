@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { createListing } from "../../api/listing.js";
 import {
     Box,
     Paper,
@@ -20,13 +21,16 @@ import {
 } from "@mui/material";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
-import api from "../../api/axios.js"
+import CircularLoader from "../loaders/CircularLoader.jsx";
 import { useFlash } from "../../context/FlashContext.jsx";
 
 export default function NewListingForm() {
     const { showFlash } = useFlash();
     const [imgPreview, setImgPreview] = useState("");
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+    const [image, setImage] = useState(null);
+    const [imageError, setImageError] = useState("");
 
     const propertyTypes = [
         { value: 'pg', label: 'PG / Shared' },
@@ -59,6 +63,19 @@ export default function NewListingForm() {
         image: ""
     });
 
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if(!file) return;
+        
+        setImage(file);
+        setImageError(""); // clear error if user selects something
+        setImgPreview(URL.createObjectURL(file));
+        setFormData(prev => ({
+            ...prev,
+            image: file
+        }));
+    };
+
     let handleChange = (evt) => {
         const { name, value, checked, files } = evt.target;
         if (name === "facilities") {
@@ -76,13 +93,13 @@ export default function NewListingForm() {
                     }
                 }
             });
-        } else if (files && files[0]) {
-            const file = files[0];
-            setImgPreview(URL.createObjectURL(file));
-            setFormData({
-                ...formData,
-                [name]: file
-            });
+            // } else if (files && files[0]) {
+            //     const file = files[0];
+            //     setImgPreview(URL.createObjectURL(file));
+            //     setFormData({
+            //         ...formData,
+            //         [name]: file
+            //     });
         } else {
             setFormData({
                 ...formData,
@@ -93,6 +110,11 @@ export default function NewListingForm() {
 
     let handleSubmit = async (evt) => {
         evt.preventDefault();
+
+        if (!image) {
+            setImageError("*Image is required");
+            return;
+        }
 
         const fd = new FormData();
         for (let key in formData) {
@@ -107,16 +129,28 @@ export default function NewListingForm() {
             }
         }
 
+        for (const pair of fd.entries()) {
+            console.log("FORMDATA:", pair[0], pair[1]);
+        }
+
         try {
-            let res = await api.post("/listings", fd);
-            if (res.data.success) {
+            setLoading(true);
+            console.log("formdata:", formData)
+            let data = await createListing(fd);
+            if (data.success) {
                 showFlash("success", "Listing Created Successfully!");
-                navigate(`explore/${res.data.url}`);
+                navigate(`/explore/${data.url}`);
             }
         } catch (err) {
             console.error("Error creating listing:", err);
-            showFlash("error", `${err.message}! Listing creation Failed.`);
+            showFlash("Listing creation Failed.");
+        } finally {
+            setLoading(false);
         }
+    }
+
+    if (loading) {
+        return <CircularLoader msg={"Creating your listing..."} />
     }
 
     return (
@@ -298,14 +332,19 @@ export default function NewListingForm() {
                                         id="contained-button-file"
                                         type="file"
                                         name="image"
-                                        onChange={handleChange}
-                                        required
+                                        onChange={handleImageChange}
                                     />
                                     <label htmlFor="contained-button-file">
-                                        <Button startIcon={<PhotoCamera />} component="span" variant="outlined">
+                                        <Button startIcon={<PhotoCamera />} component="span" variant="outlined" color={imageError ? "error" : "primary"}>
                                             Upload a photo
                                         </Button>
                                     </label>
+
+                                    {imageError && (
+                                        <Typography variant="caption" color="error">
+                                            {imageError}
+                                        </Typography>
+                                    )}
 
                                     <Typography variant="caption" color="text.secondary">
                                         Pro tip: upload a clear cover photo + interior shot

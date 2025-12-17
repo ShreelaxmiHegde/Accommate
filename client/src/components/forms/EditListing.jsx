@@ -1,5 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { editListing } from "../../api/listing.js";
 import {
     Box,
     Paper,
@@ -18,10 +19,11 @@ import {
     Divider,
 } from "@mui/material";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
-import api from "../../api/axios.js"
 import { useFlash } from "../../context/FlashContext.jsx";
+import CircularLoader from "../loaders/CircularLoader.jsx";
 
 export default function EditListingForm() {
+    const [loading, setLoading] = useState(false);
     const { showFlash } = useFlash();
     const [imgPreview, setImgPreview] = useState("");
     const navigate = useNavigate();
@@ -125,15 +127,22 @@ export default function EditListingForm() {
         }
 
         try {
-            let res = await api.put(`/listings/${listing._id}`, fd);
-            if (res.data.success) {
+            setLoading(true);
+            let data = await editListing(listing._id, fd);
+            if (data.success) {
                 showFlash("success", "Listing Updated Successfully!");
                 navigate(`/explore/listings/${listing._id}`);
             }
         } catch (err) {
             console.error("Error editing listing:", err.message);
             showFlash("error", `${err.message}! Listing updation Failed.`);
+        } finally {
+            setLoading(false);
         }
+    }
+
+    if(loading) {
+        return <CircularLoader msg={"Updating your listing..."} />
     }
 
     return (
@@ -318,7 +327,6 @@ export default function EditListingForm() {
                                         type="file"
                                         name="image"
                                         onChange={handleChange}
-                                        required
                                     />
                                     <label htmlFor="contained-button-file">
                                         <Button startIcon={<PhotoCamera />} component="span" variant="outlined">

@@ -1,60 +1,48 @@
 import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import api from "../api/axios"
-import {
-    Box,
-    CardMedia,
-    Button,
-    Stack
-} from "@mui/material"
-import ListingHead from "../components/listingPage/ListingHead"
-import ListingDetails from "../components/listingPage/ListingDetails"
-import ListingReview from "../components/listingPage/ListingReview"
-import HostDetailsCard from "../components/listingPage/HostDetailCard"
+import { deleteListing, fetchListing } from "../api/listing.js"
+import { Box, Stack, Button } from "@mui/material"
 import CircularLoader from "../components/loaders/CircularLoader"
+import NoListingFound from "./NoListingFound.jsx"
 import { useFlash } from "../context/FlashContext.jsx";
 import { useAuth } from "../context/AuthContext.jsx"
+import ListingDetails from "../components/listingPage/ListingDetails"
+import FacilityReview from "../components/listingPage/Facility&Review"
+import HostDetailAddReview from "../components/listingPage/HostDetail&AddReview.jsx"
 
 export default function ListingPage() {
     const [listing, setListing] = useState({});
     const [loading, setLoading] = useState(true);
-    const { id } = useParams();
+    const [reviews, setReviews] = useState(); //add review lift state up
     const navigate = useNavigate();
+    const { id } = useParams();
     const { showFlash } = useFlash();
     const { currUser } = useAuth();
 
-    const fetchListing = async () => {
+    const getListing = async () => {
         try {
             setLoading(true);
-            let res = await api.get(`/listings/${id}`);
-            setListing(res.data.listing);
+            let data = await fetchListing(id);
+            setListing(data);
+            setReviews(data.reviews);
         } catch (err) {
-            console.log(err)
+            setListing(null)
         } finally {
             setLoading(false);
         }
     }
 
     useEffect(() => {
-        fetchListing();
+        getListing();
     }, [id]);
 
-    if (loading) {
-        return <CircularLoader />
+    if (!listing && !loading) {
+        return <NoListingFound />;
     }
 
-    const children = [
-        <ListingHead title={listing.title} location={listing.location} />, //statecity
-        <CardMedia
-            component="img"
-            height={300}
-            image={listing.image.url}
-            alt={listing.image.title}
-        />,
-        <ListingDetails listing={listing} />,
-        <ListingReview reviews={listing.reviews} />,
-        <HostDetailsCard listing={listing} />,
-    ]
+    if (loading) {
+        return <CircularLoader msg={"Loading your listing..."} />
+    }
 
     const handleEditClick = (evt) => {
         evt.preventDefault();
@@ -69,9 +57,9 @@ export default function ListingPage() {
         evt.preventDefault();
         try {
             if (currUser && currUser._id === listing.owner._id) {
-                let res = await api.delete(`/listings/${listing._id}`);
-                console.log(res)
-                if (res.data.success) {
+                let data = await deleteListing(id);
+
+                if (data.success) {
                     showFlash("success", "Listing Deleted Successfully!");
                     navigate("/explore");
                 }
@@ -84,28 +72,47 @@ export default function ListingPage() {
         }
     }
 
-    return (
-        <>
-            <Box>
-                {children.map((child, index) => (
-                    <Box key={index} sx={{ mt: 5, mb: 5 }}>
-                        {child}
-                    </Box>
-                ))}
+    const onReviewCreate = (newReview) => {
+        setReviews(prev => [...prev, newReview]);
+    }
 
-                {currUser && currUser._id === listing.owner._id && (
-                    <Stack gap={2} direction="row" justifyContent="center" sx={{ mb: 5 }}>
-                        <Button
-                            variant="contained"
-                            onClick={handleEditClick}
-                        >Edit Listing</Button>
-                        <Button
-                            variant="outlined"
-                            onClick={handleDeleteClick}
-                        >Delete Listing</Button>
-                    </Stack>
-                )}
-            </Box>
-        </>
+    const onReviewUpdate = (reviewId, updatedReview) => {
+        setReviews(prev =>
+            prev.map(r =>
+                r._id === reviewId ? updatedReview : r
+            )
+        );
+    }
+
+    const onReviewDelete = (reviewId) => {
+        setReviews(prev =>
+            prev.filter(r => r._id !== reviewId)
+        );
+    }
+
+    return (
+        <Box sx={{ maxWidth: 1200, mx: "auto", py: 4, px: 2 }}>
+            <ListingDetails listing={listing} />
+            <FacilityReview 
+                listing={listing} 
+                reviews={reviews}
+                onUpdate={onReviewUpdate}
+                onDelete={onReviewDelete}
+            />
+            <HostDetailAddReview listing={listing} onReviewCreate={onReviewCreate} />
+
+            {currUser && currUser._id === listing.owner._id && (
+                <Stack gap={2} direction="row" justifyContent="center" sx={{ mb: 5 }}>
+                    <Button
+                        variant="contained"
+                        onClick={handleEditClick}
+                    >Edit Listing</Button>
+                    <Button
+                        variant="outlined"
+                        onClick={handleDeleteClick}
+                    >Delete Listing</Button>
+                </Stack>
+            )}
+        </Box>
     );
 }

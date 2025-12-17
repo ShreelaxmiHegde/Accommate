@@ -23,7 +23,7 @@ module.exports.signup = async (req, res) => {
         return res.status(400).json(
             {
                 success: false,
-                message: "Please recheck the credentials. You have submitted already existing ones!"
+                message: "An account with this email already exists"
             })
     }
 };

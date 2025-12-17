@@ -17,15 +17,16 @@ export default function FlashMsg({ flash, setFlash }) {
   useEffect(() => {
     if (flash) {
       setOpen(true);
-      setTimeout(() => {
-        setOpen(false)
-      }, 2000)
     }
   }, [flash]);
 
   return (
     <div>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+      >
         <Alert
           onClose={handleClose}
           severity={flash?.type}

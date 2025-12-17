@@ -4,7 +4,7 @@ import {
     Typography
 } from '@mui/material';
 
-export default function CircularLoader() {
+export default function CircularLoader({msg}) {
     return (
         <Box sx={{ display: 'flex', flexDirection: "column", height: "100vh", justifyContent: "center", alignItems: "center" }}>
             <CircularProgress size="3rem" />
@@ -18,7 +18,7 @@ export default function CircularLoader() {
                     fontWeight: 500,
                 }}
             >
-                Loading your listing…
+                {msg}
             </Typography>
         </Box>
     );

@@ -12,6 +12,13 @@ router.post(
     wrapAsync(reviewController.createReview)
 );
 
+router.put(
+    "/:reviewId/edit",
+    isLoggedIn,
+    isReviewAuthor,
+    wrapAsync(reviewController.updateReview)
+)
+
 // delete review route 
 router.delete(
     "/:reviewId", 
