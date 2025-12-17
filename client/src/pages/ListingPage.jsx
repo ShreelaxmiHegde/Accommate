@@ -13,8 +13,9 @@ import HostDetailAddReview from "../components/listingPage/HostDetail&AddReview.
 export default function ListingPage() {
     const [listing, setListing] = useState({});
     const [loading, setLoading] = useState(true);
-    const { id } = useParams();
+    const [reviews, setReviews] = useState(); //add review lift state up
     const navigate = useNavigate();
+    const { id } = useParams();
     const { showFlash } = useFlash();
     const { currUser } = useAuth();
 
@@ -23,6 +24,7 @@ export default function ListingPage() {
             setLoading(true);
             let data = await fetchListing(id);
             setListing(data);
+            setReviews(data.reviews);
         } catch (err) {
             setListing(null)
         } finally {
@@ -41,7 +43,7 @@ export default function ListingPage() {
     if (loading) {
         return <CircularLoader msg={"Loading your listing..."} />
     }
-    
+
     const handleEditClick = (evt) => {
         evt.preventDefault();
         try {
@@ -70,11 +72,34 @@ export default function ListingPage() {
         }
     }
 
+    const onReviewCreate = (newReview) => {
+        setReviews(prev => [...prev, newReview]);
+    }
+
+    const onReviewUpdate = (reviewId, updatedReview) => {
+        setReviews(prev =>
+            prev.map(r =>
+                r._id === reviewId ? updatedReview : r
+            )
+        );
+    }
+
+    const onReviewDelete = (reviewId) => {
+        setReviews(prev =>
+            prev.filter(r => r._id !== reviewId)
+        );
+    }
+
     return (
         <Box sx={{ maxWidth: 1200, mx: "auto", py: 4, px: 2 }}>
             <ListingDetails listing={listing} />
-            <FacilityReview listing={listing} />
-            <HostDetailAddReview listing={listing} />
+            <FacilityReview 
+                listing={listing} 
+                reviews={reviews}
+                onUpdate={onReviewUpdate}
+                onDelete={onReviewDelete}
+            />
+            <HostDetailAddReview listing={listing} onReviewCreate={onReviewCreate} />
 
             {currUser && currUser._id === listing.owner._id && (
                 <Stack gap={2} direction="row" justifyContent="center" sx={{ mb: 5 }}>

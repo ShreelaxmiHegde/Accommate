@@ -13,12 +13,14 @@ import {
 } from "@mui/material"
 import { addReview } from "../../api/review.js";
 import { useFlash } from "../../context/FlashContext.jsx";
+import { useAuth } from "../../context/AuthContext";
 
-export default function HostDetailAddReview({ listing }) {
+export default function HostDetailAddReview({ listing, onReviewCreate }) {
     const { showFlash } = useFlash();
     const navigate = useNavigate();
     const [rating, setRating] = useState(0);
     const [review, setReview] = useState("");
+    const { currUser } = useAuth();
 
     let reviewData = {
         review: {
@@ -27,12 +29,18 @@ export default function HostDetailAddReview({ listing }) {
         }
     }
 
-    const onReviewSubmit = async() => {
+    const onReviewSubmit = async(evt) => {
+        evt.preventDefault();
+
+        setReview("");
+        setRating(0);
+
         try {
             if(currUser) {
                 let data = await addReview(listing._id, reviewData);
     
                 if (data.success) {
+                    onReviewCreate(data.review)
                     showFlash("success", "Review Created Successfully!");
                     navigate(`/explore/listings/${listing._id}`);
                 }
@@ -40,6 +48,7 @@ export default function HostDetailAddReview({ listing }) {
                 return showFlash("error", "Please log in before creating a review.");
             }
         } catch (err) {
+            console.log(err)
             showFlash("error", "Review creation failed!");
         }
     }
@@ -131,7 +140,7 @@ export default function HostDetailAddReview({ listing }) {
                             variant="contained"
                             fullWidth
                             disabled={!rating || review.trim() === ""}
-                            onClick={onReviewSubmit}
+                            onClick={(evt) => onReviewSubmit(evt, reviewData)}
                         >
                             Submit Review
                         </Button>
