@@ -18,7 +18,7 @@ It’s a Full Stack MERN application deployed on Render.
 ## 🧩 Technologies Used (MERN)
 | Category  | Technologies |
 |------------|--------------|
-| **Frontend** | HTML / CSS <br> Bootstrap |
+| **Frontend** | React.js <br> MUI |
 | **Backend** | Node.js <br> Express.js |
 | **Database** | MongoDB (Mongoose) |
 
@@ -28,7 +28,6 @@ It’s a Full Stack MERN application deployed on Render.
 | **Render** | Deployment platform |
 | **Cloudinary** | Image storage & management |
 | **Passport.js** | Authentication & Authorization |
-| **EJS** | Dynamic page rendering |
 | **MongoDB Atlas** | Cloud database service |
 
 ---
