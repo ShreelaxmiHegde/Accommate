@@ -26,7 +26,7 @@ export default function ListingExplore() {
         getListings();
     }, []);
     
-    if(listings.length === 0) {
+    if(!loading && listings.length === 0) {
         return <NoListingsFound onRetry={getListings} />
     }
 
