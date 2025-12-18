@@ -9,7 +9,6 @@ const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
-const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
@@ -61,7 +60,6 @@ app.use(express.urlencoded( { extended: true })); //parse data
 app.use(methodOverride("_method"));
 
 app.use(session(sessionOptions)); //setup express-session middleware
-app.use(flash());
 
 app.use(passport.initialize()); //setup Passport
 app.use(passport.session()); //connect to session
@@ -77,8 +75,6 @@ const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
 app.use((req, res, next) => {
-    res.locals.success = req.flash("success");
-    res.locals.error = req.flash("error");
     res.locals.currUser = req.user;
     next();
 });
