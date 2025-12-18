@@ -20,6 +20,7 @@ import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import AddBusinessIcon from "@mui/icons-material/AddBusiness";
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useAuth } from "../../context/AuthContext";
+import { useEffect } from "react";
 
 export default function NavDrawer({ handleModeChange, handleLogout }) {
     const navItems = ["Home", "Find Stays", "Become a Host"];
@@ -44,6 +45,12 @@ export default function NavDrawer({ handleModeChange, handleLogout }) {
         }
         handleDrawerToggle();
     }
+
+    useEffect(() => {
+        if(mobileOpen) {
+            setMobileOpen(false);
+        }
+    }, [currUser]);
 
     return (
         <>
