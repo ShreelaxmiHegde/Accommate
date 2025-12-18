@@ -3,7 +3,7 @@
 import axios from "axios"
 
 const api = axios.create({
-    baseURL: "http://localhost:8080", //by default all reqs should go express-server port
+    baseURL: process.env.BACKEND_URL, //by default all reqs should go express-server port
     withCredentials: true //allow cookies to be sent/recived
 });
 
