@@ -17,7 +17,7 @@ const User = require("./models/user.js");
 const cors = require("cors");
 
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: "https://accommate.vercel.app",
     credentials: true
 }));
 
