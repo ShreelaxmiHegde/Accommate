@@ -6,6 +6,7 @@ import {
     Stack,
     Button
 } from "@mui/material";
+import { useEffect } from "react";
 import SettingsAccessibilityIcon from '@mui/icons-material/SettingsAccessibility';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import AddHomeWorkIcon from '@mui/icons-material/AddHomeWork';
@@ -13,6 +14,12 @@ import ReviewsIcon from '@mui/icons-material/Reviews';
 import MainBox from "../components/dashboard/MainBox";
 
 export default function Hero() {
+    useEffect(() => {
+        fetch("https://accommate-1.onrender.com/api/health")
+            .then(res => res.json())
+            .then(data => console.log("Backend says:", data))
+            .catch(err => console.error("Connection failed", err));
+    }, []);
 
     const iconPlaceholderStyle = {
         width: 40,
@@ -95,8 +102,8 @@ export default function Hero() {
     return (
         <>
             <MainBox />
-            <Container sx={{marginTop: "5rem"}}>
-                <section style={{marginBottom: "5rem"}}>
+            <Container sx={{ marginTop: "5rem" }}>
+                <section style={{ marginBottom: "5rem" }}>
                     <Box sx={{ mx: "auto" }} >
                         <Typography variant="h4"
                             sx={{
@@ -134,7 +141,7 @@ export default function Hero() {
                     </Box>
                 </section>
 
-                <section style={{ paddingTop: "2rem"}}>
+                <section style={{ paddingTop: "2rem" }}>
                     <Typography variant="h4"
                         sx={{
                             fontWeight: 800,
@@ -175,7 +182,7 @@ export default function Hero() {
                                     <Typography sx={{ color: "text.secondary", mb: 3 }}>
                                         {card.desc}
                                     </Typography>
-                                    <Button variant="contained" size="large" 
+                                    <Button variant="contained" size="large"
                                         component={Link} to={card.to}
                                         sx={{
                                             textTransform: "none",

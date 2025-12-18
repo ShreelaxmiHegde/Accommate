@@ -52,8 +52,10 @@ const sessionOptions = {
     cookie: {
         maxAge: 7*24*60*60*1000,
         httpOnly: true,
-        secure: false,
-        sameSite: "lax"
+        // secure: false,
+        // sameSite: "lax"
+        secure: true,
+        sameSite: "none"
     }
 }
 
@@ -81,9 +83,14 @@ app.use((req, res, next) => {
     next();
 });
 
+app.get("/api/health", (req, res) => {
+    console.log("2.frontend connected to backend")
+  return res.json({ status: "OK", time: new Date().toISOString() });
+});
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
+
 
 // generic error handler
 app.use((err, req, res, next) => {
