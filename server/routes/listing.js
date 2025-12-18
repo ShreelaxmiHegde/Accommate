@@ -29,11 +29,4 @@ router.route("/:id")
     wrapAsync(listingsController.destroyListing)
 );
 
-router.get(
-    "/:id/edit", 
-    isLoggedIn, 
-    isOwner, 
-    wrapAsync(listingsController.renderEditForm)
-);
-
 module.exports = router;

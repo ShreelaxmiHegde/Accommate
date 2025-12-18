@@ -48,20 +48,6 @@ module.exports.createListing = async (req, res) => {
     });
 };
 
-module.exports.renderEditForm = async (req, res) => {
-    let { id } = req.params;
-    const listing = await Listing.findById(id);
-
-    if(!listing) {
-        req.flash("error", "The listing you are searching for - doesn't exist!");
-        res.redirect("/listings");
-    } 
-
-    let originalImgUrl = listing.image.url;
-    originalImgUrl = originalImgUrl.replace("/upload", "/upload/w_250");
-    res.json({listing, originalImgUrl});
-};
-
 module.exports.updateListing = async (req, res) => {
     let { id } = req.params;
     let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
