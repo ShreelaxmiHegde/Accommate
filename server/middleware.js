@@ -80,8 +80,10 @@ module.exports.isReviewAuthor = async (req, res, next) => {
     let { id, reviewId } = req.params;
     let review = await Review.findById(reviewId);
     if (!review.author.equals(res.locals.currUser._id)) {
-        req.flash("error", "Access Denied!");
-        return res.redirect(`/listings/${id}`);
+        return res.status(403).json({
+            success: false,
+            message: "Forbidden: You are not the author of this review."
+        })
     }
 
     next();
