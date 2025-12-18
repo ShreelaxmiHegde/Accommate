@@ -6,7 +6,6 @@ import {
     Stack,
     Button
 } from "@mui/material";
-import { useEffect } from "react";
 import SettingsAccessibilityIcon from '@mui/icons-material/SettingsAccessibility';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import AddHomeWorkIcon from '@mui/icons-material/AddHomeWork';
@@ -14,13 +13,6 @@ import ReviewsIcon from '@mui/icons-material/Reviews';
 import MainBox from "../components/dashboard/MainBox";
 
 export default function Hero() {
-    useEffect(() => {
-        fetch("https://accommate-1.onrender.com/api/health")
-            .then(res => res.json())
-            .then(data => console.log("Backend says:", data))
-            .catch(err => console.error("Connection failed", err));
-    }, []);
-
     const iconPlaceholderStyle = {
         width: 40,
         height: 40,

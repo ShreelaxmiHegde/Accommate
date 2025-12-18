@@ -10,13 +10,6 @@ export default function ListingExplore() {
     const [listings, setListings] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        fetch("https://accommate-1.onrender.com/listings")
-            .then(res => res.json())
-            .then(data => console.log("Backend says:", data))
-            .catch(err => console.error("Connection failed", err));
-    }, []);
-
     const getListings = async () => {
         try {
             setLoading(true); //start loading
@@ -32,8 +25,8 @@ export default function ListingExplore() {
     useEffect(() => {
         getListings();
     }, []);
-
-    if (!loading && listings.length === 0) {
+    
+    if(!loading && listings.length === 0) {
         return <NoListingsFound onRetry={getListings} />
     }
 
@@ -42,9 +35,9 @@ export default function ListingExplore() {
             <Box sx={{ paddingTop: "5rem" }}>
                 <SearchBar />
 
-                {loading ?
+                {loading ? 
                     (<ListingExploreSkeleton />)
-                    :
+                    : 
                     (<ListingCarousel listings={listings} />)
                 }
             </Box>

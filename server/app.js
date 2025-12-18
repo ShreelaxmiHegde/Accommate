@@ -83,10 +83,6 @@ app.use((req, res, next) => {
     next();
 });
 
-app.get("/api/health", (req, res) => {
-    console.log("2.frontend connected to backend")
-  return res.json({ status: "OK", time: new Date().toISOString() });
-});
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
