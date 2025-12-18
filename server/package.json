@@ -7,7 +7,9 @@
   "description": "A student accommodation portal to list PGs, hostels, student rooms near Universities.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "author": "Shreelaxmi Hegde",
   "license": "MIT",
