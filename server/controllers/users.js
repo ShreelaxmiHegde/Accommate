@@ -1,6 +1,6 @@
 const User = require("../models/user.js");
 
-module.exports.signup = async (req, res) => {
+module.exports.signup = async (req, res, next) => {
     try {
         let { username, email, password } = req.body;
         const newUser = new User({ email, username });
@@ -11,19 +11,19 @@ module.exports.signup = async (req, res) => {
             if (err) {
                 return next(err);
             }
-        });
- 
-        return res.status(200).json(
-            {
+
+            return res.status(201).json({
                 success: true,
+                message: "Sign in was succussful",
                 user: registeredUser
             })
+        });
 
-    } catch (err) { // username entered is existing username
+    } catch (err) {
         return res.status(400).json(
             {
                 success: false,
-                message: "An account with this email already exists"
+                message: "An account with this email or username already exists"
             })
     }
 };
