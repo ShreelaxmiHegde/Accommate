@@ -125,14 +125,7 @@ export default function EditListingForm() {
                 fd.append(`listing[${key}]`, formData[key]);
             }
         }
-
-        for (let [key, value] of fd.entries()) {
-            console.log(key, ":", value)
-            if (value instanceof File) {
-                console.log("File field:", key, value.name);
-            }
-        }
-
+        
         try {
             setLoading(true);
             let data = await editListing(listing._id, fd);

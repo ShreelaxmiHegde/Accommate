@@ -8,7 +8,8 @@ const fileFilter = (req, file, callback) => {
     } else {
         callback(new ExpressError(
             400, 
-            "Only image files are allowed!"
+            "Bad Request",
+            "Invalid file type. Please upload an image."
         ), false);
     }
 }
