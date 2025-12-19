@@ -126,9 +126,11 @@ export default function EditListingForm() {
             }
         }
 
+        console.log(fd);
         try {
             setLoading(true);
             let data = await editListing(listing._id, fd);
+            console.log(data);
             if (data.success) {
                 showFlash("success", "Listing Updated Successfully!");
                 navigate(`/explore/listings/${listing._id}`);
