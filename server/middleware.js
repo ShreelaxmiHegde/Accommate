@@ -41,6 +41,9 @@ module.exports.isOwner = async (req, res, next) => {
 
 // form data validation error handling middleware
 module.exports.validateListing = (req, res, next) => {
+    console.log("@validate listing")
+    console.log("1.",req.file);
+    console.log("2.",req.body);
     //if no new image uploaded, delete image field to avoid validation error
     if(!req.file) delete req.body.listing.image;
 

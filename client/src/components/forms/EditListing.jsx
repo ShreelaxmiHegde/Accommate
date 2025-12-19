@@ -126,7 +126,12 @@ export default function EditListingForm() {
             }
         }
 
-        console.log(fd);
+        for (let [key, value] of formData.entries()) {
+            if (value instanceof File) {
+                console.log("File field:", key, value.name);
+            }
+        }
+
         try {
             setLoading(true);
             let data = await editListing(listing._id, fd);
@@ -143,7 +148,7 @@ export default function EditListingForm() {
         }
     }
 
-    if(loading) {
+    if (loading) {
         return <CircularLoader msg={"Updating your listing..."} />
     }
 
