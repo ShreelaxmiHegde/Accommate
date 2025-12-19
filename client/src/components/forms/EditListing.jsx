@@ -126,7 +126,8 @@ export default function EditListingForm() {
             }
         }
 
-        for (let [key, value] of formData.entries()) {
+        for (let [key, value] of fd.entries()) {
+            console.log(key, ":", value)
             if (value instanceof File) {
                 console.log("File field:", key, value.name);
             }
