@@ -115,7 +115,7 @@ export default function EditListingForm() {
 
         const fd = new FormData();
         for (let key in formData) {
-            if (key === "image" instanceof File) {
+            if (key === ("image" instanceof File)) {
                 fd.append("image", formData.image); //append file separately
             } else if (key === "facilities") {
                 formData.facilities.forEach((facility) =>

@@ -49,9 +49,6 @@ module.exports.createListing = async (req, res) => {
 };
 
 module.exports.updateListing = async (req, res) => {
-    console.log("@update listing")
-    console.log("1.",req.file);
-    console.log("2.",req.body);
     let { id } = req.params;
     let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
 
