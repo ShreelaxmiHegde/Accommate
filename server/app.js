@@ -21,6 +21,9 @@ app.use(cors({
     credentials: true
 }));
 
+//cookies marked secure to be trusted on Render
+app.set("trust proxy", 1); 
+
 // connect db with backend
 const dbUrl = process.env.ATLASDB_URL;
 main()
