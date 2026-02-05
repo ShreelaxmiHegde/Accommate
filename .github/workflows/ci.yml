@@ -23,10 +23,15 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - working-directory: server
+        cache-dependency-path: server/package-lock.json
+
+    - name: Install backend deps
+      working-directory: server
       run: npm install
-    - run: npm run build --if-present
-    - run: npm test
+      
+    - name: Build backend
+      working-directory: server
+      run: npm run build --if-present
 
   frontend:
       runs-on: self-hosted
@@ -43,7 +48,16 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - working-directory: client
+          cache-dependency-path: client/package-lock.json
+
+      - name: Install frontend deps
+        working-directory: client
         run: npm install
-      - run: npm run build --if-present
-      - run: npm test
+
+      - name: Build frontend
+        working-directory: client
+        run: npm run build --if-present
+
+      - name: Test frontend
+        working-directory: client
+        run: npm test
