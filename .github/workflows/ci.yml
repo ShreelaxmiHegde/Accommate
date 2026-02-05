@@ -9,30 +9,26 @@ on:
 
 jobs:
   backend:
-    build:
+    runs-on: self-hosted
 
-      runs-on: self-hosted
+    strategy:
+      matrix:
+        node-version: [22.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-      strategy:
-        matrix:
-          node-version: [22.x]
-          # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
-      steps:
-      - uses: actions/checkout@v4
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - working-directory: server
-      - run: npm ci
-      - run: npm run build --if-present
-      - run: npm test
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - working-directory: server
+    - run: npm ci
+    - run: npm run build --if-present
+    - run: npm test
 
   frontend:
-    build:
-
       runs-on: self-hosted
 
       strategy:
@@ -47,7 +43,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - working-directory: client
+      - wroking-directory: client
       - run: npm ci
       - run: npm run build --if-present
       - run: npm test
