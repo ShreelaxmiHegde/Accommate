@@ -6,8 +6,8 @@ import {
 
 export const AuthContext = createContext(); //creates context
 
-export const AuthProvider = ({ children }) => {
-    const [currUser, setCurrUser] = useState(null)
+export const AuthProvider = ({ children, initialUser=null }) => {
+    const [currUser, setCurrUser] = useState(initialUser)
 
     return (
         <AuthContext.Provider value={{ currUser, setCurrUser }}>
