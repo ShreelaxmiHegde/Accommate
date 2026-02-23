@@ -1,13 +1,11 @@
-# Accommate
+# [Accommaten 🔗](https://accommate.onrender.com/Accommate)
 **Accommate** is a student accommodation platform built with the main goal of helping students easily find and book stays near their college or campus.
 
-Check out the live version 👉 [Accommate](https://accommate.onrender.com/Accommate).
-<br>
-It’s a Full Stack MERN application deployed on Render.
+It’s a Full Stack MERN application with MVC architecture deployed on Render.
 
 ---
 
-## ✨ Features Accommate Provide
+### ✨ Features Accommate Provide
 ⤷ 🔐 User Authentication & Authorization for personalized experience <br>
 ⤷ 🏘️ Connects students directly with housing owners <br>
 ⤷ ⭐ Flexible ratings and reviews system <br>
@@ -15,43 +13,25 @@ It’s a Full Stack MERN application deployed on Render.
 
 ---
 
-## 🧩 Technologies Used (MERN)
-| Category  | Technologies |
-|------------|--------------|
-| **Frontend** | React.js <br> MUI |
-| **Backend** | Node.js <br> Express.js |
-| **Database** | MongoDB (Mongoose) |
+## Application Evolution Phases
+- Phase1: 1.x.x
+    - EJS+Bootstrap(UI) + CRUD
+    - Auth(express sessions & Passport.js)
+    - Client & Serverside Data Validation
+    - Multer+Cloudinary Image storage
+    - MongoDB Atlas ➜ Database
+    - Render ➜ Deployment
+- Phase2: 2.x.x
+    - React.js + MUI(UI) ➜ **EJS Migration**
+    - Vercel(frontend) + Render(backend) ➜ Deployment
+- Phase3: 3.x.x
+    - CICD
+        - Component testing
+        - Unit testing
+    - AWS EC2 ➜ Deployment
 
-## 🛠️ Tools Used
-| Tool | Purpose |
-|------|----------|
-| **Render** | Deployment platform |
-| **Cloudinary** | Image storage & management |
-| **Passport.js** | Authentication & Authorization |
-| **MongoDB Atlas** | Cloud database service |
 
----
-
-## 🤝 Wanna Contribute? You are Welcome!
-### If you have ideas for: <br>
-● 💡 Feature enhancements <br>
-● 🐞 Bug fixes <br>
-● 🎨 UI/UX improvements
-
-OR
-
-If you’re just starting with open source and want to learn how to collaborate, <br> You’re **warmly welcomed!**
-I’ll be **happy** to guide and support you along the way. 💪
-
-### How to Contribute
-1. Fork the repository
-2. Create a new branch for your feature/fix
-3. Make your changes
-4. Submit a pull request 🎉
-
-Check out the [Technical Documentation](docs.md) 📘 for a detailed overview of the project.
-
----
+> This project is most likely a platform where I do **experimental** works with the techniques/convensions that **real-world applications** follow.
 
 ## ⚙️ Setup Instructions
 1. Clone the repository 
@@ -69,8 +49,6 @@ npm install
 5. Access API 
     - Visit [http://localhost:8080/Accommate] to view the website
 
-Then boom 💥.
-Start building and make your first PR!
 
 ---
 
