@@ -1,13 +1,12 @@
 # ------ Development ------
 
 services:
-  #Client service
+  # Client service
   frontend:
     build:
       context: ./client
       dockerfile: Dockerfile
       target: development
-    container_name: frontend
     ports:
       - "5173:5173"
     
@@ -17,12 +16,11 @@ services:
     depends_on:
       - backend
     
-  #Server service
+  # Server service
   backend:
     build:
       context: ./server
       dockerfile: Dockerfile
-    container_name: backend
     ports:
       - "8080:8080"
 
@@ -32,10 +30,9 @@ services:
     depends_on:
       - database
 
-  #Database service
+  # Database service
   database:
     image: mongo:latest
-    container_name: database
     ports:
       - "27017:27017"
 
@@ -45,12 +42,12 @@ services:
     networks:
       - app_network
 
-  #Volume
+# Volume
 volumes:
-    db_store:
-      driver: local #persist mongodb data locally
+  db_store:
+    driver: local #persist mongodb data locally
 
-  #Network
+# Network
 networks:
-    app_network:
-      driver: bridge
+  app_network:
+    driver: bridge
