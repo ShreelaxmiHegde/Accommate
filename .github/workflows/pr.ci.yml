@@ -21,9 +21,9 @@ jobs:
 
       # install nodejs in CI environment
     - name: Use Node.js ${{ matrix.node-version }}
+      working-directory: ./client
       uses: actions/setup-node@v4
       with:
-        working-directory: ./client
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
 
@@ -51,9 +51,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node-version }}
+        working-directory: ./server
         uses: actions/setup-node@v4
         with:
-          working-directory: ./server
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
