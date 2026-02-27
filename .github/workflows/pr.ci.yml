@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        service: [client]
         node-version: [22.x]
 
     steps:
@@ -21,49 +22,49 @@ jobs:
 
       # install nodejs in CI environment
     - name: Use Node.js ${{ matrix.node-version }}
-      working-directory: ./client
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        cache-dependency-path: ${{ matrix.service }}/package-lock.json
 
     - name: Install dependencies
-      working-directory: ./client
+      working-directory: ./${{ matrix.service }}
       run: npm install
 
     - name: Build frontend
-      working-directory: ./client
+      working-directory: ./${{ matrix.service }}
       run: npm run build
 
     - name: Run component tests
-      working-directory: ./client
+      working-directory: ./${{ matrix.service }}
       run: npm test --tests
 
     - name: Build Docker image
-      run: docker build -t accommate-frontend ./client
+      run: docker build -t accommate-frontend ./${{ matrix.service }}
 
   backend:
     runs-on: ubuntu-latest
     strategy:
-       matrix:
-         node-version: [22.x]
+      matrix:
+        service: [server]
+        node-version: [22.x]
 
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node-version }}
-        working-directory: ./server
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
       - name: Install dependencies
-        working-directory: ./server
+        working-directory: ./${{ matrix.service }}
         run: npm install
 
       - name: Build backend
-        working-directory: ./server
+        working-directory: ./${{ matrix.service }}
         run: npm start
 
       - name: Build Docker image
-        run: docker build -t accommate-backend ./server
+        run: docker build -t accommate-backend ./${{ matrix.service }}
