@@ -1,4 +1,4 @@
-# [Accommaten 🔗](https://accommate.onrender.com/Accommate)
+# [Accommate 🔗](https://accommate.onrender.com/Accommate)
 **Accommate** is a student accommodation platform built with the main goal of helping students easily find and book stays near their college or campus.
 
 It’s a Full Stack MERN application with MVC architecture deployed on Render.
@@ -25,13 +25,15 @@ It’s a Full Stack MERN application with MVC architecture deployed on Render.
     - React.js + MUI(UI) ➜ **EJS Migration**
     - Vercel(frontend) + Render(backend) ➜ Deployment
 - Phase3: 3.x.x
+    - Dockerize application
+    - dev and prod separate containerization
+- Phase4: 4.x.x
     - CICD
         - Component testing
         - Unit testing
     - AWS EC2 ➜ Deployment
 
-
-> This project is most likely a platform where I do **experimental** works with the techniques/convensions that **real-world applications** follow.
+---
 
 ## ⚙️ Setup Instructions
 1. Clone the repository 
@@ -47,10 +49,15 @@ npm install
     - setup .env file and add your credentials
 4. Run the application `node app.js`
 5. Access API 
-    - Visit [http://localhost:8080/Accommate] to view the website
+    - Visit [http://localhost:8080/Accommate](http://localhost:8080/Accommate) to view the website
 
+## 🐋 Docker Container Setup
 
 ---
 
 ## 📄 License
 This project is open source and available under the <b>MIT License</b>.
+
+---
+
+> This project is most likely a platform where I do **experimental** works with the techniques/convensions that **real-world applications** follow.
