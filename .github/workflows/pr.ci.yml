@@ -65,11 +65,7 @@ jobs:
 
       - name: Build backend
         env:
-          CLOUD_NAME: ${{ secrets.CLOUD_NAME }}
-          CLOUD_API_KEY: ${{ secrets.CLOUD_API_KEY }}
-          CLOUD_API_SECRET: ${{ secrets.CLOUD_API_SECRET }}
           ATLASDB_URL: ${{ secrets.ATLASDB_URL }}
-          SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
         working-directory: ./${{ matrix.service }}
         run: npm start
 
