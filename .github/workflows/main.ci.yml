@@ -1,0 +1,77 @@
+name: Main CI
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: [client]
+        node-version: [22.x]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: ${{ matrix.service }}/package-lock.json
+
+      - name: Install dependencies and build frontend
+        working-directory: ./${{ matrix.service }}
+        run: npm install
+
+      - name: Build frontend
+        working-directory: ./{{ matrix.service }}
+        run: npm run build
+
+      - name: Run tests
+        working-directory: ./{{ matrix.service }}
+        run: npm test --test
+
+      - name: Build docker image
+        run: docker build -t accommate-frontend:${{ GITHUB_SHA::7 }} ./${{ matrix.service }}
+
+      - name: Login to dockerhub
+        uses: docker/login-action@v3
+        with:
+          token: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
+
+      - name: Push docker image
+        run: docker push shreelaxmihegde/accommate-frontend
+
+  backend:
+    runs-on: ubuntu latest
+    strategy:
+      matrix:
+        service: [server]
+        node-version: [22.x]
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependecy-path: ${{ matrix.service }}/package-lock.json
+
+      - name: Install dependencies
+        working-directory: ./${{ matrix.service }}
+        run: npm install
+
+      - name: Build docker image
+        run: docker build -t accommate-backend:${{ GITHUB_SHA::7 }} ./${{ matrix.service }}
+
+      - name: Login to dockerhub
+        uses: docker/login-action@v3
+        with:
+          token: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
+
+      - name: Push docker image
+        run: docker push shreelaxmihegde/accommate-backend
