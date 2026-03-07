@@ -2,19 +2,15 @@ if(process.env.NODE_ENV !== "production"){
     require("dotenv").config();
 }
 
-console.log("ENV:", process.env.NODE_ENV)
-
 const express = require("express");
-const app = express(); 
-const port = 8080;
-const mongoose = require("mongoose");
+const app = express();
 const methodOverride = require("method-override");
 const session = require("express-session");
-const MongoStore = require("connect-mongo");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 const cors = require("cors");
+const {sessionOptions} = require('./db.js')
 
 app.use(cors({
     origin: "https://accommate.vercel.app",
@@ -22,45 +18,7 @@ app.use(cors({
 }));
 
 //cookies marked secure to be trusted on Render
-app.set("trust proxy", 1); 
-
-// connect db with backend
-const dbUrl = process.env.ATLASDB_URL;
-main()
-.then(() => {
-    console.log("Connected to MongoDB");
-}).catch((err) => {
-    console.log(err);
-});
-async function main() {
-    await mongoose.connect(dbUrl);
-}
-
-const store = MongoStore.create({
-    mongoUrl: dbUrl,
-    crypto: {
-        secret: process.env.SECRET
-    }
-});
-
-store.on("error", (err) => {
-    console.log("ERROR - MONOGO SESSION STORE", err);
-});
-
-const sessionOptions = {
-    store,
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false, //Don’t create a session until the user actually logs in.
-    cookie: {
-        maxAge: 7*24*60*60*1000,
-        httpOnly: true,
-        // secure: false,
-        // sameSite: "lax"
-        secure: true,
-        sameSite: "none"
-    }
-}
+app.set("trust proxy", 1);
 
 app.use(express.json()); //parse axios req json data from the frontend
 app.use(express.urlencoded( { extended: true })); //parse data
@@ -117,6 +75,4 @@ app.use((err, req, res, next) => {
     });
 });
 
-app.listen(port, () => {
-    console.log(`App is listning on port ${port}`);
-});     
+module.exports = app;    
