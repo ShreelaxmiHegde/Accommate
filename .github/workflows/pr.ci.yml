@@ -24,6 +24,10 @@ jobs:
         working-directory: ./${{ matrix.service }}
         run: npm install
 
+      - name: Run tests
+        working-directory: ./${{ matrix.service }}
+        run: npm test
+
       - name: Build Docker image
         run: docker build -t accommate-backend ./${{ matrix.service }}
 

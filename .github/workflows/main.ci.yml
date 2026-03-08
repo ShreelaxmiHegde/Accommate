@@ -26,6 +26,10 @@ jobs:
         working-directory: ./${{ matrix.service }}
         run: npm install
 
+      - name: Run tests
+        working-directory: ./${{ matrix.service }}
+        run: npm test
+
       - name: Build docker image
         run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/accommate-backend:${GITHUB_SHA::7} ./${{ matrix.service }}
 
