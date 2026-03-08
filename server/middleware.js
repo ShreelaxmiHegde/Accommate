@@ -94,7 +94,7 @@ module.exports.authenticate = (req, res, next) => {
         if (err) return next(err);
 
         if (!user) {
-            return res.json({
+            return res.status(400).json({
                 success: false,
                 message: info?.message || "Invalid email or password!"
             });
