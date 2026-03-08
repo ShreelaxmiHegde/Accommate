@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const MongoStore = require("connect-mongo");
 require("dotenv").config();
 
+const isProduction = process.env.NODE_ENV === "production";
 const url = process.env.NODE_ENV === "test"
     ? process.env.TESTDB_URL
     : process.env.ATLASDB_URL
@@ -11,36 +12,37 @@ async function connectDB() {
 }
 
 connectDB()
-.then(() => {
-    console.log("Connected to MongoDB");
-}).catch((err) => {
-    console.log(err);
-});
-
-const store = MongoStore.create({
-    mongoUrl: url,
-    crypto: {
-        secret: process.env.SECRET
-    }
-});
-
-store.on("error", (err) => {
-    console.log("ERROR - MONOGO SESSION STORE", err);
-});
+    .then(() => {
+        console.log("Connected to MongoDB");
+    }).catch((err) => {
+        console.log(err);
+    });
 
 const sessionOptions = {
-    store,
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false, //Don’t create a session until the user actually logs in.
     cookie: {
-        maxAge: 7*24*60*60*1000,
+        maxAge: 7 * 24 * 60 * 60 * 1000,
         httpOnly: true,
-        // secure: false,
-        // sameSite: "lax"
-        secure: true,
-        sameSite: "none"
+        secure: isProduction,
+        sameSite: isProduction ? "lax" : "none"
     }
 }
 
-module.exports = {connectDB, sessionOptions};
+if (process.env.NODE_ENV !== "test") {
+    const store = MongoStore.create({
+        mongoUrl: url,
+        crypto: {
+            secret: process.env.SECRET
+        }
+    });
+
+    store.on("error", (err) => {
+        console.log("ERROR - MONGO SESSION STORE", err);
+    });
+
+    sessionOptions.store = store;
+}
+
+module.exports = { connectDB, sessionOptions };
