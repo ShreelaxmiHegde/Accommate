@@ -12,9 +12,9 @@ module.exports.signup = async (req, res, next) => {
                 return next(err);
             }
 
-            return res.status(201).json({
+            return res.status(200).json({
                 success: true,
-                message: "Sign in was succussful",
+                message: "Sign in was successful",
                 user: registeredUser
             })
         });
