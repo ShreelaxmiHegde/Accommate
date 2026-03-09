@@ -12,6 +12,9 @@ jobs:
       matrix:
         service: [server]
         node-version: [22.x]
+    
+    env:
+      NODE_ENV: test
 
     steps:
       - uses: actions/checkout@v4
@@ -28,7 +31,7 @@ jobs:
 
       - name: Run tests
         working-directory: ./${{ matrix.service }}
-        run: NODE_ENV=test npm test
+        run: npm test
 
       - name: Build docker image
         run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/accommate-backend:${GITHUB_SHA::7} ./${{ matrix.service }}
