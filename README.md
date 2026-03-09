@@ -13,6 +13,8 @@ It’s a Full Stack MERN application with MVC architecture deployed on Render.
 - ⭐ Flexible ratings and reviews system
 - ⚡ Smooth and modern browsing experience
 
+---
+
 </details>
 
 <details>
@@ -36,7 +38,7 @@ It’s a Full Stack MERN application with MVC architecture deployed on Render.
         - Component testing
         - Unit testing
     - AWS EC2 ➜ Deployment
-      
+
 </details>
 
 ---
@@ -72,6 +74,8 @@ npm run dev
 ```
 Frontend runs on http://localhost:5173
 
+---
+
 </details>
 
 <details>
@@ -97,16 +101,19 @@ docker-compose up --build
     - Frontend: http://localhost:5173  
     - Backend: http://localhost:8080
 
+---
+
 </details>
 
 <details>
 <summary>🐳 Docker Production Image</summary>
-Production images are built using multi-stage Docker builds and pushed via CI/CD.
+
+Production images are built using **multi-stage** Docker builds and pushed via CI/CD.
 
 Pull latest image:
 ```
-docker pull shreelaxmihegde/accommate-frontend:latest
-docker pull shreelaxmihegde/accommate-backend:latest
+docker pull shreelaxmihegde/accommate-frontend:tag
+docker pull shreelaxmihegde/accommate-backend:tag
 ```
 
 </details>
