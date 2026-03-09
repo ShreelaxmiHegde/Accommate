@@ -26,7 +26,7 @@ jobs:
 
       - name: Run tests
         working-directory: ./${{ matrix.service }}
-        run: npm test
+        run: NODE_ENV=test npm test
 
       - name: Build Docker image
         run: docker build -t accommate-backend ./${{ matrix.service }}
