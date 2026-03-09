@@ -5,15 +5,19 @@ It’s a Full Stack MERN application with MVC architecture deployed on Render.
 
 ---
 
-### ✨ Features Accommate Provide
-⤷ 🔐 User Authentication & Authorization for personalized experience <br>
-⤷ 🏘️ Connects students directly with housing owners <br>
-⤷ ⭐ Flexible ratings and reviews system <br>
-⤷ ⚡ Smooth and modern browsing experience 
+<details>
+<summary>🛒Features Accommate Provide</summary>
+    
+- 🔐 User Authentication & Authorization for personalized experience
+- 🏘️ Connects students directly with housing owners
+- ⭐ Flexible ratings and reviews system
+- ⚡ Smooth and modern browsing experience
 
----
+</details>
 
-## Application Evolution Phases
+<details>
+<summary>💹 Application Evolution Phases</summary>
+    
 - Phase1: 1.x.x
     - EJS+Bootstrap(UI) + CRUD
     - Auth(express sessions & Passport.js)
@@ -32,10 +36,14 @@ It’s a Full Stack MERN application with MVC architecture deployed on Render.
         - Component testing
         - Unit testing
     - AWS EC2 ➜ Deployment
+      
+</details>
 
 ---
 
-## ⚙️ Local Setup Instructions
+<details>
+<summary>⚙️ Local Setup Instructions</summary>
+
 ### 1. Clone the repository 
 ```
 git clone https://github.com/your-username/Accommate.git
@@ -64,9 +72,11 @@ npm run dev
 ```
 Frontend runs on http://localhost:5173
 
----
+</details>
 
-## 🐋 Docker Container Setup
+<details>
+<summary>🐋 Docker Container Setup</summary>
+    
 ### 1. Clone the repository 
 ```
 git clone https://github.com/your-username/Accommate.git
@@ -87,9 +97,10 @@ docker-compose up --build
     - Frontend: http://localhost:5173  
     - Backend: http://localhost:8080
 
----
+</details>
 
-## Docker Production Image
+<details>
+<summary>🐳 Docker Production Image</summary>
 Production images are built using multi-stage Docker builds and pushed via CI/CD.
 
 Pull latest image:
@@ -98,6 +109,8 @@ docker pull shreelaxmihegde/accommate-frontend:latest
 docker pull shreelaxmihegde/accommate-backend:latest
 ```
 
+</details>
+
 ---
 
 ## 📄 License
@@ -105,4 +118,4 @@ This project is open source and available under the <b>MIT License</b>.
 
 ---
 
-> This project is most likely a platform where I do **experimental** works with the techniques/convensions that **real-world applications** follow.
+> This project acts as a **sandbox** where I experiment with techniques and conventions typically used in **real-world** applications.
