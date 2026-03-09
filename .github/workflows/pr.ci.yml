@@ -13,6 +13,7 @@ jobs:
 
     env:
       NODE_ENV: test
+      TESTDB_URL: ${{ secrets.TESTDB_URL }}
 
     steps:
       - uses: actions/checkout@v4
