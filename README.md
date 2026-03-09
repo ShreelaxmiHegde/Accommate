@@ -120,9 +120,6 @@ docker pull shreelaxmihegde/accommate-backend:tag
 
 ---
 
-## 📄 License
-This project is open source and available under the <b>MIT License</b>.
-
----
+_This project is open source and available under the <b>MIT License</b>._
 
 > This project acts as a **sandbox** where I experiment with techniques and conventions typically used in **real-world** applications.
