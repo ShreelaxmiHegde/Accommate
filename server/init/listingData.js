@@ -244,7 +244,9 @@
 const sampleListings = [
   {
     "owner": "Sunidhi",
-    "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688"
+    },
     "title": "Cozy PG near IIT Delhi",
     "desc": "Comfortable PG for students with modern amenities and peaceful study environment.",
     "address": "Hauz Khas",
@@ -258,7 +260,9 @@ const sampleListings = [
   },
   {
     "owner": "Sunidhi",
-    "image": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267"
+    },
     "title": "Student Hostel near DU North Campus",
     "desc": "Affordable hostel rooms with shared kitchen and high speed internet.",
     "address": "Kamla Nagar",
@@ -272,7 +276,9 @@ const sampleListings = [
   },
   {
     "owner": "Sunidhi",
-    "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2",
+    },
     "title": "Studio apartment near Christ University",
     "desc": "Private studio ideal for students with AC and attached bathroom.",
     "address": "Hosur Road",
@@ -286,7 +292,9 @@ const sampleListings = [
   },
   {
     "owner": "Sunidhi",
-    "image": "https://images.unsplash.com/photo-1505691938895-1758d7feb511",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1505691938895-1758d7feb511"
+    },
     "title": "Budget PG near Anna University",
     "desc": "Clean rooms with essential facilities for engineering students.",
     "address": "Guindy",
@@ -300,7 +308,9 @@ const sampleListings = [
   },
   {
     "owner": "Alex",
-    "image": "https://images.unsplash.com/photo-1484154218962-a197022b5858",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1484154218962-a197022b5858"
+    },
     "title": "Modern apartment near IIT Bombay",
     "desc": "Spacious apartment with kitchen and furnished bedrooms.",
     "address": "Powai",
@@ -314,7 +324,9 @@ const sampleListings = [
   },
   {
     "owner": "Alex",
-    "image": "https://images.unsplash.com/photo-1507089947368-19c1da9775ae",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1507089947368-19c1da9775ae"
+    },
     "title": "Student hostel near VIT Vellore",
     "desc": "Friendly student hostel with laundry and 24 hour water supply.",
     "address": "Katpadi",
@@ -328,7 +340,9 @@ const sampleListings = [
   },
   {
     "owner": "Alex",
-    "image": "https://images.unsplash.com/photo-1493809842364-78817add7ffb",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1493809842364-78817add7ffb"
+    },
     "title": "Comfort PG near BITS Pilani",
     "desc": "Quiet and secure PG perfect for BITS students.",
     "address": "Pilani",
@@ -342,7 +356,9 @@ const sampleListings = [
   },
   {
     "owner": "Alex",
-    "image": "https://images.unsplash.com/photo-1494526585095-c41746248156",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1494526585095-c41746248156"
+    },
     "title": "Compact studio near IIT Madras",
     "desc": "Independent studio with AC and fast internet.",
     "address": "Adyar",
@@ -356,7 +372,9 @@ const sampleListings = [
   },
   {
     "owner": "Jessica",
-    "image": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750"
+    },
     "title": "Shared apartment near JNU",
     "desc": "Large apartment ideal for students wanting shared living.",
     "address": "Munirka",
@@ -370,7 +388,9 @@ const sampleListings = [
   },
   {
     "owner": "Jessica",
-    "image": "https://images.unsplash.com/photo-1568605114967-8130f3a36994",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
+    },
     "title": "Affordable PG near Pune University",
     "desc": "Simple and comfortable PG for college students.",
     "address": "Shivajinagar",
@@ -384,7 +404,9 @@ const sampleListings = [
   },
   {
     "owner": "Jessica",
-    "image": "https://images.unsplash.com/photo-1560185127-6ed189bf02f4",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1560185127-6ed189bf02f4",
+    },
     "title": "Student studio near IIT Roorkee",
     "desc": "Private studio with attached bathroom and WiFi.",
     "address": "Roorkee",
@@ -398,7 +420,9 @@ const sampleListings = [
   },
   {
     "owner": "Jessica",
-    "image": "https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4"
+    },
     "title": "Hostel near NIT Trichy",
     "desc": "Safe hostel accommodation with kitchen access.",
     "address": "Tiruchirappalli",
@@ -412,7 +436,9 @@ const sampleListings = [
   },
   {
     "owner": "Vihan",
-    "image": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85"
+    },
     "title": "PG near SRM University",
     "desc": "Comfortable PG with furnished rooms and WiFi.",
     "address": "Kattankulathur",
@@ -426,7 +452,9 @@ const sampleListings = [
   },
   {
     "owner": "Vihan",
-    "image": "https://images.unsplash.com/photo-1572120360610-d971b9d7767c",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1572120360610-d971b9d7767c"
+    },
     "title": "Apartment near IIM Bangalore",
     "desc": "Fully furnished apartment suitable for MBA students.",
     "address": "Bannerghatta Road",
@@ -440,7 +468,9 @@ const sampleListings = [
   },
   {
     "owner": "Vihan",
-    "image": "https://images.unsplash.com/photo-1505691723518-36a5ac3b2d4f",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1505691723518-36a5ac3b2d4f"
+    },
     "title": "Studio near IIT Kanpur",
     "desc": "Minimalist studio with fast WiFi and AC.",
     "address": "Kalyanpur",
@@ -454,7 +484,10 @@ const sampleListings = [
   },
   {
     "owner": "Vihan",
-    "image": "https://images.unsplash.com/photo-1560448204-603b3fc33ddc",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1560448204-603b3fc33ddc",
+
+    },
     "title": "Student hostel near NIT Surathkal",
     "desc": "Affordable hostel with comfortable beds and internet.",
     "address": "Surathkal",
@@ -468,7 +501,9 @@ const sampleListings = [
   },
   {
     "owner": "Karishma",
-    "image": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6"
+    },
     "title": "PG near Amity University",
     "desc": "Clean PG with modern amenities and study friendly environment.",
     "address": "Sector 125",
@@ -482,7 +517,9 @@ const sampleListings = [
   },
   {
     "owner": "Karishma",
-    "image": "https://images.unsplash.com/photo-1523217582562-09d0def993a6",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1523217582562-09d0def993a6"
+    },
     "title": "Apartment near University of Hyderabad",
     "desc": "Spacious apartment with kitchen and WiFi.",
     "address": "Gachibowli",
@@ -496,7 +533,9 @@ const sampleListings = [
   },
   {
     "owner": "Karishma",
-    "image": "https://images.unsplash.com/photo-1560448075-bb4caa6e0a74",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1560448075-bb4caa6e0a74",
+    },
     "title": "Studio near IIT Guwahati",
     "desc": "Private studio for students seeking peaceful stay.",
     "address": "Amingaon",
@@ -510,7 +549,9 @@ const sampleListings = [
   },
   {
     "owner": "Karishma",
-    "image": "https://images.unsplash.com/photo-1527030280862-64139fba04ca",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1527030280862-64139fba04ca"
+    },
     "title": "Hostel near Jadavpur University",
     "desc": "Student friendly hostel with shared kitchen.",
     "address": "Jadavpur",
