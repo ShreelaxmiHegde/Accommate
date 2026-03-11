@@ -2,7 +2,7 @@
 
 <h1>Accommate</h1>
 <h3>Production-Grade Full-Stack Application <br> MERN • Docker • Cloud Deployment </h3>
-<a href="https://accommate.onrender.com/Accommate">Live Demo</a>
+Live Demo: [ <a href="https://accommate.vercel.app/">https://accommate.vercel.app/</a> ]
 <p></p>
 
 </div>
