@@ -13,7 +13,7 @@ async function connectDB() {
 
 connectDB()
     .then(() => {
-        console.log("Connected to MongoDB");
+        console.log(`Connected to MongoDB ${process.env.NODE_ENV}`);
     }).catch((err) => {
         console.log(err);
     });
@@ -25,8 +25,8 @@ const sessionOptions = {
     cookie: {
         maxAge: 7 * 24 * 60 * 60 * 1000,
         httpOnly: true,
-        secure: isProduction,
-        sameSite: isProduction ? "lax" : "none"
+        secure: !isProduction,
+        sameSite: isProduction ? "none" : "lax"
     }
 }
 

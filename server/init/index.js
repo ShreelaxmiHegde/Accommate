@@ -1,26 +1,51 @@
 const mongoose = require("mongoose");
-const initData = require("./data.js");
-const Listning = require("../models/listing");
 const Listing = require("../models/listing");
+const User = require("../models/user.js");
+const Review = require("../models/reviews.js")
+const sampleListings = require("./listingData.js");
+const sampleReviews = require("./reviewData.js")
+require("dotenv").config();
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/accommate";
 main()
-.then((res) => {
-    console.log("Connected to MongoDB");
-}).catch((err) => {
-    console.log(err);
-});
+    .then((res) => {
+        console.log("Connected to MongoDB");
+    }).catch((err) => {
+        console.log(err);
+    });
 async function main() {
-    await mongoose.connect(MONGO_URL);
+    await mongoose.connect(process.env.ATLASDB_URL);
 }
 
 const initDB = async () => {
-    await Listing.deleteMany({}); // (temp)
+    await Listing.deleteMany({});
+    await Review.deleteMany({});
+    
+    //fetch user data
+    const users = await User.find({});
+    
+    // create username → id map
+    const userMap = {};
+    users.forEach(user => {
+        userMap[user.username] = user._id;
+    });
 
-    initData.data = initData.data.map((obj) => ({ ...obj, owner: "68ededcb2fbb8fd49d7f5196" })); //add owner (temp)
+    sampleReviews.forEach(review => {
+        review.author = userMap[review.author]
+    });
 
-    await Listning.insertMany(initData.data);
-    console.log("Data initialized");
+    const reviews = await Review.insertMany(sampleReviews);
+
+    // replace owner names with user IDs
+    const listings = sampleListings.map((listing, idx=0) => ({
+        ...listing,
+        owner: userMap[listing.owner],
+        reviews: [reviews[idx]._id]
+    }));
+
+    // insert listings
+    await Listing.insertMany(listings);
+    
+    console.log("Data Seeded successfully");
 }
 
 initDB();
