@@ -1,8 +1,6 @@
 //enable cookies in axios
 //all reqs made by this axios instanse go to backend
-import axios from "axios"
-import dotenv from "dotenv";
-dotenv.config();
+import axios from "axios";
 
 const api = axios.create({
     baseURL: "https://accommate-1.onrender.com", //by default all reqs should go express-server port
