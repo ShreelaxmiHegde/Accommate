@@ -1,9 +1,41 @@
-# [Accommate 🔗](https://accommate.onrender.com/Accommate)
-**Accommate** is a student accommodation platform built with the main goal of helping students easily find and book stays near their college or campus.
+<div align="center">
 
-It’s a Full Stack MERN application with MVC architecture deployed on Render.
+<h1>Accommate</h1>
+<h3>Production-Grade Full-Stack Application <br> MERN • Docker • Cloud Deployment </h3>
+<a href="https://accommate.onrender.com/Accommate">Live Demo</a>
+<p></p>
+
+</div>
 
 ---
+
+<details>
+<summary>🛠️Tech Stack</summary>
+    
+- **Frontend :** React.js, MUI
+- **Backend :**
+    - Node.js
+    - Express.js
+    - RESTful API
+    - MVC Architecture
+
+- **Database :** MongoDB (MongoDB Atlas)
+- **Infrastructure & Deployment :**
+    - Docker
+    - DockerHub
+    - Vercel (Frontend Hosting)
+    - Render (Backend Hosting)
+    - AWS EC2
+
+- **Authentication & Security :**
+    - Passport.js
+    - Express Session
+    - Cookie-based Authentication
+    - CORS Configuration
+- **Media Storage :** Cloudinary
+
+---
+</details>
 
 <details>
 <summary>🛒Features Accommate Provide</summary>
