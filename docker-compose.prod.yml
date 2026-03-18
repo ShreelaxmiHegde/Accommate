@@ -29,24 +29,6 @@ services:
     depends_on:
       - database
 
-  # Database service
-  database:
-    image: mongo:latest
-
-    ports:
-      - "27017:27017"
-
-    volumes:
-      - db_store:/data/db
-
-    networks:
-      - app_network
-
-# Volume
-volumes:
-  db_store:
-    driver: local #persist mongodb data locally
-
 # Network
 networks:
   app_network:
