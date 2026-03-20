@@ -9,6 +9,17 @@ Live Demo: [ <a href="https://accommate.vercel.app/">https://accommate.vercel.ap
 
 ---
 
+## Demo
+
+**Accommate** Website link: [ https://accommate.vercel.app ]
+
+<p align="center">
+  <img src="client/public/dashboard-readme.png" width="45%" />
+  <img src="client/public/explore-readme.png" width="45%" />
+</p>
+
+---
+
 <details>
 <summary>🛠️Tech Stack</summary>
     
