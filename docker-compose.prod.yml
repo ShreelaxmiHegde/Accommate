@@ -3,31 +3,25 @@
 services:
   # Client service
   frontend:
-    build:
-      context: ./client
-      dockerfile: Dockerfile
+    image: shreelaxmihegde/accommate-frontend:latest
     ports:
       - "80:80"
-    
     networks:
       - app_network
-    
+
     depends_on:
       - backend
-    
+
   # Server service
   backend:
-    build:
-      context: ./server
-      dockerfile: Dockerfile
+    image: shreelaxmihegde/accommate-backend:latest
     ports:
       - "8080:8080"
-
     networks:
       - app_network
-    
-    depends_on:
-      - database
+
+    environment:
+      - ATLASDB_URL: ${{ ATLASDB_URL }}
 
 # Network
 networks:
