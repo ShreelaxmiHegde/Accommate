@@ -1,4 +1,6 @@
 <div align="center">
+# [Accommate 🔗](https://accommate.onrender.com/Accommate)
+**Accommate** is a student accommodation platform built with the main goal of helping students easily find stays near their college or campus.
 
 <h1>Accommate</h1>
 <h3>Production-Grade Full-Stack Application <br> MERN • Docker • Cloud Deployment </h3>
@@ -155,8 +157,8 @@ Production images are built using **multi-stage** Docker builds and pushed via C
 
 Pull latest image:
 ```
-docker pull shreelaxmihegde/accommate-frontend:tag
-docker pull shreelaxmihegde/accommate-backend:tag
+docker pull shreelaxmihegde/accommate-frontend:latest
+docker pull shreelaxmihegde/accommate-backend:latest
 ```
 
 </details>
