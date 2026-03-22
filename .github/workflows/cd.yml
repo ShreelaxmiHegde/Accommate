@@ -17,4 +17,4 @@ jobs:
         key: ${{ secrets.EC2_SSH_KEY }}
         script: |
           cd app
-          docker compose -d --pull always
+          docker compose up -d --pull always
