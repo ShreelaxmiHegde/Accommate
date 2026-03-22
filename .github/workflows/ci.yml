@@ -1,0 +1,68 @@
+name: CI Pipeline
+
+on:
+  pull_request:
+  push:
+    branches: ["main"]
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: [server]
+        node-version: [22.x]
+
+    env:
+      NODE_ENV: test
+      TESTDB_URL: ${{ secrets.TESTDB_URL }}
+      SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: ${{ matrix.service }}/package-lock.json
+
+      - name: Install dependencies
+        working-directory: ./${{ matrix.service }}
+        run: npm install
+
+      - name: Run tests
+        working-directory: ./${{ matrix.service }}
+        run: npm test
+
+  frontend:
+    needs: backend
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: [client]
+        node-version: [22.x]
+
+    steps:
+      # download source code to github runner
+    - uses: actions/checkout@v4
+
+      # install nodejs in CI environment
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: ${{ matrix.service }}/package-lock.json
+
+    - name: Install dependencies
+      working-directory: ./${{ matrix.service }}
+      run: npm install
+
+    - name: Build frontend
+      working-directory: ./${{ matrix.service }}
+      run: npm run build
+
+    - name: Run component tests
+      working-directory: ./${{ matrix.service }}
+      run: npm test --tests
