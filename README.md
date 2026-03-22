@@ -1,24 +1,24 @@
 <div align="center">
-# [Accommate 🔗](https://accommate.onrender.com/Accommate)
-**Accommate** is a student accommodation platform built with the main goal of helping students easily find stays near their college or campus.
 
 <h1>Accommate</h1>
 <h3>Production-Grade Full-Stack Application <br> MERN • Docker • Cloud Deployment </h3>
-Live Demo: [ <a href="https://accommate.vercel.app/">https://accommate.vercel.app/</a> ]
+
+**Accommate** is a student accommodation platform built with the main goal of helping students easily find stays near their college or campus.
+
+<b>Visit Accommate:</b> [ <a href="https://accommate.vercel.app/">https://accommate.vercel.app/</a> ]
 <p></p>
 
 </div>
 
 ---
 
-## Demo
+<div align="center">
 
-**Accommate** Website link: [ https://accommate.vercel.app ]
+<h2>Website Snapshots</h2>
 
-<p align="center">
-  <img src="client/public/dashboard-readme.png" width="45%" />
-  <img src="client/public/explore-readme.png" width="45%" />
-</p>
+<img src="client/public/dashboard-readme.png" width="45%" />
+<img src="client/public/explore-readme.png" width="45%" />
+</div>
 
 ---
 
@@ -54,7 +54,7 @@ Live Demo: [ <a href="https://accommate.vercel.app/">https://accommate.vercel.ap
 <summary>🛒Features Accommate Provide</summary>
     
 - 🔐 User Authentication & Authorization for personalized experience
-- 🏘️ Connects students directly with housing owners
+- 🏘️ Connects students with housing owners
 - ⭐ Flexible ratings and reviews system
 - ⚡ Smooth and modern browsing experience
 
