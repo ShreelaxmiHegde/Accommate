@@ -85,7 +85,7 @@ jobs:
       - name: Build docker image
         run: |
               docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/accommate-frontend:latest ./${{ matrix.service }}
-              docker tag ${{ secrets.DOCKERHUB_USERNAME }}/accommate-frontend:latest ${{ secrets.DOCKERHUB_USERNAME }}/accommate-backend:${GITHUB_SHA::7}
+              docker tag ${{ secrets.DOCKERHUB_USERNAME }}/accommate-frontend:latest ${{ secrets.DOCKERHUB_USERNAME }}/accommate-frontend:${GITHUB_SHA::7}
 
       - name: Debug docker images
         run: docker images
